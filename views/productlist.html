@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>sunfnl - Product List</title>
+<!-- Tell the browser to be responsive to screen width -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="<%=BaseUrl%>/bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="<%=BaseUrl%>/css/style.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/skins/_all-skins.min.css?v=1">
+<!-- DataTables -->
+
+<link rel="stylesheet" href="<%=BaseUrl%>/plugins/datatables/css/dataTables.bootstrap.min.css">
+<style type="text/css">
+  caption.bottom{
+    display: none !important;
+  }
+</style>
+<link rel="stylesheet" href="<%BaseUrl%>/plugins/select2/dist/css/select2.min.css">
+<style type="text/css">
+    .select2-container .select2-selection--single{
+        height: 42px !important;
+    }
+    .select2-container--default .select2-selection--single{
+        border: 1px solid #ddd !important;
+        color: #ddd !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+        line-height: 30px !important;
+        font-size: 16px !important;
+        margin-left: -8px !important;
+    }
+    .select2-selection__rendered{
+        padding-left: -3px !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow{
+        top: 5px !important;
+    }
+</style>
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="<%=BaseUrl%>/img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="<%=BaseUrl%>/img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <% include left_layout.html %>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1>Product List</h1>
+      <ol class="breadcrumb">
+        <li><a href="<%=BaseUrl%>/dashboard">Dashboard</a></li>
+        <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Product List</a></li>
+      </ol>
+    </div>
+
+ 
+    
+    <!-- /.content --> 
+    <div class="content">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-md-12">
+             <form id="searchform" action="" method="post" onsubmit="return checkvalidateForm();">
+                <div class="row">
+                <div class="form-group col-md-2">
+                  <label>Search Type:</label>
+                  <select name="by" id="bysort" class="select2 form-control custom-select">
+                    <option value="name" <%if(search['by'] == 'name') {%> selected <%}%>>Name</option>
+                    <option value="id" <%if(search['by'] == 'id') {%> selected <%}%>>Id</option>
+                    <option value="price" <%if(search['by'] == 'price') {%> selected <%}%>>Price</option>
+                    <option value="cat" <%if(search['by'] == 'cat') {%> selected <%}%>>Catalog</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2" id="searchbox">
+                  <label>Search:</label>
+                  <input type="text" class="form-control" id="orderno" name="search" placeholder="Search" value="<%if(search['search'] != '') {%><%=search['search']%><%}%>">
+                </div>
+                <div class="form-group col-md-2" style="display: none;" id="selectcat">
+                  <label>Select Catalog:</label>
+                  <select id="category" name="catalogId" class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                      <option>Select Catalog</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2=">
+                  <label>From Date:</label>
+                  <input type="date" class="form-control" id="todate" name="todate" placeholder="By Date" value="<%if(search['todate'] != '') {%><%=search['todate']%><%}%>">
+                </div>
+                <div class="form-group col-md-2">
+                  <label>To Date:</label>
+                  <input type="date" class="form-control" id="fromdate" name="fromdate" placeholder="By Date" value="<%if(search['fromdate'] != '') {%><%=search['fromdate']%><%}%>">
+                </div>
+                
+                <div class="form-group col-md-1">
+                  <label>Min Price:</label>
+                  <input type="number" class="form-control" id="minprice" name="minprice" placeholder="Min Price" value="<%if(search['minprice'] != '') {%><%=search['minprice']%><%}%>">
+                </div>
+                <div class="form-group col-md-1">
+                  <label>Max Price:</label>
+                  <input type="number" class="form-control" id="maxprice" name="maxprice" placeholder="Max Price" value="<%if(search['maxprice'] != '') {%><%=search['maxprice']%><%}%>">
+                </div>
+                <div class="form-group col-md-2">
+                  <label>&nbsp;</label>
+                  <input type="submit"  class="form-control btn btn-sm btn-success" value="Search" onclick="changePage('1');">
+                </div>
+                <div class="form-group col-md-2">
+                  <label>Per Page:</label>
+                  <select id="perPage" name="perpage" class="form-control custom-select">
+                    <option value="10" <%if(search['perpage'] == '10') {%> selected <%}%>>10 Per Page</option>
+                    <option value="20" <%if(search['perpage'] == '20') {%> selected <%}%>>20 Per Page</option>
+                    <option value="50" <%if(search['perpage'] == '50') {%> selected <%}%>>50 Per Page</option>
+                    <option value="100" <%if(search['perpage'] == '100') {%> selected <%}%>>100 Per Page</option>
+                  </select>
+                </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <br>
+          <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered tablesorter ws_data_table" id="personnel">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Image</th>
+                        <th>Catalog Name</th>
+                        <th>Vendor Name</th>
+                        <th>ShareCount</th>
+                        <th>Qty</th>
+                        <th>Weight</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>Discount %</th>
+                        <th>Discount Price</th>
+                        <th>Total Order</th>
+                        <!-- <th>Deliver Order</th>
+                        <th>Return Order</th> -->
+                        <th>CreatedAt</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody">
+                      <% if(data.length){ %>
+                      <% for (var i = 0; i < data.length; i++) { j=i+1%>
+                      <tr>
+                        <td><%=j%></td>
+                        <td><%if(data[i].name){%> <%=data[i].name%> <%}else{%> - <%}%></td>
+                        <!-- <td><img src="<%=BaseUrl%>/<%=data[i].product_image%>" id="check" style="width: 90px ; height : 90px; "/></td> -->
+                        <td><a class="fancybox" href="<%=BaseUrl%>/<%=data[i].product_image%>"><img src="<%=BaseUrl%>/<%=data[i].product_image%>" style="width: 90px ; height : 90px; " alt="" /></a></td>
+                        <!-- <td><%if(data[i].product_image){%> <%=data[i].product_image%> <%}else{%> - <%}%></td> onclick="image(this.src)"-->
+                        <td><%if(data[i].catalogName){%> <%=data[i].catalogName%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].vendorName){%> <%=data[i].vendorName%> <%}else{%> - <%}%></td>
+                        <td><%if(typeof data[i].share != 'undefined'){%> <%=data[i].share%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].qty){%> <%=data[i].qty%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].weight){%> <%=data[i].weight%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].size){%> <%=data[i].size%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].price){%> <%=data[i].price%> <%}else{%> - <%}%></td>
+                        <td><%=data[i].discount_pre%></td>
+                        <td><%if(data[i].discount_price){%> <%=data[i].discount_price%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].totalOrder){%> <%=data[i].totalOrder%> <%}else{%> 0 <%}%></td>
+                        <!-- <td>Deliver Order</td>
+                        <td>Return Order</td> -->
+                        <td><%if(data[i].created_at){%> <%=data[i].created_at%> <%}else{%> - <%}%></td>
+                        <td>
+                          <a href="<%=BaseUrl%>/addproduct?id=<%=data[i]._id%>"><button class="btn btn-sm btn-info" style="margin:5px" type="button"><i class="fa fa-pencil"></i></button></a>
+                          <div class="clearfix"></div>
+                          <button class="btn btn-sm btn-danger" style="margin:5px" type="button" onclick="onDelete('<%=data[i]._id%>');"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                      </tr>
+                      <% } %>
+                    <%}else{%>
+                      <tr>
+                        <td colspan="3"> No Record Found !</td>
+                      </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                    <% if (pages > 0) { %>
+                      <ul class="pagination" id="pagination">
+                        <% if (current == 1) { %>
+                          <li class="disabled"><a>First</a></li>
+                        <% } else { %>
+                            <!-- <li><a href="/productlist/1">First</a></li> -->
+                            <li><a onclick="changePage('1');" >First</a></li>
+                            
+                        <% } %>
+                        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                        <% if (i !== 1) { %>
+                            <li class="disabled"><a>...</a></li>
+                        <% } %>
+                        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                            <% if (i == current) { %>
+                                <li class="active"><a><%= i %></a></li>
+                            <% } else { %>
+                                <!-- <li><a href="/productlist/<%= i %>" ><%= i %></a></li> -->
+                                <li><a onclick="changePage('<%= i %>');" ><%= i %></a></li>
+                            <% } %>
+                            <% if (i == Number(current) + 4 && i < pages) { %>
+                                <li class="disabled"><a>...</a></li>
+                            <% } %>
+                        <% } %>
+                        <% if (current == pages) { %>
+                            <li class="disabled"><a>Last</a></li>
+                        <% } else { %>
+                            <!-- <li><a href="/productlist/<%= pages %>">Last</a></li> -->
+                            <li><a onclick="changePage('<%= pages %>');" >Last</a></li>
+                        <% } %>
+
+                      </ul>
+                    <% } %>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2018 SunFashion. All rights reserved.</footer>
+</div>
+<!-- ./wrapper --> 
+
+<!-- jQuery 3 --> 
+<script src="<%=BaseUrl%>/js/jquery.min.js"></script>  
+<script src="<%=BaseUrl%>/bootstrap/js/bootstrap.min.js"></script> 
+
+<!-- template --> 
+<script src="<%=BaseUrl%>/js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="<%=BaseUrl%>/plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="<%=BaseUrl%>/plugins/jquery-sparklines/sparkline-int.js"></script> 
+<script src="<%=BaseUrl%>/plugins/table-expo/filesaver.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/table-expo/xls.core.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/table-expo/tableexport.js"></script>
+<script src="<%BaseUrl%>/plugins/select2/dist/js/select2.full.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"></script>
+
+<!-- Add mousewheel plugin (this is optional) -->
+<!-- <script type="text/javascript" src="/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script> -->
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="<%BaseUrl%>/plugins/fancybox-2.1.7/source/jquery.fancybox.css?v=2.1.7" type="text/css" media="screen" />
+<script type="text/javascript" src="<%BaseUrl%>/plugins/fancybox-2.1.7/source/jquery.fancybox.pack.js?v=2.1.7"></script>
+<!-- Optionally add helpers - button, thumbnail and/or media -->
+<!-- <link rel="stylesheet" href="/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+<script type="text/javascript" src="/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript" src="/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+
+<link rel="stylesheet" href="/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script> -->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+    
+		$(".fancybox").fancybox({
+    	openEffect	: 'elastic',
+    	closeEffect	: 'elastic'
+    });
+	});
+</script>
+
+<script>
+
+  
+
+  $(document).ready(function()
+    {
+      $("#personnel").tablesorter({
+        sortList: [[0,0]],
+        headers: {3:{sorter:false}}
+      });
+    }
+  );
+</script>
+<script>
+// $("table").tableExport({formats: ["xlsx","xls", "csv", "txt"],    });
+jQuery(document).ready(function() {
+  if($('#bysort').val() == 'cat'){
+    $('#searchbox').css('display', 'none');
+    $('#selectcat').css('display', 'block');
+  }
+  $(".select2").select2();
+      
+    
+        $(".ajax").select2({
+            ajax: {
+                url: "https://api.github.com/search/repositories",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function(data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function(markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1,
+            // templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+        });
+})
+$('#bysort').change(function(){
+  if(this.value == 'cat'){
+    $('#searchbox').css('display', 'none');
+    $('#selectcat').css('display', 'block');
+  }else{
+    $('#searchbox').css('display', 'block');
+    $('#selectcat').css('display', 'none');
+  }
+})
+function checkvalidateForm(){
+    if(($('#minprice').val() == $('#maxprice').val()) && $('#minprice').val() != '' &&  $('#maxprice').val() != ''){
+      swal("Oops!", "Please Select Valid Min and Max Range of Price!");
+      return false;
+    }
+    if($('#minprice').val() == '' &&  $('#maxprice').val() != ''){
+      swal("Oops!", "Please Select Min Price!");
+      return false;
+    }
+    if($('#minprice').val() != '' &&  $('#maxprice').val() == ''){
+      swal("Oops!", "Please Select Max Price!");
+      return false;
+    }
+    var min = $('#minprice').val();
+    var max = $('#maxprice').val();
+    if(parseInt(min) > parseInt(max)){
+     swal("Oops!", "Min Price Should not Greater then Max Price!");
+     return false; 
+    }
+
+    if($('#todate').val() != '' &&  $('#fromdate').val() == ''){
+      swal("Oops!", "Please Select To Date");
+      return false;
+    }
+
+    if($('#fromdate').val() != '' &&  $('#todate').val() == ''){
+      swal("Oops!", "Please Select From Date");
+      return false;
+    }
+    var startDate = new Date($('#todate').val());
+    var endDate = new Date($('#fromdate').val());
+
+    if (startDate > endDate){
+      swal("Oops!", "From Date Should not Greater then To Date!"); 
+      return false;
+    }
+    
+    return true;
+  }
+  $.ajax(
+        {
+        url: "<%BaseUrl%>/api/catalogs",
+        type: "GET",
+        dataType: "json"                    
+    }).done(function(response) {
+      console.log("response :::::::: ", response);
+      var i;
+      var categoryId = "<%if(search.catalogId){%><%=search.catalogId%><%}else{%><%}%>";
+      for (i = 0; i < response.length; i++) {
+        if(categoryId == response[i].catalogID){
+          $('#categoriesId').val(response[i].name);
+          var category='<option value="'+response[i].catalogID+'" selected>'+response[i].name+'</option>' 
+        }else{
+          var category='<option value="'+response[i].catalogID+'">'+response[i].name+'</option>' 
+        }
+      $('#category').append(category);
+    }
+  })
+function onDelete(id){
+  swal({
+    title: "Are you sure?",
+    text: "",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: '<%=BaseUrl%>/deleteProduct/'+id,
+        type: 'GET',
+        success: (response)=>{
+          console.log(response, response.status);
+          swal("Poof! Your file has been deleted!", {
+            icon: "success",
+          });
+          window.location= '<%=BaseUrl%>/productlist/1';
+        },
+        error(err){
+          console.log("file deletion error: ",err);
+        }
+      })
+    } else {
+      swal("Your product safe!");
+    }
+  });
+}
+$('#perPage').change(function(){
+  var perPage = $('#perPage').val();
+  $('#searchform').submit();
+})
+
+function changePage(page){
+  var isPostReq=false;
+  if($('#orderno').val()){
+    isPostReq=true;
+  }
+  if($('#todate').val()){
+    isPostReq=true;
+  }
+  if($('#fromdate').val()){
+    isPostReq=true;
+  }
+  if($('#minprice').val()){
+    isPostReq=true;
+  }
+  if($('#maxprice').val()){
+    isPostReq=true;
+  }
+  var link='<%=BaseUrl%>/productlist/'+page;
+  if(isPostReq){
+    $('#searchform').attr('action', link);
+    $('#searchform').submit();
+  }
+  else{
+    location.href = link;
+  }
+  
+}
+
+</script>
+
+</body>
+</html>

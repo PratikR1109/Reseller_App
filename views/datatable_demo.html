@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/scroller/1.4.3/css/scroller.dataTables.min.css">
+</head>
+<body>
+<table id="example1" class="display" style="width:100%">
+    <thead>
+        <tr>
+                  <th>productId</th>
+                  <th>productName</th>
+                  <th>productPrice</th>
+                  <th>productImage</th>
+                  <th>productDescription</th>
+                  <th>productSize</th>
+                  <th>productQuantity</th>
+                  <th>orderDate</th>
+                  <th>orderType</th>
+                  <th>buyerName</th>
+                </tr>
+    </thead>
+    <tfoot>
+       <tr>
+                  <th>productId</th>
+                  <th>productName</th>
+                  <th>productPrice</th>
+                  <th>productImage</th>
+                  <th>productDescription</th>
+                  <th>productSize</th>
+                  <th>productQuantity</th>
+                  <th>orderDate</th>
+                  <th>orderType</th>
+                  <th>buyerName</th>
+                </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/scroller/1.5.1/js/dataTables.scroller.min.js"></script>
+<script>
+        $.ajax(
+            {
+            url: "http://192.168.0.103:3000/api/order_list_for_admin",
+            type: "GET",
+            data: {
+                pageNumber: data.draw - 1
+            },
+            dataType: "json"                    
+        }).done(function(response) {
+          console.log("response :::::::: ", response);
+              
+        }).fail(function(err){
+            console.error('error...', err)
+        })
+</script>
+</body>
+</html>

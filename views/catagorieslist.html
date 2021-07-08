@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>sunfnl - Categories List</title>
+<!-- Tell the browser to be responsive to screen width -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="<%=BaseUrl%>/bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="<%=BaseUrl%>/css/style.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/skins/_all-skins.min.css?v=1">
+<!-- DataTables -->
+<link rel="stylesheet" href="<%=BaseUrl%>/plugins/datatables/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/plugins/dropify/dropify.min.css">
+
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="<%=BaseUrl%>/img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="<%=BaseUrl%>/img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <% include left_layout.html %>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1>Categories List</h1>
+      <ol class="breadcrumb">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Categories List</a></li>
+      </ol>
+    </div>
+    
+    <div class="modal fade" id="modal-default" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="popupTitle">Add Category</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body card-body" id="catbody">
+            <form id="addcatagory" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="categoriesId" value="<%if(data._id){%><%=data._id%><%}else{%><%}%>">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="control-label">Category Name *</label>
+                    <input class="form-control" id="name" name="name" value="<%if(data.name){%><%=data.name%><%}else{%><%}%>" placeholder="Add Category" type="text" required>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="control-label">Category Image </label>
+                    <input type="file" id="input-file-now" name="categories_image" class="dropify" accept="image/x-png,image/jpeg,image/jpg"/>
+                    <label style="color: red; font-weight: 500;" id="messageerror"></label>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <!-- /.content --> 
+    <div class="content">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-lg-12">
+            <div class="form-group col-md-2">
+              <label>&nbsp;</label>
+              <input type="button" onclick="openModel();"  class="form-control btn btn-sm btn-success" value="Add Category">
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered" id="personnel">
+                <thead class="thead-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Categories Name</th>
+                    <th>Categories Image</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody">
+                  <% if(data.length){ %>
+                  <% for (var i = 0; i < data.length; i++) { j=i+1%>
+                  <tr>
+                    <td><%=j%></td>
+                    <td><%=data[i].name%></td>
+                    <td><img src="<%if(data[i].categories_image){%><%=data[i].categories_image%><%}%>" width="75px" height="75px"></td>
+                    <td>
+                      <!-- <a href="<%=BaseUrl%>/addcatagories?id=<%=data[i]._id%>"><button class="btn btn-sm btn-info" style="margin:5px" type="button"><i class="fa fa-pencil"></i></button></a> -->
+                      <button class="btn btn-sm btn-info" style="margin:5px" type="button" onclick="getCategoryDetails('<%=BaseUrl%>','<%=data[i]._id%>', '<%=data[i].categories_image%>', '<%=data[i].name%>');"><i class="fa fa-pencil"></i></button>
+                      
+                      <div class="clearfix"></div>
+                      <button class="btn btn-sm btn-danger" style="margin:5px" type="button" onclick="onDelete('<%=data[i]._id%>');"><i class="fa fa-trash-o"></i></button>
+                    </td>
+                  </tr>
+                  <% } %>
+                <%}else{%>
+                  <tr>
+                    <td colspan="3"> No Record Found !</td>
+                  </tr>
+                <% } %>
+                </tbody>
+              </table>
+              <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                  <% if (pages > 0) { %>
+                    <ul class="pagination" id="pagination">
+                      <% if (current == 1) { %>
+                        <li class="disabled"><a>First</a></li>
+                      <% } else { %>
+                          <li><a href="/catagorieslist/1">First</a></li>
+                      <% } %>
+                      <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                      <% if (i !== 1) { %>
+                          <li class="disabled"><a>...</a></li>
+                      <% } %>
+                      <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                          <% if (i == current) { %>
+                              <li class="active"><a><%= i %></a></li>
+                          <% } else { %>
+                              <li><a href="/catagorieslist/<%= i %>"><%= i %></a></li>
+                          <% } %>
+                          <% if (i == Number(current) + 4 && i < pages) { %>
+                              <li class="disabled"><a>...</a></li>
+                          <% } %>
+                      <% } %>
+                      <% if (current == pages) { %>
+                          <li class="disabled"><a>Last</a></li>
+                      <% } else { %>
+                          <li><a href="/catagorieslist/<%= pages %>">Last</a></li>
+                      <% } %>
+
+                    </ul>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2018 SunFashion. All rights reserved.</footer>
+</div>
+<!-- ./wrapper --> 
+
+<!-- jQuery 3 --> 
+<script src="<%=BaseUrl%>/js/jquery.min.js"></script>  
+<script src="<%=BaseUrl%>/bootstrap/js/bootstrap.min.js"></script> 
+<script src="http://pagination.js.org/2.1.4/pagination.min.js"></script>
+
+<!-- template --> 
+<script src="<%=BaseUrl%>/js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="<%=BaseUrl%>/plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="<%=BaseUrl%>/plugins/jquery-sparklines/sparkline-int.js"></script> 
+
+
+<script src="<%=BaseUrl%>/plugins/table-expo/filesaver.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/table-expo/xls.core.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/table-expo/tableexport.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/dropify/dropify.min.js"></script> 
+<script>
+
+  $('.close').on('click', function () {
+      $('#addcatagory')[0].reset();
+      $('.dropify-clear').trigger('click');
+      $('#name').val('');
+  })
+
+  $('#addcatagory').submit(function(e){
+    console.log("e ::::: ",e);
+    e.preventDefault();
+    var formData = new FormData(this);
+    console.log("formData :::: ", formData);
+    $.ajax({
+      url: '<%=BaseUrl%>/addcatagories',
+      type: 'post',
+      data: formData,
+      enctype: 'multipart/form-data',
+      cache:false,
+      contentType: false,
+      processData: false,
+      success: (data)=>{
+        if(data.error == 'Y'){
+          $('#messageerror').html(data.msg);
+        }else{
+          location.reload();
+        }
+      },
+      error: (error)=>{
+        console.log("error :::::::: ", error);
+      }
+    })
+  })
+
+  $(document).ready(function(){
+    // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove:  'Supprimer',
+            error:   'Désolé, le fichier trop volumineux'
+        }
+    });
+
+    // Used events
+    var drEvent = $('#input-file-events').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element){
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element){
+        alert('File deleted');
+    });
+
+    drEvent.on('dropify.errors', function(event, element){
+        console.log('Has Errors');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e){
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
+  });
+</script>
+<script>
+  function openModel(){
+    $('#popupTitle').html('Add Category');
+    $('#modal-default').modal('show');
+
+  }
+  function getCategoryDetails(url,id, image, name){
+    $('#popupTitle').html('Edit Category');
+    var form = '    <input type="hidden" name="categoriesId" value="'+id+'">'
+              +'    <div class="row">'
+              +'      <div class="col-md-12">'
+              +'        <div class="form-group">'
+              +'          <label class="control-label">Category Name *</label>'
+              +'          <input class="form-control" id="name" name="name" value="'+name+'" placeholder="Add Category" type="text" required>'
+              +'        </div>'
+              +'      </div>'
+              +'      <div class="col-md-12">'
+              +'        <div class="form-group">'
+              +'          <label class="control-label">Category Image </label>'
+              +'          <input type="file" id="input-file-now" name="categories_image" class="dropify" data-default-file="'+image+'" accept="image/x-png,image/jpeg,image/jpg"/>'
+              +'          <%if(error){%>'
+              +'          <label style="color: red; font-weight: 500;"><%=msg%></label>'
+              +'          <%}%>'
+              +'        </div>'
+              +'      </div>'
+              +'      <div class="col-md-12">'
+              +'        <button type="submit" class="btn btn-success">Submit</button>'
+              +'      </div>'
+              +'    </div>';
+
+    $('#addcatagory').html(form); 
+    $('.dropify').dropify();          
+    $('#modal-default').modal('show');
+  }
+  $(document).ready(function()
+    {
+      $("#personnel").tablesorter({
+        sortList: [[0,0]],
+        headers: {3:{sorter:false}}
+      });
+    }
+  );
+</script>
+<script>
+// $("table").tableExport({formats: ["xlsx","xls", "csv", "txt"],    });
+function onDelete(id){
+  swal({
+    title: "Are you sure?",
+    text: "",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: '<%=BaseUrl%>/deleteCategories/'+id,
+        type: 'GET',
+        success: (response)=>{
+          console.log(response, response.status);
+          swal("Poof! Your file has been deleted!", {
+            icon: "success",
+          });
+          window.location= '<%=BaseUrl%>/catagorieslist/1';
+        },
+        error(err){
+          console.log("file deletion error: ",err);
+        }
+      })
+    } else {
+      swal("Your file is safe!");
+    }
+  });
+}
+</script>
+
+</body>
+</html>

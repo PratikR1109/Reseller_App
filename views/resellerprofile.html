@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>sunfnl - ResellerProfile</title>
+<!-- Tell the browser to be responsive to screen width -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="css/style.css?v=11">
+<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="css/skins/_all-skins.min.css?v=1">
+<!-- DataTables -->
+<link rel="stylesheet" href="plugins/datatables/css/dataTables.bootstrap.min.css">
+<!-- dropify -->
+<link rel="stylesheet" href="plugins/dropify/dropify.min.css">
+<!-- bootstrap-switch -->
+<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+<!-- selecr2 --->
+<link href="../assets/node_modules/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <% include left_layout.html %>
+ 
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Main content -->
+    <div class="content">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="user-profile-box" style="padding: 20px 20px;">
+            <div class="box-profile text-white"> <img class="profile-user-img img-responsive  m-b-2" id="profile-profile" src="<%if(data.reseller.profile){%><%=data.reseller.profile%><%}else{%><%=BaseUrl%>/img/snfl.png<%}%>" alt="User profile picture">
+              <h3 style="color:#191818;" class="profile-username" id="profile-username"><%if(data.name){%><%=data.name%><%}else{%><em>not available</em><%}%></h3>
+              <p style="color:#191818;" id="profile-email"><i class="fa fa-envelope" ></i><%if(data.email && data.email != ''){%><%=data.email%><%}else{%><em> not available</em><%}%></p>
+              <p style="color:#191818;" id="profile-phone"><i class="fa fa-phone" ></i><%if(data.mobile1){%> <%=data.mobile1%> <%}%> / <%if(data.mobile2){%> <%=data.mobile2%> <%}%></p>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#editprofile"><i class="fa fa-pencil"></i> Edit Profile</button>
+              <!-- <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#editaddress"><i class="fa fa-pencil"></i> Edit Address</button> -->
+              <hr>
+              <h3 style="color:#191818;" class="profile-username">Bank Account Details</h3>
+              <br>
+              <p style="color:#191818;"> Bank Name: <%if(data.bankname){%><%=data.bankname%><%}else{%><em>not available</em><%}%></p>
+              <p style="color:#191818;"> Account Holder Name: <%if(data.accountname){%><%=data.accountname%><%}else{%><em>not available</em><%}%></p>
+              <p style="color:#191818;"> Account No: <%if(data.accountno){%><%=data.accountno%><%}else{%><em>not available</em><%}%></p>
+              <p style="color:#191818;"> IFSC Code: <%if(data.ifsc){%><%=data.ifsc%><%}else{%><em>not available</em><%}%></p>
+              <p><img src="<%if(data.image){%><%=data.image%><%}else{%><%=BaseUrl%>/img/snfl.png<%}%>" width="70px" height="70px"></p>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#editbank"><i class="fa fa-pencil"></i> Edit Bank Detail</button> 
+              <!-- <a href="cart.html?rid=1" class="btn btn-info btn-sm">10 Item In Cart</a><br> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8" style="margin-top: 10px;">
+          <div class="content" style="padding:0px 0px">
+            <div class="row">
+              <div class="col-lg-6 col-xs-6 m-b-3">
+                <a href="#"><div class="card">
+                  <div class="card-body"><span class="info-box-icon bg-aqua"><i class="ti-stats-up"></i></span>
+                    <div class="info-box-content"> <span class="info-box-number"><%=data.totals.totalOrders%></span> <span class="info-box-text">Total Orders</span> </div>
+                  </div>
+                </div>
+                </a>
+              </div>
+              <div class="col-lg-6 col-xs-6 m-b-3">
+                <a href="#"><div class="card">
+                  <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-close"></i></span>
+                    <div class="info-box-content"> <span class="info-box-number"><%=data.totals.cancelOrders%></span> <span class="info-box-text">Total Cancel Orders</span></div>
+                  </div>
+                </div>
+                </a>
+              </div>
+              <div class="col-lg-6 col-xs-6 m-b-3">
+                <a href="#"><div class="card">
+                  <div class="card-body"><span class="info-box-icon bg-yellow"><i class="icon-clock"></i></span>
+                    <div class="info-box-content"> <span class="info-box-number"><%=data.totals.pendingOrders%></span> <span class="info-box-text">Total Pending Orders</span></div>
+                  </div>
+                </div>
+                </a>
+              </div>
+              <div class="col-lg-6 col-xs-6 m-b-3">
+                <a href="#"><div class="card">
+                  <div class="card-body"><span class="info-box-icon bg-yellow"><i class="icon-basket"></i></span>
+                    <div class="info-box-content"> <span class="info-box-number"><%=data.totals.totalCart%></span> <span class="info-box-text">Total Cart</span></div>
+                  </div>
+                </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <!-- Main row -->
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-6" style="background:#fff;border-right: 4px solid #f0f4f8;border-bottom: 10px solid #f0f4f8;">
+            <div><h4 style="margin:10px 0px;font-weight:500">Senders List</h4></div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Contact No</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if(data.senderDetails.length){ %>
+                    <% for (var i = 0; i < data.senderDetails.length; i++) { j=i+1%>
+                    <tr>
+                      <td><%=j%></td>
+                      <td><%=data.senderDetails[i].name%></td>
+                      <td><%=data.senderDetails[i].phone_no%></td>
+                    </tr>
+                    <%}%>
+                  <%}else{%>
+                    <tr>
+                      <td colspan="3">No Record Found!</td>
+                    </tr>
+                  <%}%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-6" style="background:#fff;border-right: 4px solid #f0f4f8;border-bottom: 10px solid #f0f4f8;">
+            <div><h4 style="margin:10px 0px;font-weight:500">Addresses List</h4></div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Contact No</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if(data.addresses.length){ %>
+                    <% for (var i = 0; i < data.addresses.length; i++) { j=i+1%>
+                    <tr>
+                      <td><%=j%></td>
+                      <td><%=data.addresses[i].name%></td>
+                      <td>
+                        <%if(data.addresses[i].building){%>
+                        <%=data.addresses[i].building%>
+                        <%}%>,
+                        <%if(data.addresses[i].street){%>
+                        <%=data.addresses[i].street%>
+                        <%}%>,
+                        <%if(data.addresses[i].city){%>
+                        <%=data.addresses[i].city%>
+                        <%}%>,
+                        <%if(data.addresses[i].landmark){%>
+                        <%=data.addresses[i].landmark%>
+                        <%}%>,
+                        <%if(data.addresses[i].state){%>
+                        <%=data.addresses[i].state%>
+                        <%}%>,
+                        <%if(data.addresses[i].pincode){%>
+                        <%=data.addresses[i].pincode%>
+                        <%}%>
+                      </td>
+                      <td><%=data.addresses[i].phone_no%></td>
+                    </tr>
+                    <%}%>
+                  <%}else{%>
+                    <tr>
+                      <td colspan="3">No Record Found!</td>
+                    </tr>
+                  <%}%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>  
+      </div> 
+    </div>
+    <!-- /.content --> 
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2018 SunFashion. All rights reserved.</footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- Edit Profile -->
+<div id="editprofile" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Profile</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal form-material" id="myprofileform" method="post">
+            <input type="hidden" name="resellerId" id="resellerId" value="<%if(data._id){%><%=data._id%><%}else{%><%}%>">
+            <div class="form-group">
+              <label class="col-md-12">Name</label>
+              <div class="col-md-12">
+                <input placeholder="" class="form-control form-control-line" name="name"  value="<%if(data.name){%><%=data.name%><%}else{%><%}%>" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Contact No</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Contact No" class="form-control form-control-line" name="mobile1" value="<%if(data.mobile1){%><%=data.mobile1%><%}else{%><%}%>" type="number">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Alternative Contact No</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Alternative Contact No" class="form-control form-control-line" name="mobile2" value="<%if(data.mobile2){%><%=data.mobile2%><%}else{%><%}%>" type="number">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Profile</label>
+              <div class="col-md-12">
+                <input type="file" id="input-file-now" class="dropify" name="profile" data-default-file="<%if(data.profile){%><%=data.profile%><%}else{}%>"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button class="btn btn-success">Update Profile</button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Edit Bank -->
+<div id="editbank" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Bank Detail</h4>        
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal form-material" id="editbankform" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="resellerId" value="<%=data._id%>">
+            <input type="hidden" name="bankId" id="bankId" value="<%if(data.bankId){%><%=data.bankId%><%}else{%><%}%>">
+            <div class="form-group">
+              <label class="col-md-12">Bank Name *</label>
+              <div class="col-md-12">
+                <input placeholder="Enter Bank Name" class="form-control form-control-line" value="<%if(data.bankname){%><%=data.bankname%><%}else{%><%}%>" name="bankname" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Account Name *</label>
+              <div class="col-md-12">
+                <input placeholder="Enter Account Name" class="form-control form-control-line" value="<%if(data.accountname){%><%=data.accountname%><%}else{%><%}%>" name="accountname" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Account No *</label>
+              <div class="col-md-12">
+                <input placeholder="Enter Account No" class="form-control form-control-line" value="<%if(data.accountno){%><%=data.accountno%><%}else{%><%}%>" name="accountno" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">IFSC Code *</label>
+              <div class="col-md-12">
+                <input placeholder="Enter IFSC Code" class="form-control form-control-line" value="<%if(data.ifsc){%><%=data.ifsc%><%}else{%><%}%>" name="ifsc" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Img *</label>
+              <div class="col-md-12">
+                <input type="file" id="input-file-now" class="dropify" data-default-file="<%if(data.image){%><%=data.image%><%}else{}%>" name="image" />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button class="btn btn-success">Update Bank Detail</button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Edit Address -->
+<div id="editaddress" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Address</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal form-material">
+              <div class="form-group">
+                <label class="col-md-12">Address 1*</label>
+                <div class="col-md-12">
+                  <textarea rows="4" class="form-control form-control-line"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-12">Address 2*</label>
+                <div class="col-md-12">
+                  <textarea rows="4" class="form-control form-control-line"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-12">Address 3*</label>
+                <div class="col-md-12">
+                  <textarea rows="4" class="form-control form-control-line"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <button class="btn btn-success">Update Address</button>
+                </div>
+              </div>
+            </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- jQuery 3 --> 
+<script src="js/jquery.min.js"></script>  
+<script src="bootstrap/js/bootstrap.min.js"></script> 
+
+<!-- template --> 
+<script src="js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="plugins/jquery-sparklines/sparkline-int.js"></script> 
+<script src="plugins/table-expo/filesaver.min.js"></script>
+<script src="plugins/table-expo/xls.core.min.js"></script>
+<script src="plugins/table-expo/tableexport.js"></script>
+<!-- dropify --> 
+<script src="plugins/dropify/dropify.min.js"></script> 
+<script>
+  $(document).ready(function(){
+  // Basic
+  $('.dropify').dropify();
+
+  // Translated
+   $('.dropify-fr').dropify({
+                    messages: {
+                        default: 'Glissez-déposez un fichier ici ou cliquez',
+                        replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                        remove:  'Supprimer',
+                        error:   'Désolé, le fichier trop volumineux'
+                    }
+                });
+
+                // Used events
+                var drEvent = $('#input-file-events').dropify();
+
+                drEvent.on('dropify.beforeClear', function(event, element){
+                    return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+                });
+
+                drEvent.on('dropify.afterClear', function(event, element){
+                    alert('File deleted');
+                });
+
+                drEvent.on('dropify.errors', function(event, element){
+                    console.log('Has Errors');
+                });
+
+                var drDestroy = $('#input-file-to-destroy').dropify();
+                drDestroy = drDestroy.data('dropify')
+                $('#toggleDropify').on('click', function(e){
+                    e.preventDefault();
+                    if (drDestroy.isDropified()) {
+                        drDestroy.destroy();
+                    } else {
+                        drDestroy.init();
+                    }
+                })
+    });
+</script>
+
+<!-- bootstrap-switch --> 
+<script src="plugins/bootstrap-switch/bootstrap-switch.js"></script> 
+<script src="plugins/bootstrap-switch/highlight.js"></script> 
+<script src="plugins/bootstrap-switch/main.js"></script>
+
+
+<script src="plugins/select2/js/select2.full.min.js"></script>
+<script>
+  $('#editbankform').submit(function(e){
+    e.preventDefault();
+    var formData = new FormData(this);
+    console.log("formData :::: ", formData);
+    var prefix;
+    if($('#bankId').val() != ''){
+      prefix = 'uploadBankRequest';
+    }else{
+      prefix = 'addBankDetails';
+    }
+    $.ajax({
+      url: '<%=BaseUrl%>/api/'+prefix,
+      type: 'post',
+      data: formData,
+      enctype: 'multipart/form-data',
+      cache:false,
+      contentType: false,
+      processData: false,
+      success: (data)=>{
+        if(data.error == 'Y'){
+          alert("uplading Issues : "+data.msg);
+        }else{
+          location.reload();
+        }
+      },
+      error: (error)=>{
+        console.log("error :::::::: ", error);
+      }
+    })
+  })
+  $('#myprofileform').submit(function(e){
+    e.preventDefault();
+    
+    var formData = new FormData(this);
+    $.ajax({
+      url: '<%=BaseUrl%>/api/updateMyProfile',
+      type: 'post',
+      data: formData,
+      enctype: 'multipart/form-data',
+      cache:false,
+      contentType: false,
+      processData: false,
+      success: (data)=>{
+        if(data.error == 'Y'){
+          alert("uplading Issues : "+data.msg);
+        }else{
+          console.log("data :::::: ", data.data);
+          location.reload();
+        }
+      },
+      error: (error)=>{
+        console.log("error :::::::: ", error);
+      }
+    })
+  })
+    jQuery(document).ready(function() {
+        // Switchery
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        $('.js-switch').each(function() {
+            new Switchery($(this)[0], $(this).data());
+        });
+        // For select 2
+        $(".select2").select2();
+        $('.selectpicker').selectpicker();
+        //Bootstrap-TouchSpin
+        $(".vertical-spin").TouchSpin({
+            verticalbuttons: true,
+            verticalupclass: 'ti-plus',
+            verticaldownclass: 'ti-minus'
+        });
+        var vspinTrue = $(".vertical-spin").TouchSpin({
+            verticalbuttons: true
+        });
+        if (vspinTrue) {
+            $('.vertical-spin').prev('.bootstrap-touchspin-prefix').remove();
+        }
+        $("input[name='tch1']").TouchSpin({
+            min: 0,
+            max: 100,
+            step: 0.1,
+            decimals: 2,
+            boostat: 5,
+            maxboostedstep: 10,
+            postfix: '%'
+        });
+        $("input[name='tch2']").TouchSpin({
+            min: -1000000000,
+            max: 1000000000,
+            stepinterval: 50,
+            maxboostedstep: 10000000,
+            prefix: '$'
+        });
+        $("input[name='tch3']").TouchSpin();
+        $("input[name='tch3_22']").TouchSpin({
+            initval: 40
+        });
+        $("input[name='tch5']").TouchSpin({
+            prefix: "pre",
+            postfix: "post"
+        });
+        // For multiselect
+        $('#pre-selected-options').multiSelect();
+        $('#optgroup').multiSelect({
+            selectableOptgroup: true
+        });
+        $('#public-methods').multiSelect();
+        $('#select-all').click(function() {
+            $('#public-methods').multiSelect('select_all');
+            return false;
+        });
+        $('#deselect-all').click(function() {
+            $('#public-methods').multiSelect('deselect_all');
+            return false;
+        });
+        $('#refresh').on('click', function() {
+            $('#public-methods').multiSelect('refresh');
+            return false;
+        });
+        $('#add-option').on('click', function() {
+            $('#public-methods').multiSelect('addOption', {
+                value: 42,
+                text: 'test 42',
+                index: 0
+            });
+            return false;
+        });
+        $(".ajax").select2({
+            ajax: {
+                url: "https://api.github.com/search/repositories",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function(data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function(markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1,
+            // templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+        });
+    });
+</script>
+</body>
+</html>

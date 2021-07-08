@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>sunfnl - Reseller List</title>
+<!-- Tell the browser to be responsive to screen width -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="<%=BaseUrl%>/bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="<%=BaseUrl%>/css/style.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/skins/_all-skins.min.css?v=1">
+<!-- DataTables -->
+<link rel="stylesheet" href="<%=BaseUrl%>/plugins/datatables/css/dataTables.bootstrap.min.css">
+<!-- bootstrap-switch -->
+<!-- <link rel="stylesheet" href="<%=BaseUrl%>/plugins/bootstrap-switch/bootstrap-switch.css"> -->
+<style>
+.myswitch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.myswitch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.myslider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.myslider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .myslider {
+  background-color: #2196F3;
+}
+
+input:focus + .myslider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .myslider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.myslider.myround {
+  border-radius: 34px;
+}
+
+.myslider.myround:before {
+  border-radius: 50%;
+}
+</style>
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="<%=BaseUrl%>/img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="<%=BaseUrl%>/img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <% include left_layout.html %>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1>Reseller List</h1>
+      <ol class="breadcrumb">
+        <li><a href="<%=BaseUrl%>/dashboard">Dashboard</a></li>
+        <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Reseller List</a></li>
+      </ol>
+    </div>
+    <div class="content" style="min-height: 0px !important;">
+      <div class="card">
+        <div class="card-body">
+            <label><b>ALL COD STATUS</b></label>
+            <div class="checkbox">
+              <label class="myswitch">
+                    <input type="checkbox" id="checkboxcod" name="cod" <%if(config.cod){%> checked <%}else{%> <%}%>>
+                    <span class="myslider myround"></span>
+                  </label>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.content --> 
+
+    <div id="margin-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Margin View Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="col-xs-8">
+                            <div class="box box-primary">
+                                <!-- /.box-header -->
+                                <div class="box-body" id="orderMarginbody">
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr class="text-left">
+                                                <td colspan="7" style="text-align: left;"> <h4 style="font-weight: bold;">Margin Details</h4></td>
+                                            </tr>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>Order No.</th>
+                                                <th>Margin</th>
+                                                <th>Select Margin</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="orderhistorybody">
+                                            
+                                        </tbody>
+                                        <tfoot style="background-color: #dddddd;">
+                                          <tr>
+                                            <td colspan="2">Total Payable</td>
+                                            <td id="totalPayableMarign"></td>
+                                            <td id=""></td>
+                                          </tr>
+                                        </tfoot>
+                                      </table>
+                                      <br>
+                                      <form id="uploadmarginform" method="post" class="form-horizontal" enctype="multipart/form-data">
+                                        <input type="text" name="resellerId" id="resellerId" hidden>
+                                        <div class="form-group row">
+                                          <label for="totalMargin" class="col-sm-3 control-label">Total Margin*</label>
+                                          <div class="col-sm-9">
+                                            <div class="input-group">
+                                              <input class="form-control" id="totalMargin" name="totalMargin" type="text" required>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group row">
+                                          <label for="ifsc" class="col-sm-3 control-label">Upload Margin Image*</label>
+                                          <div class="col-sm-9">
+                                            <div class="input-group">
+                                              <input type="file"  id="input-file-now" class="dropify" name="marginImage" required/>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <input class="form-control" id="jsonOrders" name="jsonOrders" type="text" hidden>
+                                        <div class="form-group row m-b-2">
+                                          <div class="offset-sm-3 col-sm-9">
+                                            <button type="submit" class="btn btn-success waves-effect waves-light">Update</button>
+                                          </div>
+                                        </div>
+                                       </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+      <div class="card">
+        <div class="card-body">
+        <div class="col-md-12">
+          <form id="searchform" action="" method="post" onsubmit="return checkvalidateForm();">
+            <div class="row">
+            <div class="form-group col-md-2">
+              <label>Search Type:</label>
+              <select name="by" id="bysort" class="select2 form-control custom-select">
+                <option value="name" <%if(search['by'] == 'name') {%> selected <%}%>>Name</option>
+                <option value="id" <%if(search['by'] == 'id') {%> selected <%}%>>Id</option>
+                <option value="accountno" <%if(search['by'] == 'accountno') {%> selected <%}%>>Account No</option>
+                <option value="ifsc" <%if(search['by'] == 'ifsc') {%> selected <%}%>>IFSC CODE</option>
+                <option value="contact" <%if(search['by'] == 'contact') {%> selected <%}%>>Contact No</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2" id="searchbox">
+              <label>Search:</label>
+              <input type="text" class="form-control" id="orderno" name="search" placeholder="Search" value="<%if(search['search'] != '') {%><%=search['search']%><%}%>">
+            </div>
+            <div class="form-group col-md-2">
+              <label>From Date:</label>
+              <input type="date" class="form-control" id="todate" name="todate" placeholder="By Date" value="<%if(search['todate'] != '') {%><%=search['todate']%><%}%>">
+            </div>
+            <div class="form-group col-md-2">
+              <label>To Date:</label>
+              <input type="date" class="form-control" id="fromdate" name="fromdate" placeholder="By Date" value="<%if(search['fromdate'] != '') {%><%=search['fromdate']%><%}%>">
+            </div>
+            
+            <div class="form-group col-md-2">
+              <label>&nbsp;</label>
+              <input type="submit"  class="form-control btn btn-sm btn-success" value="Search" onclick="changePage('1');">
+            </div>
+            </div>
+          </form>
+        </div>
+        <br>
+        <div class="col-md-12">  
+          <div class="table-responsive">
+             <table class="table table-hover table-bordered tablesorter ws_data_table" id="personnel">
+              <thead class="thead-light">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Account No</th>
+                  <th>IFSC Code</th>
+                  <th>Contact No</th>
+                  <th>Payable Margin</th>
+                  <th>Paid Margin</th>
+                  <th>Last Paid Margin Date</th>
+                  <th>Profile Image</th>
+                  <th>View Margin</th>
+                  <th>COD Status</th>
+                  <th>CreatedAt</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="tbody">
+                <% if(data.length){ %>
+                <% for (var i = 0; i < data.length; i++) { j=i+1%>
+                <tr>
+                  <td><%=j%></td>
+                  <td><a href="<%=BaseUrl%>/resellerProfile?id=<%=data[i]._id%>"><%=data[i].name%></a></td>
+                  <td><%if(data[i].bankDetails.accountno){%> <%= data[i].bankDetails.accountno %> <%}else{%> - <%}%></td>
+                  <td><%if(data[i].bankDetails.ifsc){%> <%= data[i].bankDetails.ifsc %> <%}else{%> - <%}%></td>
+                  <td><%if(data[i].mobile1){%> <%= data[i].mobile1 %> <%}else{%> - <%}%>/<%if(data[i].mobile2){%> <%= data[i].mobile2 %> <%}else{%> - <%}%></td>
+                  <td><%if(data[i].payable_margin){%> <%= data[i].payable_margin %> <%}else{%> 0 <%}%></td>
+                  <td><%if(data[i].paid_margin){%> <%= data[i].paid_margin %> <%}else{%> 0 <%}%></td>
+                  <td><%if(data[i].date){%> <%= data[i].date %> <%}else{%> - <%}%></td>
+                  <td><img src="<%if(data[i].profile){%><%=data[i].profile%><%}else{%><%=BaseUrl%>/img/snfl.png<%}%>" width="75px" height="75px"></td>
+                  <td>
+                    <a href="javascript:;" onclick="viewMargin('<%=data[i]._id%>')"><button class="btn btn-sm btn-info" style="margin:5px" type="button"><i class="fa fa-eye"></i></button></a>
+                  </td>
+                  <td><label class="myswitch">
+                      <input type="checkbox" id="<%=data[i]._id%>-codStatus" onclick="selectCheck('<%=data[i]._id%>-codStatus')" name="cod" <%if(data[i].cod){%> checked <%}else{%> <%}%>>
+                      <span class="myslider myround"></span>
+                    </label>
+                  </td>
+                  <td><%if(data[i].created_at){%> <%=data[i].created_at%> <%}else{%> - <%}%></td>
+                  <td>
+                    <a href="<%=BaseUrl%>/addreseller?id=<%=data[i]._id%>"><button class="btn btn-sm btn-info" style="margin:5px" type="button"><i class="fa fa-pencil"></i></button></a>
+                    <div class="clearfix"></div>
+                    <button class="btn btn-sm btn-danger" style="margin:5px" type="button" onclick="onDelete('<%=data[i]._id%>');"><i class="fa fa-trash-o"></i></button>
+                  </td>
+                </tr>
+                <% } %>
+              <%}else{%>
+                <tr>
+                  <td colspan="13"> <center style="font-weight: 500;"> No Record Found ! </center> </td>
+                </tr>
+              <% } %>
+              </tbody>
+            </table>
+            <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                <% if (pages > 0) { %>
+                  <ul class="pagination" id="pagination">
+                    <% if (current == 1) { %>
+                      <li class="disabled"><a>First</a></li>
+                    <% } else { %>
+                        <!-- <li><a href="/resellerlist/1">First</a></li> -->
+                        <li><a onclick="changePage('1');" >First</a></li>
+                    <% } %>
+                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                        <% if (i == current) { %>
+                            <li class="active"><a><%= i %></a></li>
+                        <% } else { %>
+                            <!-- <li><a href="/resellerlist/<%= i %>"><%= i %></a></li> -->
+                            <li><a onclick="changePage('<%= i %>');" ><%= i %></a></li>
+                        <% } %>
+                        <% if (i == Number(current) + 4 && i < pages) { %>
+                            <li class="disabled"><a>...</a></li>
+                        <% } %>
+                    <% } %>
+                    <% if (current == pages) { %>
+                        <li class="disabled"><a>Last</a></li>
+                    <% } else { %>
+                        <!-- <li><a href="/resellerlist/<%= pages %>">Last</a></li> -->
+                        <li><a onclick="changePage('<%= pages %>');" >Last</a></li>
+                    <% } %>
+
+                  </ul>
+                <% } %>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2018 . All rights reserved.</footer>
+</div>
+<!-- ./wrapper --> 
+
+<!-- jQuery 3 --> 
+<script src="<%=BaseUrl%>/js/jquery.min.js"></script>  
+<script src="<%=BaseUrl%>/bootstrap/js/bootstrap.min.js"></script> 
+
+<!-- template --> 
+<script src="<%=BaseUrl%>/js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="<%=BaseUrl%>/plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="<%=BaseUrl%>/plugins/jquery-sparklines/sparkline-int.js"></script> 
+
+<script src="<%=BaseUrl%>/plugins/table-expo/filesaver.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/table-expo/xls.core.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/table-expo/tableexport.js"></script>
+<script>
+// $("table").tableExport({formats: ["xlsx","xls", "csv", "txt"],    });
+</script>
+
+<!-- bootstrap-switch --> 
+<!-- <script src="<%=BaseUrl%>/plugins/bootstrap-switch/bootstrap-switch.js"></script>  -->
+<script src="<%=BaseUrl%>/plugins/bootstrap-switch/highlight.js"></script> 
+<script src="<%=BaseUrl%>/plugins/bootstrap-switch/main.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"></script>
+<script>
+  $(document).ready(function()
+    {
+      $("#personnel").tablesorter({
+        sortList: [[0,0]],
+        headers: {3:{sorter:false}}
+      });
+    }
+  );
+</script>
+<script>
+  function checkvalidateForm(){
+
+    if($('#todate').val() != '' &&  $('#fromdate').val() == ''){
+      swal("Oops!", "Please Select To Date");
+      return false;
+    }
+
+    if($('#fromdate').val() != '' &&  $('#todate').val() == ''){
+      swal("Oops!", "Please Select From Date");
+      return false;
+    }
+    var startDate = new Date($('#todate').val());
+    var endDate = new Date($('#fromdate').val());
+
+    if (startDate > endDate){
+      swal("Oops!", "From Date Should not Greater then To Date!"); 
+      return false;
+    }
+    
+    return true;
+  }
+  var margin = 0;
+  var tempOrder = {};
+  function viewMargin(id){
+    margin = 0;
+    tempOrder = {};
+    $('#totalPayableMarign').text('');
+    $('#uploadmarginform').get(0).reset();
+    if (id && id.trim() != '') {
+      $.ajax({
+        url: '<%=BaseUrl%>/getResellerMarginData/'+id,
+        type: 'GET',
+        success: (response)=>{
+          if(response.length){
+            var tablebody = '';
+            var totalMargin = 0;
+            var j=1;
+            for(var i=0; i<response.length; i++){
+
+              tablebody   +='<tr>'
+                          +'<td class="text-center ng-binding">'+j+'</td>'
+                          +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].orderno+'</td> '
+                          +'<td class="text-center ng-binding">'+response[i].margin+'</td>'
+                          +'<td class="text-center ng-binding"><input type="checkbox" name="checkmargin" value="'+response[i].margin+'" id="margincheckbox_'+j+'" onclick="totalMargin(\''+response[i].margin+'\', \''+j+'\', \''+response[i].orderno+'\',)"></td>'
+                      +'</tr>';
+
+              totalMargin += response[i].margin;
+              j++;
+            }
+            $('#resellerId').val(id);
+            $('#orderhistorybody').html(tablebody);
+            $('#margin-modal').modal('toggle');
+          }else{
+            swal("No! Order Found");
+          }
+        },
+        error(err){
+          console.log("file deletion error: ",err);
+        }
+      })
+    } else {
+      swal("Your are safe!");
+    }
+  }
+
+  function checkMarginBeforeSubmit(){
+    if($('#resellerId').val()  == '' || $('#resellerId').val().trim() == ''){
+     swal("Reseller ID not defined!"); 
+     return false;
+    }else{
+      console.log("true");
+      return true;
+    }
+
+  }
+
+  $('#uploadmarginform').submit(function(e){
+    e.preventDefault();
+    var formData = new FormData(this);
+    console.log("formData :::: ", formData);
+
+    if($('#resellerId').val()  == '' || $('#resellerId').val().trim() == ''){
+     swal("Reseller ID not defined!"); 
+     return true;
+    }
+
+    $.ajax({
+      url: '<%=BaseUrl%>/uploadmarginform',
+      type: 'post',
+      data: formData,
+      enctype: 'multipart/form-data',
+      cache:false,
+      contentType: false,
+      processData: false,
+      success: (data)=>{
+        if(data.error == 'Y'){
+          alert("uplading Issues : "+data.msg);
+        }else{
+          $('#margin-modal').modal('hide');
+          swal(data.msg); 
+        }
+      },
+      error: (error)=>{
+        console.log("error :::::::: ", error);
+      }
+    })
+  })
+
+  function totalMargin(val, id, orderno){
+      if ($('#margincheckbox_'+id).is(":checked")) {
+        margin += parseInt($('#margincheckbox_'+id).val());
+        tempOrder[orderno] = orderno;
+      }else{
+        margin -= parseInt($('#margincheckbox_'+id).val());
+        delete tempOrder[orderno];
+      }
+      $('#totalMargin').val(margin);
+      $('#totalPayableMarign').text(margin);
+      console.log("tempOrder ::::: ", tempOrder);
+      $('#jsonOrders').val(JSON.stringify(tempOrder));
+  }
+
+  $("#checkboxcod").change(function() {
+      var url = '<%=BaseUrl%>/changeAllCodStatus/';
+      if(this.checked) {
+        url += '1';
+      }else{
+        url += '0';
+      }
+      $.ajax({
+            url: url,
+            type: 'GET',
+            success: (response)=>{
+              console.log(response);
+              var response = JSON.parse(response);
+              var msg = '';
+              if(response.status == 'active'){
+                msg = "Enabled! All COD Status Activate!";
+              }else{
+                msg = "Disabled! All COD Status InActivate!"
+              }
+              swal(msg, {
+                icon: "success",
+              });
+            },
+            error(err){
+              console.log("file deletion error: ",err);
+            }
+          })
+      /*swal({
+        title: "Are you sure you want to enable All COD status?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          $.ajax({
+            url: url,
+            type: 'GET',
+            success: (response)=>{
+              console.log(response, response.status);
+              var response = JSON.parse(response);
+              var msg = '';
+              if(response.status == 'active'){
+                msg = "Enabled! All COD Status Activate!";
+              }else{
+                msg = "Disabled! All COD Status InActivate!"
+              }
+              swal(msg, {
+                icon: "success",
+              });
+            },
+            error(err){
+              console.log("file deletion error: ",err);
+            }
+          })
+        } else {
+          swal("Your are safe!");
+        }
+      });*/
+
+  });
+  function selectCheck(id){
+    if($('#'+id).is(':checked')){
+      swal({
+        title: "Are you sure you want to enable COD status?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          $.ajax({
+            url: '<%=BaseUrl%>/changeCodStatus/'+id.split('-')[0]+'/1',
+            type: 'GET',
+            success: (response)=>{
+              console.log(response, response.status);
+              var response = JSON.parse(response);
+              var msg = '';
+              if(response.status == 'active'){
+                msg = "Enabled! Status Activate!";
+              }else{
+                msg = "Disabled! Status InActivate!"
+              }
+              swal(msg, {
+                icon: "success",
+              });
+            },
+            error(err){
+              console.log("file deletion error: ",err);
+            }
+          })
+        } else {
+          swal("Your are safe!");
+        }
+      });
+    }
+    else{
+       swal({
+        title: "Are you sure you want to disable COD status?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          $.ajax({
+            url: '<%=BaseUrl%>/changeCodStatus/'+id.split('-')[0]+'/0',
+            type: 'GET',
+            success: (response)=>{
+              console.log(response, response.status);
+              var response = JSON.parse(response);
+              var msg = '';
+              if(response.status == 'active'){
+                msg = "Enabled! Status Activate!";
+              }else{
+                msg = "Disabled! Status InActivate!";
+              }
+              swal(msg, {
+                icon: "success",
+              });
+            },
+            error(err){
+              console.log("file deletion error: ",err);
+            }
+          })
+        } else {
+          swal("Your are safe!");
+        }
+      });
+    }
+  }
+  function onDelete(id){
+  swal({
+  title: "Are you sure?",
+  text: "You wants to Delete reseller Details!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+  })
+  .then((willDelete) => {
+  if (willDelete) {
+  $.ajax({
+  url: '<%=BaseUrl%>/deleteReseller/'+id,
+  type: 'GET',
+  success: (response)=>{
+  console.log(response, response.status);
+  swal("Poof! Reseller has been deleted!", {
+  icon: "success",
+  });
+  window.location= '<%=BaseUrl%>/resellerlist/1';
+  },
+  error(err){
+  console.log("reseller deletion error: ",err);
+  }
+  })
+  } else {
+  swal("Your reseller is safe!");
+  }
+  });
+  }
+
+  function changePage(page){
+
+  var isPostReq=false;
+  if($('#orderno').val()){
+  isPostReq=true;
+  }
+  if($('#todate').val()){
+  isPostReq=true;
+  }
+  if($('#fromdate').val()){
+  isPostReq=true;
+  }
+  var link='<%=BaseUrl%>/resellerlist/'+page;
+  if(isPostReq){
+  $('#searchform').attr('action', link);
+  $('#searchform').submit();
+  }
+  else{
+  location.href = link;
+  }
+  }
+  </script>
+</body>
+</html>

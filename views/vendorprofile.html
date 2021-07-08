@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>sunfnl - ResellerProfile</title>
+<!-- Tell the browser to be responsive to screen width -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="css/style.css?v=11">
+<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="css/skins/_all-skins.min.css?v=1">
+<!-- DataTables -->
+<link rel="stylesheet" href="plugins/datatables/css/dataTables.bootstrap.min.css">
+<!-- dropify -->
+<link rel="stylesheet" href="plugins/dropify/dropify.min.css">
+<!-- bootstrap-switch -->
+<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+<!-- selecr2 --->
+<link href="../assets/node_modules/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <% include left_layout.html %>
+ 
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Main content -->
+    <div class="content">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="user-profile-box" style="padding: 20px 20px;">
+            <div class="box-profile text-white"> <img class="profile-user-img img-responsive  m-b-2" id="profile-profile" src="<%if(vendor.profile){%><%=vendor.profile%><%}else{%><%=BaseUrl%>/img/snfl.png<%}%>" alt="User profile picture">
+              <h3 style="color:#191818;" class="profile-username" id="profile-username"><%if(vendor.name){%><%=vendor.name%><%}else{%><em>not available</em><%}%></h3>
+              <p style="color:#191818;" id="profile-email"><i class="fa fa-envelope" ></i><%if(vendor.email && vendor.email != ''){%><%=vendor.email%><%}else{%><em> not available</em><%}%></p>
+              <p style="color:#191818;" id="profile-phone"><i class="fa fa-phone" ></i><%if(vendor.contactno){%> <%=vendor.contactno%> <%}%></p>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#editprofile"><i class="fa fa-pencil"></i> Edit Profile</button>
+              <!-- <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#editaddress"><i class="fa fa-pencil"></i> Edit Address</button> -->
+              <hr>
+              <h3 style="color:#191818;" class="profile-username">Bank Account Details</h3>
+              <br>
+              <p style="color:#191818;"> Bank Name: <%if(vendor.bankname){%><%=vendor.bankname%><%}else{%><em>not available</em><%}%></p>
+              <p style="color:#191818;"> Account Holder Name: <%if(vendor.accountname){%><%=vendor.accountname%><%}else{%><em>not available</em><%}%></p>
+              <p style="color:#191818;"> Account No: <%if(vendor.accountno){%><%=vendor.accountno%><%}else{%><em>not available</em><%}%></p>
+              <p style="color:#191818;"> IFSC Code: <%if(vendor.ifsc){%><%=vendor.ifsc%><%}else{%><em>not available</em><%}%></p>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#editbank"><i class="fa fa-pencil"></i> Edit Bank Detail</button> 
+              <!-- <a href="cart.html?rid=1" class="btn btn-info btn-sm">10 Item In Cart</a><br> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>    
+      <!-- Main row -->
+      <div class="col-lg-12">
+        <div class="row">
+          <a href="<%=BaseUrl%>/addcatalog" class="btn btn-primary btn-block" style="margin-bottom: 10px;">Create New Catalogs</a>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-12" style="background:#fff;border-right: 4px solid #f0f4f8;border-bottom: 10px solid #f0f4f8;">
+            <div><h4 style="margin:10px 0px;font-weight:500">Catalog List</h4></div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered" id="personnel">
+                <thead class="thead-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Notes</th>
+                    <th>Createdat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if(catalogs.length){ %>
+                    <% for (var i = 0; i < catalogs.length; i++) { j=i+1%>
+                    <tr>
+                      <td><%=j%></td>
+                      <td><%=catalogs[i].name%></td>
+                      <td><%=catalogs[i].description%></td>
+                      <td><%=catalogs[i].price%></td>
+                      <td><%=catalogs[i].notes%></td>
+                      <td><%=catalogs[i].created_at%></td>
+                    </tr>
+                    <%}%>
+                  <%}else{%>
+                    <tr>
+                      <td colspan="3">No Record Found!</td>
+                    </tr>
+                  <%}%>
+                </tbody>
+              </table>
+              <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                  <% if (cpages > 0) { %>
+                    <ul class="pagination" id="pagination">
+                      <% if (ccurrent == 1) { %>
+                        <li class="disabled"><a>First</a></li>
+                      <% } else { %>
+                          <li><a href="/vendorProfile?id=<%=vendor._id%>&tp=cl&pn=1">First</a></li>
+                      <% } %>
+                      <% var i = (Number(ccurrent) > 5 ? Number(ccurrent) - 4 : 1) %>
+                      <% if (i !== 1) { %>
+                          <li class="disabled"><a>...</a></li>
+                      <% } %>
+                      <% for (; i <= (Number(ccurrent) + 4) && i <= cpages; i++) { %>
+                          <% if (i == ccurrent) { %>
+                              <li class="active"><a><%= i %></a></li>
+                          <% } else { %>
+                              <li><a href="/vendorProfile?id=<%=vendor._id%>&tp=cl&pn=<%= i %>"><%= i %></a></li>
+                          <% } %>
+                          <% if (i == Number(ccurrent) + 4 && i < cpages) { %>
+                              <li class="disabled"><a>...</a></li>
+                          <% } %>
+                      <% } %>
+                      <% if (ccurrent == cpages) { %>
+                          <li class="disabled"><a>Last</a></li>
+                      <% } else { %>
+                          <li><a href="/vendorProfile?id=<%=vendor._id%>&tp=cl&pn=<%= cpages %>">Last</a></li>
+                      <% } %>
+
+                    </ul>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div> 
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-12" style="background:#fff;border-right: 4px solid #f0f4f8;border-bottom: 10px solid #f0f4f8;">
+            <div><h4 style="margin:10px 0px;font-weight:500">Order List</h4></div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered" id="personnel">
+                <thead class="thead-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Order No</th>
+                    <th>Reseller ID</th>
+                    <th>Mobile No.</th>
+                    <th>Status</th>
+                    <th>Product Charge</th>
+                    <th>Shipping Charge</th>
+                    <th>Margin</th>
+                    <th>Size</th>
+                    <th>Order Date</th>
+                    <th>TranscationID</th>
+                    <th>Payment Type</th>
+                    <th>Courier Name</th>
+                    <th>TrackingID</th>
+                    <th>Tracking</th>
+                    <th>View/Print</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody">
+                    <% if(order.length){ %>
+                    <% for (var i = 0; i < order.length; i++) { %>
+                    <tr>
+                      <td><%=cop%></td>
+                      <td><%if(order[i].orderno){%> <%=order[i].orderno%> <%}else{%> - <%}%></td>
+                      <td><%if(order[i].resellerId){%> <%=order[i].resellerId%> <%}else{%> - <%}%></td>
+                      <td><%if(order[i].mobileno){%> <%=order[i].mobileno%> <%}else{%> - <%}%></td>
+                      <td><span class="label label-<%if(order[i].status == 0){%>warning<%}else if(order[i].status == 1){%>success<%}else if(order[i].status == 2){%>info<%}%>"><%if(order[i].status == 0){%>Pending<%}else if(order[i].status == 1){%>Approved<%}else if(order[i].status == 2){%>Cancel<%}%></span></td>
+                      <td><%if(order[i].totalPrice){%> <%=order[i].totalPrice%> <%}else{%> - <%}%></td>
+                      <td><%if(order[i].shippingCharge){%> <%=order[i].shippingCharge%> <%}else{%> - <%}%></td>
+                      <td><%if(order[i].margin){%> <%=order[i].margin%> <%}else{%> - <%}%></td>
+                      <td><%if(order[i].size){%> <%=order[i].size%> <%}else{%> - <%}%></td>
+                      <td><%if(order[i].created_at){%> <%=order[i].created_at%> <%}else{%> - <%}%></td>
+                      <td><%if(order[i].transactionId){%> <%=order[i].transactionId%> <%}else{%> - <%}%></td>
+                      <td><%if(order[i].paymentMethod){ if(order[i].paymentMethod == 'IMPS'){%>
+                        IMPS <button class="btn btn-sm btn-info" style="margin:5px" href="javascript:;" data-toggle="modal" data-target="#imps-modal" onclick="onModelIMPSView('<%=order[i].orderno%>')"><i class="fa fa-eye"></i></button>
+                        <%}else{%><%=order[i].paymentMethod%> <%}}else{%> - <%}%></td>
+                      <td>-</td>
+                      <td><%if(order[i].TrackingID){%> <%=order[i].TrackingID%> <%}else{%> - <%}%>/<%if(order[i].tokenNumber){%> <%=order[i].tokenNumber%> <%}else{%> - <%}%></td>
+                      <td><button class="btn" onclick="GetShipmentSummaryDetails('<%if(order[i].manifestfileId){%><%=order[i].manifestfileId%><%}else{%><%}%>')">GetShipmentSummaryDetails</button>
+                        <br><br>
+                        <button class="btn" onclick="TrackingDetails('<%if(order[i].manifestfileId){%><%=order[i].manifestfileId%><%}else{%><%}%>')">TrackingDetails</button></td>
+                      <td>
+                        <button class="btn btn-sm btn-info" style="margin:5px" href="javascript:;" data-toggle="modal" data-target="#order-modal" onclick="onModelView('<%=order[i].orderno%>')"><i class="fa fa-eye"></i></button>
+                        <button class="btn btn-sm btn-info" style="margin:5px" href="javascript:;" data-toggle="modal" data-target="#print-modal" onclick="onModelPrint('<%=order[i].orderno%>')"><i class="fa fa-print"></i></button>
+                      </td>
+                      <td>
+                        <%if(order[i].status != 1){%>
+                          <button class="btn btn-sm btn-info" style="margin:5px" type="button" onclick="onOrderAction('<%=order[i]._id%>', '1');"><i class="fa fa-check"></i></button>
+                        <%}%>
+                        <%if(order[i].status != 2){%>
+                          <button class="btn btn-sm btn-danger" style="margin:5px" type="button" onclick="onOrderAction('<%=order[i]._id%>', '0');"><i class="fa fa-times"></i></button>
+                        <%}%>
+                        <a href="javascript:;"><button class="btn btn-sm btn-info" style="margin:5px" type="button"><i class="fa fa-pencil"></i></button></a>
+                        <div class="clearfix"></div>
+                        <button class="btn btn-sm btn-danger" style="margin:5px" type="button" onclick="onDelete('<%=order[i]._id%>');"><i class="fa fa-trash-o"></i></button>
+                      </td>
+                    </tr>
+                    <% cop=cop+1} %>
+                  <%}else{%>
+                    <tr>
+                      <td colspan="15"> No Record Found !</td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+              <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                  <% if (opages > 0) { %>
+                    <ul class="pagination" id="pagination">
+                      <% if (ocurrent == 1) { %>
+                        <li class="disabled"><a>First</a></li>
+                      <% } else { %>
+                          <li><a href="/vendorProfile?id=<%=vendor._id%>&tp=od&pn=1">First</a></li>
+                      <% } %>
+                      <% var i = (Number(ocurrent) > 5 ? Number(ocurrent) - 4 : 1) %>
+                      <% if (i !== 1) { %>
+                          <li class="disabled"><a>...</a></li>
+                      <% } %>
+                      <% for (; i <= (Number(ocurrent) + 4) && i <= opages; i++) { %>
+                          <% if (i == ocurrent) { %>
+                              <li class="active"><a><%= i %></a></li>
+                          <% } else { %>
+                              <li><a href="/vendorProfile?id=<%=vendor._id%>&tp=od&pn=<%= i %>"><%= i %></a></li>
+                          <% } %>
+                          <% if (i == Number(ocurrent) + 4 && i < opages) { %>
+                              <li class="disabled"><a>...</a></li>
+                          <% } %>
+                      <% } %>
+                      <% if (ocurrent == opages) { %>
+                          <li class="disabled"><a>Last</a></li>
+                      <% } else { %>
+                          <li><a href="/vendorProfile?id=<%=vendor._id%>&tp=od&pn=<%= opages %>">Last</a></li>
+                      <% } %>
+
+                    </ul>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div> 
+    </div>
+    <!-- /.content --> 
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2018 SunFashion. All rights reserved.</footer>
+</div>
+<!-- ./wrapper -->
+<div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="popupTitle"></h4>
+          </div>
+          <div class="modal-body" id="shippingSummary">
+            
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-more-details">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Status Code Details</h4>
+          </div>
+          <div class="modal-body" id="shippingSummary">
+            <table>
+              <thead class="thead-light">
+                <tr>
+                  <th>Status Code </th>
+                  <th>Status</th>
+                  <th>Remark</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DRC</td>
+                  <td>Data Received</td>
+                  <td>Shipment manifest details received through API</td>
+                </tr>
+                <tr>
+                  <td>PUC</td>
+                  <td>Pickup Created</td>
+                  <td>Manifest details available for vendor pickup</td>
+                </tr>
+                <tr>
+                  <td>OFP</td>
+                  <td>Out for Pickup</td>
+                  <td>Assigned corresponding manifest for vendor pickup </td>
+                </tr>
+                <tr>
+                  <td>PUD</td>
+                  <td>PickDone</td>
+                  <td>Successfully picked AWB number from therespective Vendor </td>
+                </tr>
+                <tr>
+                  <td>PND</td>
+                  <td>Pickup Not Done</td>
+                  <td>Attempted but not picked</td>
+                </tr>
+                <tr>
+                  <td>PKD</td>
+                  <td>Picked</td>
+                  <td>Manifest Inscan at Hub </td>
+                </tr>
+                <tr>
+                  <td>IT</td>
+                  <td>InTransit</td>
+                  <td>Transit to next location </td>
+                </tr>
+                <tr>
+                  <td>RAD</td>
+                  <td>Reached at Destination</td>
+                  <td>Shipment reached to destination location </td>
+                </tr>
+                <tr>
+                  <td>OFD</td>
+                  <td>Out for Delivery</td>
+                  <td>Shipment out for delivery to customer </td>
+                </tr>
+                <tr>
+                  <td>UD</td>
+                  <td>[Status of NDR Reason] </td>
+                  <td>Attempted but not delivered</td>
+                </tr>
+                <tr>
+                  <td>DLVD</td>
+                  <td>Delivered</td>
+                  <td>Shipment delivered to customer </td>
+                </tr>
+                <tr>
+                  <td>LOST</td>
+                  <td>Lost</td>
+                  <td>Shipments lost in transit </td>
+                </tr>
+                <tr>
+                  <td>RTON</td>
+                  <td>RTO Notified</td>
+                  <td>RTO process initiated </td>
+                </tr>
+                <tr>
+                  <td>RTO</td>
+                  <td>Return to Origin</td>
+                  <td>RTO confirmed & destination changed to origin location </td>
+                </tr>
+                <tr>
+                  <td>RTO-IT</td>
+                  <td>Return to Origin Intransit</td>
+                  <td>Transit to next location in RTO </td>
+                </tr>
+                <tr>
+                  <td>RAO</td>
+                  <td>Reached at Origin</td>
+                  <td>Shipment reached at Return destination location </td>
+                </tr>
+                <tr>
+                  <td>RTO-OFD</td>
+                  <td>Return to Origin Out for Delivery</td>
+                  <td>Shipment out for delivery to return address</td>
+                </tr>
+                <tr>
+                  <td>RTD</td>
+                  <td>Return Delivered</td>
+                  <td>Shipment delivered at return address </td>
+                </tr>
+                <tr>
+                  <td>RTU</td>
+                  <td>Return Undelivered</td>
+                  <td>Shipment undelivered at return address </td>
+                </tr>
+                <tr>
+                  <td>STD</td>
+                  <td>ShipmentTransit damage</td>
+                  <td>Shipment got damage in transit </td>
+                </tr>
+                <tr>
+                  <td>STG</td>
+                  <td>Shortage</td>
+                  <td>Shipment mark shortage in forward journey </td>
+                </tr>
+                <tr>
+                  <td>RTO-STG</td>
+                  <td>Return To Origin Shortage</td>
+                  <td>Shipment mark shortage in return journey</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+<div id="print-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Print Order</h4>
+                <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" id="print_section">
+                <div class="box-body">
+                      <table style="width:100%;padding :10px ;border: 1px solid black;">
+                        <tbody><tr>
+                        <td style="width: 40%;padding :10px ;border: 1px solid black;" class="ng-binding">
+                            To <br><br>
+                           <label id="addressName"></label>
+                           <label id="addressprint"></label>
+                        </td>
+                        <td style="padding :10px ;border: 1px solid black;">
+                            <center><img  id="awbbarcode" src="https://www.barcodesinc.com/generator/image.php?code=Your%20Text&style=197&type=C128B&width=167&height=50&xres=1&font=3"></center>
+                        </td>
+                        <td style="padding :10px ;border: 1px solid black;">
+                            <b class="ng-binding" id="awbNumber">Tracking Id : 1392318100088 <br></b><br>
+                            <b class="ng-binding" id="orderNumber">Order No : 1392318100088 <br></b>
+                        </td>
+                        </tr>
+                        </tbody></table>
+                        
+                        <table style="width:100%;margin-top:10px;padding :10px ;border: 1px solid black;">
+                        
+                            <tbody>
+                              <tr>
+                                <th style="padding :10px ;border: 1px solid black;">No</th>
+                                <th style="padding :10px ;border: 1px solid black;">Product Name &amp; SKU</th>
+                                <th style="padding :10px ;border: 1px solid black;">Qty</th>
+                                <th style="padding :10px ;border: 1px solid black;">Size</th>
+                                <!-- <th id="price_online" style="padding :10px ;border: 1px solid black;">Price</th> -->
+                              </tr>
+                            </tbody>
+
+                            <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="orderprintbody">
+                            
+                        </tbody><!-- end ngRepeat: p in orderhistory.Product -->
+                        <tfoot id="onlinefooter">
+                            <tr>       
+                                <td colspan="4" style="font-weight: bold;padding :10px ;border: 1px solid black;">
+                                    <span ng-show="orderhistory.pm=='COD'" class="pull-right ng-hide">
+                                        <b class="ng-binding" id="totalAmountPaid"></b>
+                                    </span>
+                                    
+                                </td> 
+                            </tr>           
+                        </tfoot>
+                        </table>
+                        <table style="margin-top:10px;">
+                        <tbody><tr>
+                            <td style="padding :10px ;border: 1px solid black;" class="ng-binding">FROM :<br><span id="senderDetailsprint"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding :10px ;border: 1px solid black;" class="ng-binding">Courier Name :<br> Xpressbess</td>
+                        </tr>
+                        <tr>
+                            <td style="padding :10px ;border: 1px solid black;" class="ng-binding" id="DestinationCode"></td>
+                        </tr>
+                        </tbody></table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="checklink"><button type="button" class="btn btn-info d-none d-lg-block m-l-15" data-toggle="modal" data-target="#responsive-modal"><i class="fa fa-print"></i> &nbsp;Download </button></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="order-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">View Order History</h4>
+                <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <div class="box box-primary">
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive">
+                                <div class="col-md-12" ng-hide="ordersarray.length == 0" style="padding: 0px;">
+                                  <div class="row">
+                                    <div class="col-md-6" style="padding: 4px 25px;">
+                                        <label>Order No : </label>
+                                        <span class="ng-binding" id="orderno_view"></span>
+                                    </div>
+                                    <div class="col-md-6 text-right" style="padding: 4px 25px;float:right;">
+                                        <label>Order Date : </label>
+                                        <span class="ng-binding" id="created_at"></span>
+                                    </div>
+                                  </div>                                     
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr class="text-left">
+                                                <td colspan="7" style="text-align: left;"> <h4 style="font-weight: bold;">Product Details</h4></td>
+                                            </tr>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>Product Image</th>
+                                                <th>Product Name</th>
+                                                <th>QTY</th>
+                                                <th>Size</th>
+                                                <th>Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="orderhistorybody">
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr style="background: #ddd;">       
+                                                <td class="text-right" colspan="3" style="text-align: right;"><b>Total Items</b></td>
+                                                <td class="text-center ng-binding" style="font-weight: bold;" id="totalQty"></td> 
+                                                <td class="text-center" style="text-align: right"><b>Sub Total</b></td>
+                                                <td class="text-center ng-binding" id="totalPrice"></td>
+                                            </tr>           
+                                            <tr style="background: #ddd;">   
+                                                <td colspan="4" rowspan="4"></td>
+                                                <td class="text-center" style="text-align: right"><b class="ng-binding">Shipping Charge <br><span id="weight"></span></b></td>
+                                                <td class="text-center ng-binding" id="totalShippingCharges"></td>
+                                            </tr>     
+                                            <tr style="background: #ddd;">
+                                                <td class="text-center" style="text-align: right"><b>Margin </b></td>
+                                                <td class="text-center ng-binding" id="margin">0</td>
+                                            </tr>
+                                            
+                                            <tr style="background: #ddd;">  
+                                                <td class="text-center" style="text-align: right"><b>Discount</b></td>
+                                                <td class="text-center ng-binding" id="discountvalue">0</td>
+                                            </tr>     
+                                            <tr style="background: #ddd;">
+                                                <td class="text-center" style="text-align: right"><b>Grand Total</b></td>
+                                                <td class="text-center ng-binding" id="totalAmount"></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                    <h4 style="font-weight: bold;padding-left: 5px;padding-right: 5px;border-bottom: 2px solid black;padding-bottom: 5px;">Shipping Details</h4>
+                                    <div class="row" style="width:100%;padding: 10px;">
+                                      <div class="col-md-12">
+                                          <label>Sender Details : </label>
+                                          <span class="ng-binding" id="senderDetails"></span>
+                                      </div>
+                                      <br>
+                                      <div class="col-md-12">
+                                          <label>Customer Details : </label>
+                                          <span class="ng-binding" id="address"></span>
+                                      </div>
+                                    </div>      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="imps-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">View IMPS History</h4>
+                <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <div class="box box-primary">
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive">
+                                <div class="col-md-12" ng-hide="ordersarray.length == 0" style="padding: 0px;">
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr class="text-left">
+                                                <td colspan="7" style="text-align: left;"> <h4 style="font-weight: bold;">IMPS Details</h4></td>
+                                            </tr>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>Image</th>
+                                                <th>Bank Name</th>
+                                                <th>Account Name</th>
+                                                <th>Account Number</th>
+                                                <th>IFSC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="ng-scope" id="impshistorybody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile -->
+<div id="editprofile" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Profile</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal form-material" id="myprofileform" method="post">
+            <input type="hidden" name="vendorId" id="vendorId" value="<%if(vendor._id){%><%=vendor._id%><%}else{%><%}%>">
+            <div class="form-group">
+              <label class="col-md-12">Name</label>
+              <div class="col-md-12">
+                <input placeholder="" class="form-control form-control-line" name="name"  value="<%if(vendor.name){%><%=vendor.name%><%}else{%><%}%>" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Contact No</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Contact No" class="form-control form-control-line" name="mobile1" value="<%if(vendor.contactno){%><%=vendor.contactno%><%}else{%><%}%>" type="number">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Profile</label>
+              <div class="col-md-12">
+                <input type="file" id="input-file-now" class="dropify" name="profile" data-default-file="<%if(vendor.profile){%><%=vendor.profile%><%}else{}%>"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button class="btn btn-success">Update Profile</button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Edit Bank -->
+<div id="editbank" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Bank Detail</h4>        
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal form-material" id="editbankform" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="vendorId" value="<%=vendor._id%>">
+            <div class="form-group">
+              <label class="col-md-12">Bank Name *</label>
+              <div class="col-md-12">
+                <input placeholder="Enter Bank Name" class="form-control form-control-line" value="<%if(vendor.bankname){%><%=vendor.bankname%><%}else{%><%}%>" name="bankname" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Account Name *</label>
+              <div class="col-md-12">
+                <input placeholder="Enter Account Name" class="form-control form-control-line" value="<%if(vendor.accountname){%><%=vendor.accountname%><%}else{%><%}%>" name="accountname" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Account No *</label>
+              <div class="col-md-12">
+                <input placeholder="Enter Account No" class="form-control form-control-line" value="<%if(vendor.accountno){%><%=vendor.accountno%><%}else{%><%}%>" name="accountno" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">IFSC Code *</label>
+              <div class="col-md-12">
+                <input placeholder="Enter IFSC Code" class="form-control form-control-line" value="<%if(vendor.ifsc){%><%=vendor.ifsc%><%}else{%><%}%>" name="ifsc" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button class="btn btn-success" type="submit">Update Bank Detail</button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Edit Address -->
+<div id="editaddress" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Address</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal form-material">
+              <div class="form-group">
+                <label class="col-md-12">Address 1*</label>
+                <div class="col-md-12">
+                  <textarea rows="4" class="form-control form-control-line"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-12">Address 2*</label>
+                <div class="col-md-12">
+                  <textarea rows="4" class="form-control form-control-line"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-md-12">Address 3*</label>
+                <div class="col-md-12">
+                  <textarea rows="4" class="form-control form-control-line"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <button class="btn btn-success">Update Address</button>
+                </div>
+              </div>
+            </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- jQuery 3 --> 
+<script src="js/jquery.min.js"></script>  
+<script src="bootstrap/js/bootstrap.min.js"></script> 
+
+<!-- template --> 
+<script src="js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="plugins/jquery-sparklines/sparkline-int.js"></script> 
+<script src="plugins/table-expo/filesaver.min.js"></script>
+<script src="plugins/table-expo/xls.core.min.js"></script>
+<script src="plugins/table-expo/tableexport.js"></script>
+<!-- dropify --> 
+<script src="plugins/dropify/dropify.min.js"></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"></script>
+<script>
+  $(document).ready(function()
+    {
+      $("#personnel").tablesorter({
+        sortList: [[0,0]],
+        headers: {3:{sorter:false}}
+      });
+    }
+  );
+</script>
+<script>
+
+  $(document).ready(function(){
+  // Basic
+  $('.dropify').dropify();
+
+  // Translated
+   $('.dropify-fr').dropify({
+                    messages: {
+                        default: 'Glissez-déposez un fichier ici ou cliquez',
+                        replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                        remove:  'Supprimer',
+                        error:   'Désolé, le fichier trop volumineux'
+                    }
+                });
+
+                // Used events
+                var drEvent = $('#input-file-events').dropify();
+
+                drEvent.on('dropify.beforeClear', function(event, element){
+                    return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+                });
+
+                drEvent.on('dropify.afterClear', function(event, element){
+                    alert('File deleted');
+                });
+
+                drEvent.on('dropify.errors', function(event, element){
+                    console.log('Has Errors');
+                });
+
+                var drDestroy = $('#input-file-to-destroy').dropify();
+                drDestroy = drDestroy.data('dropify')
+                $('#toggleDropify').on('click', function(e){
+                    e.preventDefault();
+                    if (drDestroy.isDropified()) {
+                        drDestroy.destroy();
+                    } else {
+                        drDestroy.init();
+                    }
+                })
+    });
+</script>
+
+<!-- bootstrap-switch --> 
+<script src="plugins/bootstrap-switch/bootstrap-switch.js"></script> 
+<script src="plugins/bootstrap-switch/highlight.js"></script> 
+<script src="plugins/bootstrap-switch/main.js"></script>
+
+
+<script src="plugins/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script>
+  $('#editbankform').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+      url: '<%=BaseUrl%>/api/addorUpdatebankDetailsForVendor',
+      type: 'post',
+      data: $('#editbankform').serialize(),
+      cache:false,
+      processData: false,
+      success: (data)=>{
+        if(data.error == 'Y'){
+          alert("uplading Issues : "+data.msg);
+        }else{
+          location.reload();
+        }
+      },
+      error: (error)=>{
+        console.log("error :::::::: ", error);
+      }
+    })
+  })
+  $('#myprofileform').submit(function(e){
+    e.preventDefault();
+    
+    var formData = new FormData(this);
+    $.ajax({
+      url: '<%=BaseUrl%>/api/updateMyvendorProfile',
+      type: 'post',
+      data: formData,
+      enctype: 'multipart/form-data',
+      cache:false,
+      contentType: false,
+      processData: false,
+      success: (data)=>{
+        if(data.error == 'Y'){
+          alert("uplading Issues : "+data.msg);
+        }else{
+          console.log("data :::::: ", data.data);
+          location.reload();
+        }
+      },
+      error: (error)=>{
+        console.log("error :::::::: ", error);
+      }
+    })
+  })
+    jQuery(document).ready(function() {
+        // Switchery
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        $('.js-switch').each(function() {
+            new Switchery($(this)[0], $(this).data());
+        });
+        // For select 2
+        $(".select2").select2();
+        $('.selectpicker').selectpicker();
+        //Bootstrap-TouchSpin
+        $(".vertical-spin").TouchSpin({
+            verticalbuttons: true,
+            verticalupclass: 'ti-plus',
+            verticaldownclass: 'ti-minus'
+        });
+        var vspinTrue = $(".vertical-spin").TouchSpin({
+            verticalbuttons: true
+        });
+        if (vspinTrue) {
+            $('.vertical-spin').prev('.bootstrap-touchspin-prefix').remove();
+        }
+        $("input[name='tch1']").TouchSpin({
+            min: 0,
+            max: 100,
+            step: 0.1,
+            decimals: 2,
+            boostat: 5,
+            maxboostedstep: 10,
+            postfix: '%'
+        });
+        $("input[name='tch2']").TouchSpin({
+            min: -1000000000,
+            max: 1000000000,
+            stepinterval: 50,
+            maxboostedstep: 10000000,
+            prefix: '$'
+        });
+        $("input[name='tch3']").TouchSpin();
+        $("input[name='tch3_22']").TouchSpin({
+            initval: 40
+        });
+        $("input[name='tch5']").TouchSpin({
+            prefix: "pre",
+            postfix: "post"
+        });
+        // For multiselect
+        $('#pre-selected-options').multiSelect();
+        $('#optgroup').multiSelect({
+            selectableOptgroup: true
+        });
+        $('#public-methods').multiSelect();
+        $('#select-all').click(function() {
+            $('#public-methods').multiSelect('select_all');
+            return false;
+        });
+        $('#deselect-all').click(function() {
+            $('#public-methods').multiSelect('deselect_all');
+            return false;
+        });
+        $('#refresh').on('click', function() {
+            $('#public-methods').multiSelect('refresh');
+            return false;
+        });
+        $('#add-option').on('click', function() {
+            $('#public-methods').multiSelect('addOption', {
+                value: 42,
+                text: 'test 42',
+                index: 0
+            });
+            return false;
+        });
+        $(".ajax").select2({
+            ajax: {
+                url: "https://api.github.com/search/repositories",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function(data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function(markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1,
+            // templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+        });
+    });
+
+function myPrint(divName){
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    $('#modal').modal('toggle');
+    // window.location="http://sunfnl.com/public/Sunfashion#!/order";
+    // location.reload()
+}
+
+function getStatusDetails(){
+  console.log("modal-more-details :::::: ");
+  $('#modal-more-details').modal('show');
+}
+function TrackingDetails(manifestId){
+  console.log("manifestId ", manifestId, typeof manifestId); 
+  if(manifestId.trim() != '' && manifestId != 0){
+    $.ajax({
+      url: '<%=BaseUrl%>/api/trackingDetails',
+      type: 'post',
+      data: {id: manifestId},
+      success: (data)=>{
+        $('#shippingSummary').html('');
+        console.log("Data :::::::::", data);
+        if(data.AuthKey == 'Valid'){
+            Object.keys(data).forEach(function(key) {
+              if(key == 'ReturnMessage' && data[key] == 'Please provide token number'){
+                alert("Please provide token number");
+                return true;
+              }
+              if(key == 'AuthKey'){
+
+              }else if(key == 'PendinigAWBNumberDetails'){
+
+                if(typeof data.PendinigAWBNumberDetails != 'undefined' && data.PendinigAWBNumberDetails.length){
+                  for (var i = 0; i < data.PendinigAWBNumberDetails.length; i++) {
+                    var elements = '<div class="form-group">'+
+                                  '<label>AWBNumber</label> '+
+                                  '<input type="text" class="form-control" id="min_range" value="'+data.PendinigAWBNumberDetails[i]['AWBNumber']+'" disabled>'+
+                                '</div>';
+
+                    $('#shippingSummary').append(elements);  
+                  }
+
+                }
+              }else{
+
+                var status = '';
+                var elements = '<div class="form-group">'+
+                                  '<label>'+key+'</label> '+
+                                  '<input type="text" class="form-control" id="min_range" value="'+data[key]+'" disabled>'+
+                                '</div>';
+                  $('#shippingSummary').append(elements);  
+              }
+            })
+            $('#popupTitle').html('Tracking Details');
+            $('#modal-default').modal('show');
+        }
+      }
+    })
+  }else{
+    alert("manifestId not generated!!!");
+  }
+}
+function GetShipmentSummaryDetails(manifestId){
+  console.log("manifestId ", manifestId, typeof manifestId); 
+  if(manifestId.trim() != '' && manifestId != 0){
+    $.ajax({
+      url: '<%=BaseUrl%>/api/getShipmentSummaryDetails',
+      type: 'post',
+      data: {id: manifestId},
+      success: (data)=>{
+        $('#shippingSummary').html('');
+        console.log("Data :::::::::", data);
+        if(data[0].AuthKey == 'Valid'){
+          if(data[0].ShipmentSummary != null && data[0].ShipmentSummary.length){
+            Object.keys(data[0].ShipmentSummary[0]).forEach(function(key) {
+              
+              var status = '';
+              if(key == 'StatusCode'){
+                status = '<label onclick="getStatusDetails();" style="cursor: pointer;"><b>? (more details)</b></label>';
+              }
+              var elements = '<div class="form-group">'+
+                                '<label>'+key+'</label> '+status+
+                                '<input type="text" class="form-control" id="min_range" value="'+data[0].ShipmentSummary[0][key]+'" disabled>'+
+                              '</div>';
+                $('#shippingSummary').append(elements);  
+            })
+            $('#popupTitle').html('Shipment Summary Details');
+            $('#modal-default').modal('show');
+          }else{
+            alert(data[0].ReturnMessage);
+          }
+        }
+      }
+    })
+  }else{
+    alert("manifestId not generated!!!");
+  }
+}
+function onModelView(orderno){
+  $('#orderhistorybody').empty();
+  $.ajax({
+    url: '<%=BaseUrl%>/api/getSingleOrderDetails',
+    type: 'post',
+    data: {orderno: orderno},
+    success: (data)=>{
+      if(data.error == 'N'){
+        console.log("order data :::::::: ",data);
+        var tablebody = '';
+        var totalQty = 0;
+        var totalPrice = 0;
+        var totalWeight = 0;
+        var i=1;
+          for (var j= 0; j < data.data.productDetails.length; j++) {
+            var productName = typeof data.data.productDetails[j].ProductName != 'undefined' ? data.data.productDetails[j].ProductName : '-';
+           tablebody  +=    '<tr>'
+                            +'<td class="text-center ng-binding">'+i+'</td>'
+                            +'<td class="text-center" style="font-weight: bold;"><img ng-src="'+data.data.productDetails[j].image+'" width="70" height="70" src="'+data.data.productDetails[j].image+'"></td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+productName+'</td> '
+                            +'<td class="text-center ng-binding" style="font-weight: bold;">'+data.data.productDetails[j].qty+'</td> '
+                            +'<td class="text-center ng-binding">'+data.data.productDetails[j].size+'</td>'
+                            +'<td class="text-center ng-binding">'+data.data.productDetails[j].pricePerProduct+'</td>'
+                        +'</tr>';
+            
+            totalQty += parseInt(data.data.productDetails[j].qty);
+            totalPrice += parseInt(data.data.productDetails[j].pricePerProduct);
+            totalWeight += parseInt(data.data.productDetails[j].weight) * totalQty;
+
+            i++;
+          }
+          if(data.data.productDetails.length){
+
+            $('#orderhistorybody').append(tablebody);
+            $('#totalQty').text(totalQty);
+            $('#totalPrice').text(totalPrice);
+
+            $('#weight').text("("+(totalWeight/1000).toFixed(2)+" KG.)");
+            $('#totalShippingCharges').text(data.data.shippingCharge);
+            $('#margin').text(data.data.margin);
+            $('#totalAmount').text(data.data.finalCollect);
+            $('#discountvalue').text(data.data.discount);
+            $('#address').text(data.data.address);
+            $('#senderDetails').text(data.data.senderDetails);
+            $('#created_at').text(data.data.created_at);
+            $('#orderno_view').text(orderno);
+          }
+
+      }else{
+        alert('Error : '+data.msg);
+      }
+    }
+  })
+}
+function onModelIMPSView(orderno){
+  $('#impshistorybody').empty();
+  $.ajax({
+    url: '<%=BaseUrl%>/api/getOrderImpsDetails',
+    type: 'post',
+    data: {orderno: orderno},
+    success: (data)=>{
+      if(data.error == 'N'){
+        console.log("getOrderImpsDetails data :::::::: :::::::::::::::",data);
+        var i=1;
+        var tablebody = '';
+        for (var j= 0; j < data.data.length; j++) {
+         tablebody  +=    '<tr>'
+                          +'<td class="text-center ng-binding">'+i+'</td>'
+                          +'<td class="text-center" style="font-weight: bold;"><img ng-src="'+data.data[j].image+'" width="70" height="70" src="'+data.data[j].image+'"></td> '
+                          +'<td class="text-center ng-binding" style="font-weight: bold;">'+data.data[j].bankname+'</td> '
+                          +'<td class="text-center ng-binding">'+data.data[j].accountname+'</td>'
+                          +'<td class="text-center ng-binding">'+data.data[j].accountno+'</td>'
+                          +'<td class="text-center ng-binding">'+data.data[j].ifsc+'</td>'
+                      +'</tr>';
+          
+          i++;
+        }
+        $('#impshistorybody').append(tablebody);
+      }else{
+        alert('Error : '+data.msg);
+      }
+    }
+  }) 
+}
+function onModelPrint(orderno){
+  $('#orderprintbody').empty();
+  $.ajax({
+    url: '<%=BaseUrl%>/api/getSingleOrderDetails',
+    type: 'post',
+    data: {orderno: orderno},
+    success: (data)=>{
+      if(data.error == 'N'){
+        $(".checklink").attr('href','<%=BaseUrl%>/checkktodo/'+orderno);
+        // var view = data.data.paymentMethod == '0' ? 'none': 'block';
+        // $('#onlinefooter').css('display', view);
+        
+        // if(view =='block'){
+        //   $('#onlinefooter').removeAttr('style');
+        // }
+
+        console.log("order data :::::::: :::::::::::::::",data);
+        var tablebody = '';
+        var totalQty = 0;
+        var totalPrice = 0;
+        var totalWeight = 0;
+        var i=1;
+        console.log("data.data.productDetails.length :::: ", data.data.productDetails.length);
+          // if(data.data.paymentMethod == '1' || data.data.paymentMethod == '2') {
+          //   $('#price_online').css('display', 'block');
+          // }else{
+          //   $('#price_online').css('display', 'none');
+          // }
+          for (var j= 0; j < data.data.productDetails.length; j++) {
+            var productName = typeof data.data.productDetails[j].ProductName != 'undefined' ? data.data.productDetails[j].ProductName : '-';
+           tablebody  +=    '<tr>'
+                            +'<td class="text-center ng-binding">'+i+'</td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+productName+'</td> '
+                            +'<td class="text-center ng-binding" style="font-weight: bold;">'+data.data.productDetails[j].qty+'</td> '
+                            +'<td class="text-center ng-binding">'+data.data.productDetails[j].size+'</td>';
+                            
+            /*if(data.data.paymentMethod == '1' || data.data.paymentMethod == '2') {
+
+              tablebody += '<td class="text-center ng-binding">'+(parseFloat(data.data.productDetails[j].pricePerProduct) * parseInt(data.data.productDetails[j].qty))+'</td>';
+            }*/
+
+            tablebody += '</tr>';
+            
+            totalQty += parseInt(data.data.productDetails[j].qty);
+            totalPrice += parseInt(data.data.productDetails[j].pricePerProduct);
+            totalWeight += parseInt(data.data.productDetails[j].weight) * totalQty;
+
+            i++;
+          }
+          console.log("tablebody ::::: ", data.data);
+          
+          if(data.data.productDetails.length){
+            if(data.data.paymentMethod == '1' || data.data.paymentMethod == '2') {
+              $('#totalAmountPaid').text("COD: "+data.data.totalAmount);
+            }else{
+              $('#totalAmountPaid').text("PREPAID");
+            }
+            $('#orderprintbody').append(tablebody);
+            $('#totalShippingCharges').text(data.data.shippingCharge);
+            $('#awbbarcode').attr('src', 'https://www.barcodesinc.com/generator/image.php?code='+data.data.awbNumber+'&style=196&type=C128B&width=370&height=75&xres=2&font=4');
+            $('#awbNumber').text("Tracking ID : "+data.data.awbNumber);
+            $('#orderNumber').text("Order No : "+data.data.orderno);
+            $('#addressprint').text(data.data.address);
+            $('#senderDetailsprint').text(data.data.senderDetails);
+            // $('#DestinationCode').text('Destination Code: '+data.data.destinationCode);
+            document.getElementById('DestinationCode').innerHTML = 'Destination Code: <br> '+data.data.destinationCode;
+            $('#address').text(data.data.address);
+          }
+
+      }else{
+        alert('Error : '+data.msg);
+      }
+    }
+  }) 
+}
+function onDelete(id){
+  swal({
+    title: "Are you sure?",
+    text: "",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: '<%=BaseUrl%>/deleteOrderPlace/'+id,
+        type: 'GET',
+        success: (response)=>{
+          console.log(response, response.status);
+          swal("Poof! Your order has been deleted!", {
+            icon: "success",
+          });
+          window.location= '<%=BaseUrl%>/orderlist/1';
+        },
+        error(err){
+          console.log("order deletion error: ",err);
+        }
+      })
+    } else {
+      swal("Your order is safe!");
+    }
+  });
+}
+function onOrderAction(id, action){
+  if(action == '1'){
+    var title = "Are you wants to Approve Order?";
+  }else{
+    var title = "Are you wants to Reject Order?";
+  }
+  swal({
+    title: title,
+    text: "",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: '<%=BaseUrl%>/actionOrderPlace/'+id+'/'+action,
+        type: 'GET',
+        success: (response)=>{
+          console.log(response, response.status);
+          swal("Poof! Your order has been deleted!", {
+            icon: "success",
+          });
+          if(response.status == 200){
+            window.location= '<%=BaseUrl%>/orderlist/1';
+          }
+        },
+        error(err){
+          console.log("order Approve/Reject error: ",err);
+        }
+      })
+    } else {
+      swal("Your order is safe!");
+    }
+  });
+}
+</script>
+</body>
+</html>

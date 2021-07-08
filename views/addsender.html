@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>sunfun - Dashboard</title>
+<!-- Tell the browser to be responsive to screen width -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="css/skins/_all-skins.min.css?v=1">
+<!-- DataTables -->
+<link rel="stylesheet" href="plugins/datatables/css/dataTables.bootstrap.min.css">
+<!-- dropify -->
+<link rel="stylesheet" href="plugins/dropify/dropify.min.css">
+
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar"> 
+    <!-- sidebar -->
+    <div class="sidebar"> 
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="info">
+          <p><h1>sunfun</h1></p>
+          <a href="#"><i class="fa fa-power-off fa-2x"></i></a> </div>
+      </div>
+      
+      <!-- sidebar menu -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="active"> <a href="dashboard.html"> <i class="icon-home"></i> &nbsp; &nbsp; <span>Dashboard</span> <span class="pull-right-container"></span> </a>
+        </li>
+        <li class="treeview"> <a href="#"> <i class="fa fa-users"></i> &nbsp; &nbsp; <span>Vendors</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="addvendor.html"><i class="fa fa-angle-right"></i>  &nbsp; Add Vendor</a></li>
+            <li><a href="vendorlist.html"><i class="fa fa-angle-right"></i>  &nbsp; Vendor List</a></li>
+          </ul>
+        </li>
+        <li class="treeview"> <a href="#"> <i class="fa fa-th-list"></i> &nbsp; &nbsp; <span>Catagories</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="addcatagories.html"><i class="fa fa-angle-right"></i>  &nbsp; Add Catagories</a></li>
+            <li><a href="catagorieslist.html"><i class="fa fa-angle-right"></i>  &nbsp; Catagories List</a></li>
+          </ul>
+        </li>
+        <li class="treeview"> <a href="#"> <i class="fa fa-th-large"></i> &nbsp; &nbsp; <span>Catalog</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="addcatalog.html"><i class="fa fa-angle-right"></i>  &nbsp; Add Catalog</a></li>
+            <li><a href="cataloglist.html"><i class="fa fa-angle-right"></i>  &nbsp; Catalog List</a></li>
+          </ul>
+        </li>
+        <li class="treeview"> <a href="#"> <i class="fa fa-table"></i> &nbsp; &nbsp; <span>Product</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="addproduct.html"><i class="fa fa-angle-right"></i>  &nbsp; Add Product</a></li>
+            <li><a href="productlist.html"><i class="fa fa-angle-right"></i>  &nbsp; Product List</a></li>
+          </ul>
+        </li>
+        <li class="treeview"> <a href="#"> <i class="fa fa-rocket"></i> &nbsp; &nbsp; <span>Order</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="addorder.html"><i class="fa fa-angle-right"></i>  &nbsp; Add Order</a></li>
+            <li><a href="orderlist.html"><i class="fa fa-angle-right"></i>  &nbsp; Order List</a></li>
+          </ul>
+        </li>
+        <li class="treeview"> <a href="#"> <i class="fa fa-list-alt"></i> &nbsp; &nbsp; <span>Banner</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="addbanner.html"><i class="fa fa-angle-right"></i>  &nbsp; Add Banner</a></li>
+            <li><a href="bannerlist.html"><i class="fa fa-angle-right"></i>  &nbsp; Banner List</a></li>
+          </ul>
+        </li>
+        <li class="treeview"> <a href="#"> <i class="fa fa-users"></i> &nbsp; &nbsp; <span>Reseller</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+          <ul class="treeview-menu">
+            <li><a href="addreseller.html"><i class="fa fa-angle-right"></i>  &nbsp; Add Reseller</a></li>
+            <li><a href="resellerlist.html"><i class="fa fa-angle-right"></i>  &nbsp; Reseller List</a></li>
+          </ul>
+        </li>
+        <li> <a href="addaddress.html"> <i class="fa fa-map-marker"></i> &nbsp; &nbsp; <span>Add Address</span> <span class="pull-right-container"></span> </a>
+        </li>
+        <li> <a href="addsender.html"> <i class="fa fa-paper-plane"></i> &nbsp; &nbsp; <span>Add Sender</span> <span class="pull-right-container"></span> </a>
+        </li>
+      </ul>
+    </div>
+    <!-- /.sidebar --> 
+  </aside>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1>Add Sender</h1>
+      <ol class="breadcrumb">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><i class="fa fa-angle-right"></i> Add Sender </li>
+      </ol>
+    </div>
+    
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12">
+              <div class="card ">
+                <div class="card-header bg-blue">
+                  <h5 class="text-white m-b-0"> Add Sender</h5>
+                </div>
+                <div class="card-body">
+                  
+                  <form>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">name  *</label>
+                        <input class="form-control" placeholder="Add Name" type="text">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Mobile No *</label>
+                        <input class="form-control" placeholder="Add Mobile No" type="text">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                     </div>
+                  </form>
+               
+                </div>
+              </div>
+            </div>
+        </div> 
+    </div>
+
+
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2018 SunFashion. All rights reserved.</footer>
+</div>
+<!-- ./wrapper --> 
+
+<!-- jQuery 3 --> 
+<script src="js/jquery.min.js"></script>  
+<script src="bootstrap/js/bootstrap.min.js"></script> 
+
+<!-- template --> 
+<script src="js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="plugins/jquery-sparklines/sparkline-int.js"></script> 
+<!-- DataTable --> 
+<script src="plugins/datatables/jquery.dataTables.min.js"></script> 
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script> 
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
+<script src="plugins/table-expo/filesaver.min.js"></script>
+<script src="plugins/table-expo/xls.core.min.js"></script>
+<script src="plugins/table-expo/tableexport.js"></script>
+<script>
+$("table").tableExport({formats: ["xlsx","xls", "csv", "txt"],    });
+</script>
+
+<!-- dropify --> 
+<script src="plugins/dropify/dropify.min.js"></script> 
+<script>
+  $(document).ready(function(){
+  // Basic
+  $('.dropify').dropify();
+
+  // Translated
+   $('.dropify-fr').dropify({
+                    messages: {
+                        default: 'Glissez-déposez un fichier ici ou cliquez',
+                        replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                        remove:  'Supprimer',
+                        error:   'Désolé, le fichier trop volumineux'
+                    }
+                });
+
+                // Used events
+                var drEvent = $('#input-file-events').dropify();
+
+                drEvent.on('dropify.beforeClear', function(event, element){
+                    return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+                });
+
+                drEvent.on('dropify.afterClear', function(event, element){
+                    alert('File deleted');
+                });
+
+                drEvent.on('dropify.errors', function(event, element){
+                    console.log('Has Errors');
+                });
+
+                var drDestroy = $('#input-file-to-destroy').dropify();
+                drDestroy = drDestroy.data('dropify')
+                $('#toggleDropify').on('click', function(e){
+                    e.preventDefault();
+                    if (drDestroy.isDropified()) {
+                        drDestroy.destroy();
+                    } else {
+                        drDestroy.init();
+                    }
+                })
+    });
+</script>
+
+</body>
+</html>

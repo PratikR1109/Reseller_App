@@ -1,0 +1,170 @@
+'
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<style type="text/css">
+    html {
+        zoom: 0.75;
+    }
+
+    body {
+        background: #EEE;
+        /* font-size:0.4em !important; */
+    }
+
+    .invoice {
+        width: 970px !important;
+        margin: 50px auto;
+
+        .invoice-header {
+            padding: 25px 25px 15px;
+
+            h1 {
+                margin: 0
+            }
+
+            .media {
+                .media-body {
+                    font-size: .9em;
+                    margin: 0;
+                }
+            }
+        }
+
+        .invoice-body {
+            border-radius: 10px;
+            padding: 25px;
+            background: #FFF;
+        }
+
+        .invoice-footer {
+            padding: 15px;
+            font-size: 0.9em;
+            text-align: center;
+            color: #999;
+        }
+    }
+
+    .logo {
+        max-height: 70px;
+        border-radius: 10px;
+    }
+
+    .dl-horizontal {
+        margin: 0;
+
+        dt {
+            float: left;
+            width: 80px;
+            overflow: hidden;
+            clear: left;
+            text-align: right;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        dd {
+            margin-left: 90px;
+        }
+    }
+
+    td {
+        font-size: 25px;
+    }
+
+    div {
+        font-size: 25px;
+    }
+
+    .rowamount {
+        padding-top: 15px !important;
+    }
+
+    .rowtotal {
+        font-size: 1.3em;
+    }
+
+    /*.colfix{width:12%;}*/
+    .mono {
+        font-family: monospace;
+    }
+
+    .table>thead>tr>th {
+        font-size: 18px;
+        vertical-align: top !important;
+    }
+</style>
+
+<body>
+    <div class="container invoice">
+        <div class="invoice-body" style="width: 81% !important;">
+            <div class="row">
+                <div class="col-xs-5" style=" padding-right: 0 !important;">
+                    <div class="panel panel-default" style="width: 115%;">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">To</h3>
+                        </div>
+                        <div class="panel-body" align="left">
+                            <dl class="dl-horizontal">
+                                <dd style=" margin-left: 0 !important;">'+results[0].senderDetails+'</dd>
+                                <dd style=" margin-left: 0 !important;">'+address+'</dd>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-7" style=" padding-left: 46px !important;">
+                    <div class="panel panel-default" style="width: 100%;">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Tracking ID</h3>
+                        </div>
+                        <div class="panel-body">
+                            <dl class="dl-horizontal">
+                                <dd style="margin-left: -12px !important;"><img id="awbbarcode"
+                                        src="https://www.barcodesinc.com/generator/image.php?code='+results[0].awbNumber+'&amp;style=196&amp;type=C128B&amp;width=370&amp;height=75&amp;xres=2&amp;font=4">
+                                </dd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" style="margin: auto;">
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr style="height: 60px;">
+                            <th class="text-center colfix" width="10%">Order ID</th>
+                            <th class="text-center colfix" width="60%">Product Name & SKU</th>
+                            <th class="text-center colfix" width="10%">Pieces</th>
+                            <th class="text-center colfix" width="10%">Size</th>
+                            <th class="text-center colfix" width="10%"></th>
+                        </tr>
+                    </thead>
+                    <tbody> '+tablebody+' </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-xs-7">
+                    <div class="panel panel-default" style="margin: auto;">
+                        <div class="panel-body"> FROM
+                            <hr style="margin:3px 0 5px" /> SUN FASHION </div>
+                    </div>
+                </div>
+                <div class="col-xs-7">
+                    <div class="panel panel-default" style="margin: auto;">
+                        <div class="panel-body"> Courier Name
+                            <hr style="margin:3px 0 5px" /> XPRESSBEES </div>
+                    </div>
+                </div>
+                <div class="col-xs-7">
+                    <div class="panel panel-default" style="margin: auto;">
+                        <div class="panel-body"> Destination Code
+                            <hr style="margin:3px 0 5px" /> '+results[0].destinationCode+' </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>'

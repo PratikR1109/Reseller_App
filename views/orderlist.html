@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>sunfnl - Order List</title>
+<!-- Tell the browser to be responsive to screen width -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="<%=BaseUrl%>/bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="<%=BaseUrl%>/css/style.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="<%=BaseUrl%>/css/skins/_all-skins.min.css?v=1">
+<!-- DataTables -->
+<link rel="stylesheet" href="<%=BaseUrl%>/plugins/datatables/css/dataTables.bootstrap.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/scroller/1.4.3/css/scroller.dataTables.min.css"> -->
+<style type="text/css">
+  caption.bottom{
+    display: none !important;
+  }
+  .loading {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: visible;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  /* Transparent Overlay */
+  .loading:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+  }
+
+  /* :not(:required) hides these rules from IE9 and below */
+  .loading:not(:required) {
+    /* hide "loading..." text */
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+  }
+
+  .loading:not(:required):after {
+    content: '';
+    display: block;
+    font-size: 10px;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    -webkit-animation: spinner 1500ms infinite linear;
+    -moz-animation: spinner 1500ms infinite linear;
+    -ms-animation: spinner 1500ms infinite linear;
+    -o-animation: spinner 1500ms infinite linear;
+    animation: spinner 1500ms infinite linear;
+    border-radius: 0.5em;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+    box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  }
+
+  /* Animation */
+
+  @-webkit-keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @-moz-keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+</style>
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="loading" style="display: none;">Loading&#8230;</div>
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="<%=BaseUrl%>/img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="<%=BaseUrl%>/img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <% include left_layout.html %>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1>Order List</h1>
+      <ol class="breadcrumb">
+        <li><a href="<%=BaseUrl%>/dashboard">Dashboard</a></li>
+        <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Order List</a></li>
+      </ol>
+    </div>
+     <div class="modal fade" id="modal-default" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="popupTitle"></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body row" id="shippingSummary">
+            
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-more-details">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Status Code Details</h4>
+          </div>
+          <div class="modal-body" id="shippingSummary">
+            <table>
+              <thead class="thead-light">
+                <tr>
+                  <th>Status Code </th>
+                  <th>Status</th>
+                  <th>Remark</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DRC</td>
+                  <td>Data Received</td>
+                  <td>Shipment manifest details received through API</td>
+                </tr>
+                <tr>
+                  <td>PUC</td>
+                  <td>Pickup Created</td>
+                  <td>Manifest details available for vendor pickup</td>
+                </tr>
+                <tr>
+                  <td>OFP</td>
+                  <td>Out for Pickup</td>
+                  <td>Assigned corresponding manifest for vendor pickup </td>
+                </tr>
+                <tr>
+                  <td>PUD</td>
+                  <td>PickDone</td>
+                  <td>Successfully picked AWB number from therespective Vendor </td>
+                </tr>
+                <tr>
+                  <td>PND</td>
+                  <td>Pickup Not Done</td>
+                  <td>Attempted but not picked</td>
+                </tr>
+                <tr>
+                  <td>PKD</td>
+                  <td>Picked</td>
+                  <td>Manifest Inscan at Hub </td>
+                </tr>
+                <tr>
+                  <td>IT</td>
+                  <td>InTransit</td>
+                  <td>Transit to next location </td>
+                </tr>
+                <tr>
+                  <td>RAD</td>
+                  <td>Reached at Destination</td>
+                  <td>Shipment reached to destination location </td>
+                </tr>
+                <tr>
+                  <td>OFD</td>
+                  <td>Out for Delivery</td>
+                  <td>Shipment out for delivery to customer </td>
+                </tr>
+                <tr>
+                  <td>UD</td>
+                  <td>[Status of NDR Reason] </td>
+                  <td>Attempted but not delivered</td>
+                </tr>
+                <tr>
+                  <td>DLVD</td>
+                  <td>Delivered</td>
+                  <td>Shipment delivered to customer </td>
+                </tr>
+                <tr>
+                  <td>LOST</td>
+                  <td>Lost</td>
+                  <td>Shipments lost in transit </td>
+                </tr>
+                <tr>
+                  <td>RTON</td>
+                  <td>RTO Notified</td>
+                  <td>RTO process initiated </td>
+                </tr>
+                <tr>
+                  <td>RTO</td>
+                  <td>Return to Origin</td>
+                  <td>RTO confirmed & destination changed to origin location </td>
+                </tr>
+                <tr>
+                  <td>RTO-IT</td>
+                  <td>Return to Origin Intransit</td>
+                  <td>Transit to next location in RTO </td>
+                </tr>
+                <tr>
+                  <td>RAO</td>
+                  <td>Reached at Origin</td>
+                  <td>Shipment reached at Return destination location </td>
+                </tr>
+                <tr>
+                  <td>RTO-OFD</td>
+                  <td>Return to Origin Out for Delivery</td>
+                  <td>Shipment out for delivery to return address</td>
+                </tr>
+                <tr>
+                  <td>RTD</td>
+                  <td>Return Delivered</td>
+                  <td>Shipment delivered at return address </td>
+                </tr>
+                <tr>
+                  <td>RTU</td>
+                  <td>Return Undelivered</td>
+                  <td>Shipment undelivered at return address </td>
+                </tr>
+                <tr>
+                  <td>STD</td>
+                  <td>ShipmentTransit damage</td>
+                  <td>Shipment got damage in transit </td>
+                </tr>
+                <tr>
+                  <td>STG</td>
+                  <td>Shortage</td>
+                  <td>Shipment mark shortage in forward journey </td>
+                </tr>
+                <tr>
+                  <td>RTO-STG</td>
+                  <td>Return To Origin Shortage</td>
+                  <td>Shipment mark shortage in return journey</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+   
+
+    <!-- /.content --> 
+    <div class="content">
+      <div class="card">
+        <div class="card-body">
+          <div class="col-md-12">
+            <form id="searchform" action="" method="post" onsubmit="return checkvalidateForm();">
+              <div class="row">
+              <!-- <div class="form-group col-md-3">
+                <input type="text" class="form-control" id="orderno" name="orderno" placeholder="By Order No">
+              </div> -->
+              <div class="form-group col-md-2">
+                  <label>Search Type:</label>
+                  <select name="byList" id="bysortList" class="select2 form-control custom-select">
+                    <option value="Orderno" <%if(search['by'] == 'Orderno') {%> selected <%}%>>Orderno</option>
+                    <option value="ResellerID" <%if(search['by'] == 'ResellerID') {%> selected <%}%>>ResellerID</option>
+                    <option value="Mobileno" <%if(search['by'] == 'Mobileno') {%> selected <%}%>>Mobileno</option>
+                  </select>
+                </div>
+              <div class="form-group col-md-2" id="searchbox">
+                <label>Search:</label>
+                <input type="text" class="form-control" id="orderno" name="orderno" placeholder="Search" value="<%if(search['orderno'] != '') {%><%=search['orderno']%><%}%>">
+              </div>
+              <div class="form-group col-md-2">
+                <label>Select Status:</label>
+                <select name="by" id="bysort" class="select2 form-control custom-select">
+                  <option value="" <%if(search['by'] == '') {%> selected <%}%>>Select Status</option>
+                  <option value="0" <%if(search['by'] == '0') {%> selected <%}%>>Pending</option>
+                  <option value="1" <%if(search['by'] == '1') {%> selected <%}%>>Approved</option>
+                  <option value="2" <%if(search['by'] == '2') {%> selected <%}%>>Cancelled</option>
+                </select>
+              </div>
+              
+              <div class="form-group col-md-1">
+                <label>Min:</label>
+                <input type="number" class="form-control" id="min" name="min" placeholder="By Min" value="<%if(search['min'] != '') {%><%=search['min']%><%}%>">
+              </div>
+              <div class="form-group col-md-1">
+                <label>Max:</label>
+                <input type="number" class="form-control" id="max" name="max" placeholder="By Max" value="<%if(search['max'] != '') {%><%=search['max']%><%}%>">
+              </div>
+              <div class="form-group col-md-2">
+                <label>From Date:</label>
+                <input type="date" class="form-control" id="todate" name="todate" placeholder="By Date" value="<%if(search['todate'] != '') {%><%=search['todate']%><%}%>">
+              </div>
+              <div class="form-group col-md-2">
+                <label>To Date:</label>
+                <input type="date" class="form-control" id="fromdate" name="fromdate" placeholder="By Date" value="<%if(search['fromdate'] != '') {%><%=search['fromdate']%><%}%>">
+              </div>
+              <div class="form-group col-md-2">
+                <label>&nbsp;</label>
+                <input type="submit"  class="form-control btn btn-sm btn-success" value="Search" onclick="changePage('1');">
+              </div>
+              </div>
+            </form>
+          </div>
+          <br>
+          <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered" id="personnel">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Order Date</th>
+                        <th>Order No</th>
+                        <th>Mobile No.</th>
+                        <th>Status</th>
+                        <th>View/Print</th>
+                        <th>Payment Type</th>
+                        <th>TranscationID</th>
+                        <th>Action</th>
+                        <th>TrackingID</th>
+                        <th>Tracking</th>
+                        <th>Courier Name</th>
+                        <th>Product Charge</th>
+                        <th>Shipping Charge</th>
+                        <th>Margin</th>
+                        <th>Size</th>
+                        <th>Reseller ID</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody">
+                      <% if(data.length){ %>
+                      <% for (var i = 0; i < data.length; i++) { %>
+                      <tr>
+                        <td><%=cop%></td>
+                        <td><%if(data[i].created_at){%> <%=data[i].created_at%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].orderno){%> <%=data[i].orderno%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].mobileno){%> <%=data[i].mobileno%> <%}else{%> - <%}%></td>
+                        <td><span class="label label-<%if(data[i].status == 0){%>warning<%}else if(data[i].status == 1){%>success<%}else if(data[i].status == 2){%>info<%}%>"><%if(data[i].status == 0){%>Pending<%}else if(data[i].status == 1){%>Approved<%}else if(data[i].status == 2){%>Cancel<%}%></span></td>
+                        <td>
+                            <button class="btn btn-sm btn-info" style="margin:5px" href="javascript:;" data-toggle="modal" data-target="#order-modal" onclick="onModelView('<%=data[i].orderno%>')"><i class="fa fa-eye"></i></button>
+                            <button class="btn btn-sm btn-info" style="margin:5px" href="javascript:;" data-toggle="modal" data-target="#print-modal" onclick="onModelPrint('<%=data[i].orderno%>')"><i class="fa fa-print"></i></button>
+                        </td>
+                        <td><%if(data[i].paymentMethod){ if(data[i].paymentMethod == 'IMPS'){%>
+                          IMPS <button class="btn btn-sm btn-info" style="margin:5px" href="javascript:;" data-toggle="modal" data-target="#imps-modal" onclick="onModelIMPSView('<%=data[i].orderno%>')"><i class="fa fa-eye"></i></button>
+                          <%}else{%><%=data[i].paymentMethod%> <%}}else{%> - <%}%></td>
+                        <td><%if(data[i].transactionId){%> <%=data[i].transactionId%> <%}else{%> - <%}%></td>
+                        <td>
+                            <%if(data[i].status != 1){%>
+                              <button class="btn btn-sm btn-info" style="margin:5px" type="button" onclick="onOrderAction('<%=data[i]._id%>', '1');"><i class="fa fa-check"></i></button>
+                            <%}%>
+                            <%if(data[i].status != 2){%>
+                              <button class="btn btn-sm btn-danger" style="margin:5px" type="button" onclick="onOrderAction('<%=data[i]._id%>', '0');"><i class="fa fa-times"></i></button>
+                            <%}%>
+                            <!-- <a href="javascript:;"><button class="btn btn-sm btn-info" style="margin:5px" type="button"><i class="fa fa-pencil"></i></button></a>
+                            <div class="clearfix"></div>
+                            <button class="btn btn-sm btn-danger" style="margin:5px" type="button" onclick="onDelete('<%=data[i]._id%>');"><i class="fa fa-trash-o"></i></button> -->
+                        </td>
+                        <td><%if(data[i].TrackingID){%> <%=data[i].TrackingID%> <%}else{%> - <%}%>/<%if(data[i].tokenNumber){%> <%=data[i].tokenNumber%> <%}else{%> - <%}%></td>
+                        <td><button class="btn" onclick="GetShipmentSummaryDetails('<%if(data[i].manifestfileId){%><%=data[i].manifestfileId%><%}else{%><%}%>')">ShipmentDetails</button>
+                          <br><br>
+                          <button class="btn" onclick="TrackingDetails('<%if(data[i].manifestfileId){%><%=data[i].manifestfileId%><%}else{%><%}%>')">TrackingDetails</button></td>
+                        <td>-</td>
+                        <td><%if(data[i].totalPrice){%> <%=data[i].totalPrice%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].shippingCharge){%> <%=data[i].shippingCharge%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].margin){%> <%=data[i].margin%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].size){%> <%=data[i].size%> <%}else{%> - <%}%></td>
+                        <td><%if(data[i].resellerId){%> <%=data[i].resellerId%> <%}else{%> - <%}%></td>
+                      </tr>
+                      <% cop=cop+1} %>
+                    <%}else{%>
+                      <tr>
+                        <td colspan="15"> No Record Found !</td>
+                      </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                    <% if (pages > 0) { %>
+                      <ul class="pagination" id="pagination">
+                        <% if (current == 1) { %>
+                          <li class="disabled"><a>First</a></li>
+                        <% } else { %>
+                            <!-- <li><a href="/orderlist/1">First</a></li> -->
+                            <li><a onclick="changePage('1');" >First</a></li>
+                        <% } %>
+                        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                        <% if (i !== 1) { %>
+                            <li class="disabled"><a>...</a></li>
+                        <% } %>
+                        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                            <% if (i == current) { %>
+                                <li class="active"><a><%= i %></a></li>
+                            <% } else { %>
+                                <!-- <li><a href="/orderlist/<%= i %>"><%= i %></a></li> -->
+                                <li><a onclick="changePage('<%= i %>');" ><%= i %></a></li>
+                            <% } %>
+                            <% if (i == Number(current) + 4 && i < pages) { %>
+                                <li class="disabled"><a>...</a></li>
+                            <% } %>
+                        <% } %>
+                        <% if (current == pages) { %>
+                            <li class="disabled"><a>Last</a></li>
+                        <% } else { %>
+                            <!-- <li><a href="/orderlist/<%= pages %>">Last</a></li> -->
+                            <li><a onclick="changePage('<%= pages %>');" >Last</a></li>
+                        <% } %>
+
+                      </ul>
+                    <% } %>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2018 SunFashion. All rights reserved.</footer>
+</div>
+<!-- ./wrapper --> 
+<div id="print-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Print Order</h4>
+                <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body" id="print_section">
+                <div class="box-body">
+                      <table style="width:100%;padding :10px ;border: 1px solid black;">
+                        <tbody><tr>
+                        <td style="width: 40%;padding :10px ;border: 1px solid black;" class="ng-binding">
+                            To <br><br>
+                           <label id="addressName"></label>
+                           <label id="addressprint"></label>
+                        </td>
+                        <td style="padding :10px ;border: 1px solid black;">
+                            <center><img  id="awbbarcode" src="https://www.barcodesinc.com/generator/image.php?code=Your%20Text&style=197&type=C128B&width=167&height=50&xres=1&font=3"></center>
+                        </td>
+                        <td style="padding :10px ;border: 1px solid black;">
+                            <b class="ng-binding" id="awbNumber">Tracking Id : 1392318100088 <br></b><br>
+                            <b class="ng-binding" id="orderNumber">Order No : 1392318100088 <br></b>
+                        </td>
+                        </tr>
+                        </tbody></table>
+                        
+                        <table style="width:100%;margin-top:10px;padding :10px ;border: 1px solid black;">
+                        
+                            <tbody>
+                              <tr>
+                                <th style="padding :10px ;border: 1px solid black;">No</th>
+                                <th style="padding :10px ;border: 1px solid black;">Product Name &amp; SKU</th>
+                                <th style="padding :10px ;border: 1px solid black;">Qty</th>
+                                <th style="padding :10px ;border: 1px solid black;">Size</th>
+                                <!-- <th id="price_online" style="padding :10px ;border: 1px solid black;">Price</th> -->
+                              </tr>
+                            </tbody>
+
+                            <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="orderprintbody">
+                            
+                        </tbody><!-- end ngRepeat: p in orderhistory.Product -->
+                        <tfoot id="onlinefooter">
+                            <tr>       
+                                <td colspan="4" style="font-weight: bold;padding :10px ;border: 1px solid black;">
+                                    <span ng-show="orderhistory.pm=='COD'" class="pull-right ng-hide">
+                                        <b class="ng-binding" id="totalAmountPaid"></b>
+                                    </span>
+                                    
+                                </td> 
+                            </tr>           
+                        </tfoot>
+                        </table>
+                        <table style="margin-top:10px;">
+                        <tbody><tr>
+                            <td style="padding :10px ;border: 1px solid black;" class="ng-binding">FROM :<br><span id="senderDetailsprint"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding :10px ;border: 1px solid black;" class="ng-binding">Courier Name :<br> Xpressbess</td>
+                        </tr>
+                        <tr>
+                            <td style="padding :10px ;border: 1px solid black;" class="ng-binding" id="DestinationCode"></td>
+                        </tr>
+                        </tbody></table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="checklink"><button type="button" class="btn btn-info d-none d-lg-block m-l-15" data-toggle="modal" data-target="#responsive-modal"><i class="fa fa-download"></i> &nbsp;Download </button></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="order-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">View Order History</h4>
+                <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <div class="box box-primary">
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive">
+                                <div class="col-md-12" ng-hide="ordersarray.length == 0" style="padding: 0px;">
+                                  <div class="row">
+                                    <div class="col-md-6" style="padding: 4px 25px;">
+                                        <label>Order No : </label>
+                                        <span class="ng-binding" id="orderno_view"></span>
+                                    </div>
+                                    <div class="col-md-6 text-right" style="padding: 4px 25px;float:right;">
+                                        <label>Order Date : </label>
+                                        <span class="ng-binding" id="created_at"></span>
+                                    </div>
+                                  </div>                                     
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr class="text-left">
+                                                <td colspan="7" style="text-align: left;"> <h4 style="font-weight: bold;">Product Details</h4></td>
+                                            </tr>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>Product Image</th>
+                                                <th>Product Name</th>
+                                                <th>QTY</th>
+                                                <th>Size</th>
+                                                <th>Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="orderhistorybody">
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr style="background: #ddd;">       
+                                                <td class="text-right" colspan="3" style="text-align: right;"><b>Total Items</b></td>
+                                                <td class="text-center ng-binding" style="font-weight: bold;" id="totalQty"></td> 
+                                                <td class="text-center" style="text-align: right"><b>Sub Total</b></td>
+                                                <td class="text-center ng-binding" id="totalPrice"></td>
+                                            </tr>           
+                                            <tr style="background: #ddd;">   
+                                                <td colspan="4" rowspan="4"></td>
+                                                <td class="text-center" style="text-align: right"><b class="ng-binding">Shipping Charge <br><span id="weight"></span></b></td>
+                                                <td class="text-center ng-binding" id="totalShippingCharges"></td>
+                                            </tr>     
+                                            <tr style="background: #ddd;">
+                                                <td class="text-center" style="text-align: right"><b>Margin </b></td>
+                                                <td class="text-center ng-binding" id="margin">0</td>
+                                            </tr>
+                                            
+                                            <tr style="background: #ddd;">  
+                                                <td class="text-center" style="text-align: right"><b>Discount</b></td>
+                                                <td class="text-center ng-binding" id="discountvalue">0</td>
+                                            </tr>     
+                                            <tr style="background: #ddd;">
+                                                <td class="text-center" style="text-align: right"><b>Grand Total</b></td>
+                                                <td class="text-center ng-binding" id="totalAmount"></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                    <h4 style="font-weight: bold;padding-left: 5px;padding-right: 5px;border-bottom: 2px solid black;padding-bottom: 5px;">Shipping Details</h4>
+                                    <div class="row" style="width:100%;padding: 10px;">
+                                      <div class="col-md-12">
+                                          <label>Sender Details : </label>
+                                          <span class="ng-binding" id="senderDetails"></span>
+                                      </div>
+                                      <br>
+                                      <div class="col-md-12">
+                                          <label>Customer Details : </label>
+                                          <span class="ng-binding" id="address"></span>
+                                      </div>
+                                    </div>      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="imps-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">View IMPS History</h4>
+                <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="col-xs-12">
+                        <div class="box box-primary">
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive">
+                                <div class="col-md-12" ng-hide="ordersarray.length == 0" style="padding: 0px;">
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr class="text-left">
+                                                <td colspan="7" style="text-align: left;"> <h4 style="font-weight: bold;">IMPS Details</h4></td>
+                                            </tr>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>Image</th>
+                                                <th>Bank Name</th>
+                                                <th>Account Name</th>
+                                                <th>Account Number</th>
+                                                <th>IFSC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="ng-scope" id="impshistorybody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery 3 --> 
+<script src="<%=BaseUrl%>/js/jquery.min.js"></script>  
+<script src="<%=BaseUrl%>/bootstrap/js/bootstrap.min.js"></script> 
+
+<script src="<%=BaseUrl%>/js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="<%=BaseUrl%>/plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="<%=BaseUrl%>/plugins/jquery-sparklines/sparkline-int.js"></script> 
+<!-- DataTable --> 
+<script src="<%=BaseUrl%>/plugins/datatables/jquery.dataTables.min.js"></script> 
+<script src="<%=BaseUrl%>/plugins/datatables/dataTables.bootstrap.min.js"></script> 
+
+
+<script src="<%=BaseUrl%>/plugins/table-expo/filesaver.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/table-expo/xls.core.min.js"></script>
+<script src="<%=BaseUrl%>/plugins/table-expo/tableexport.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"></script>
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="<%BaseUrl%>/plugins/fancybox-2.1.7/source/jquery.fancybox.css?v=2.1.7" type="text/css" media="screen" />
+<script type="text/javascript" src="<%BaseUrl%>/plugins/fancybox-2.1.7/source/jquery.fancybox.pack.js?v=2.1.7"></script>
+
+
+<script>
+  $(document).ready(function()
+    {
+      $("#personnel").tablesorter({
+        sortList: [[0,0]],
+        headers: {3:{sorter:false}}
+      });
+    }
+  );
+</script>
+<script>
+
+function checkvalidateForm(){
+    console.log($('#min').val() +'  max :: '+$('#max').val()+ '  Date ::  '+$('#fromdate').val()+'  todate  ::  '+$('#todate').val())
+    if(($('#min').val() == $('#max').val()) && $('#min').val() != '' &&  $('#max').val() != '' &&  $('#max').val() != undefined &&  $('#max').val() != undefined){
+      swal("Oops!", "Please Select Valid Min and Max Range of Price!");
+      return false;
+    }
+    if($('#min').val() == '' &&  $('#max').val() != ''){
+      swal("Oops!", "Please Select Min Price!");
+      return false;
+    }
+    if($('#min').val() != '' &&  $('#max').val() == ''){
+      swal("Oops!", "Please Select Max Price!");
+      return false;
+    }
+    var min = $('#min').val();
+    var max = $('#max').val();
+    if(parseInt(min) > parseInt(max)){
+     swal("Oops!", "Min Price Should not Greater then Max Price!");
+     return false; 
+    }
+
+    if($('#todate').val() != '' &&  $('#fromdate').val() == ''){
+      swal("Oops!", "Please Select To Date");
+      return false;
+    }
+
+    if($('#fromdate').val() != '' &&  $('#todate').val() == ''){
+      swal("Oops!", "Please Select From Date");
+      return false;
+    }
+    var startDate = new Date($('#todate').val());
+    var endDate = new Date($('#fromdate').val());
+
+    if (startDate > endDate){
+      swal("Oops!", "From Date Should not Greater then To Date!"); 
+      return false;
+    }
+    
+    return true;
+  }
+
+function myPrint(divName){
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    $('#modal').modal('toggle');
+    // window.location="http://sunfnl.com/public/Sunfashion#!/order";
+    // location.reload()
+}
+
+function getStatusDetails(){
+  console.log("modal-more-details :::::: ");
+  $('#modal-more-details').modal('show');
+}
+function TrackingDetails(manifestId){
+  console.log("manifestId ", manifestId, typeof manifestId); 
+  if(manifestId.trim() != '' && manifestId != 0){
+    $('.loading').css({'display': 'block'});
+    $.ajax({
+      url: '<%=BaseUrl%>/api/trackingDetails',
+      type: 'post',
+      data: {id: manifestId},
+      success: (data)=>{
+        $('#shippingSummary').html('');
+        console.log("Data :::::::::", data);
+        if(data.AuthKey == 'Valid'){
+            Object.keys(data).forEach(function(key) {
+              if(key == 'ReturnMessage' && data[key] == 'Please provide token number'){
+                alert("Please provide token number");
+                return true;
+              }
+              if(key == 'AuthKey'){
+
+              }else if(key == 'PendinigAWBNumberDetails'){
+
+                if(typeof data.PendinigAWBNumberDetails != 'undefined' && data.PendinigAWBNumberDetails.length){
+                  for (var i = 0; i < data.PendinigAWBNumberDetails.length; i++) {
+                    var elements = '<div class="form-group">'+
+                                  '<label>AWBNumber</label> '+
+                                  '<input type="text" class="form-control" id="min_range" value="'+data.PendinigAWBNumberDetails[i]['AWBNumber']+'" disabled>'+
+                                '</div>';
+
+                    $('#shippingSummary').append(elements);  
+                  }
+
+                }
+              }else{
+
+                var status = '';
+                var elements = '<div class="form-group col-sm-6">'+
+                                  '<label>'+key+'</label> '+
+                                  '<input type="text" class="form-control" id="min_range" value="'+data[key]+'" disabled>'+
+                                '</div>';
+                  $('#shippingSummary').append(elements);  
+              }
+            })
+            $('#popupTitle').html('Tracking Details');
+            $('.loading').css({'display': 'none'});
+            $('#modal-default').modal('show');
+        }
+      }
+    })
+  }else{
+    alert("manifestId not generated!!!");
+  }
+}
+function GetShipmentSummaryDetails(manifestId){
+  console.log("manifestId ", manifestId, typeof manifestId); 
+  if(manifestId.trim() != '' && manifestId != 0){
+    $('.loading').css({'display': 'block'});
+    $.ajax({
+      url: '<%=BaseUrl%>/api/getShipmentSummaryDetails',
+      type: 'post',
+      data: {id: manifestId},
+      success: (data)=>{
+        $('#shippingSummary').html('');
+        console.log("Data :::::::::", data);
+        if(data[0].AuthKey == 'Valid'){
+          if(data[0].ShipmentSummary != null && data[0].ShipmentSummary.length){
+            Object.keys(data[0].ShipmentSummary[0]).forEach(function(key) {
+              
+              var status = '';
+              if(key == 'StatusCode'){
+                status = '<label onclick="getStatusDetails();" style="cursor: pointer;"><b>? (more details)</b></label>';
+              }
+              var elements = '<div class="form-group col-sm-6">'+
+                                '<label>'+key+'</label> '+status+
+                                '<input type="text" class="form-control" id="min_range" value="'+data[0].ShipmentSummary[0][key]+'" disabled>'+
+                              '</div>';
+                $('#shippingSummary').append(elements);  
+            })
+            $('#popupTitle').html('Shipment Summary Details');
+            $('.loading').css({'display': 'none'});
+            $('#modal-default').modal('show');
+          }else{
+            $('.loading').css({'display': 'none'});
+            alert(data[0].ReturnMessage);
+          }
+        }
+      }
+    })
+  }else{
+    alert("manifestId not generated!!!");
+  }
+}
+function onModelView(orderno){
+  $('#orderhistorybody').empty();
+  $.ajax({
+    url: '<%=BaseUrl%>/api/getSingleOrderDetails',
+    type: 'post',
+    data: {orderno: orderno},
+    success: (data)=>{
+      if(data.error == 'N'){
+        console.log("order data :::::::: ",data);
+        var tablebody = '';
+        var totalQty = 0;
+        var totalPrice = 0;
+        var totalWeight = 0;
+        var i=1;
+          for (var j= 0; j < data.data.productDetails.length; j++) {
+            var productName = typeof data.data.productDetails[j].ProductName != 'undefined' ? data.data.productDetails[j].ProductName : '-';
+           tablebody  +=    '<tr>'
+                            +'<td class="text-center ng-binding">'+i+'</td>'
+                            // +'<td class="text-center" style="font-weight: bold;"><img ng-src="'+data.data.productDetails[j].image+'" width="70" height="70" src="'+data.data.productDetails[j].image+'"></td> '
+                            +'<td class="text-center" ><a class="fancybox" href="'+data.data.productDetails[j].image+'"><img src="'+data.data.productDetails[j].image+'" style="width: 70px ; height : 70px; " alt="" /></a></td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+productName+'</td> '
+                            +'<td class="text-center ng-binding" style="font-weight: bold;">'+data.data.productDetails[j].qty+'</td> '
+                            +'<td class="text-center ng-binding">'+data.data.productDetails[j].size+'</td>'
+                            +'<td class="text-center ng-binding">'+data.data.productDetails[j].pricePerProduct+'</td>'
+                        +'</tr>';
+            
+            totalQty += parseInt(data.data.productDetails[j].qty);
+            totalPrice += parseInt(data.data.productDetails[j].pricePerProduct);
+            totalWeight += parseInt(data.data.productDetails[j].weight) * totalQty;
+
+            i++;
+          }
+          if(data.data.productDetails.length){
+            $('#orderhistorybody').append(tablebody);
+            $(".fancybox").fancybox({
+    	        openEffect	: 'elastic',
+    	        closeEffect	: 'elastic'
+            });
+            $('#totalQty').text(totalQty);
+            $('#totalPrice').text(totalPrice);
+
+            $('#weight').text("("+(totalWeight/1000).toFixed(2)+" KG.)");
+            $('#totalShippingCharges').text(data.data.shippingCharge);
+            $('#margin').text(data.data.margin);
+            $('#totalAmount').text(data.data.finalCollect);
+            $('#discountvalue').text(data.data.discount);
+            $('#address').text(data.data.address);
+            $('#senderDetails').text(data.data.senderDetails);
+            $('#created_at').text(data.data.created_at);
+            $('#orderno_view').text(orderno);
+          }
+
+      }else{
+        alert('Error : '+data.msg);
+      }
+    }
+  })
+}
+
+$(document).ready(function() {
+    $(".fancybox").fancybox();
+	});
+
+function onModelIMPSView(orderno){
+  $('#impshistorybody').empty();
+  $.ajax({
+    url: '<%=BaseUrl%>/api/getOrderImpsDetails',
+    type: 'post',
+    data: {orderno: orderno},
+    success: (data)=>{
+      if(data.error == 'N'){
+        console.log("getOrderImpsDetails data :::::::: :::::::::::::::",data);
+        var i=1;
+        var tablebody = '';
+        for (var j= 0; j < data.data.length; j++) {
+         tablebody  +=    '<tr>'
+                          +'<td class="text-center ng-binding">'+i+'</td>'
+                          // +'<td class="text-center" style="font-weight: bold;"><img ng-src="'+data.data[j].image+'" width="70" height="70" src="'+data.data[j].image+'"></td> '
+                          +'<td class="text-center" ><a class="fancybox" href="'+data.data[j].image+'"><img src="'+data.data[j].image+'" style="width: 70px ; height : 70px; " alt="" /></a></td>'
+                          +'<td class="text-center ng-binding" style="font-weight: bold;">'+data.data[j].bankname+'</td> '
+                          +'<td class="text-center ng-binding">'+data.data[j].accountname+'</td>'
+                          +'<td class="text-center ng-binding">'+data.data[j].accountno+'</td>'
+                          +'<td class="text-center ng-binding">'+data.data[j].ifsc+'</td>'
+                      +'</tr>';
+          
+          i++;
+        }
+        $('#impshistorybody').append(tablebody);
+        $(".fancybox").fancybox({
+    	        openEffect	: 'elastic',
+    	        closeEffect	: 'elastic'
+        });
+      }else{
+        alert('Error : '+data.msg);
+      }
+    }
+  }) 
+}
+function onModelPrint(orderno){
+  $('#orderprintbody').empty();
+  $.ajax({
+    url: '<%=BaseUrl%>/api/getSingleOrderDetails',
+    type: 'post',
+    data: {orderno: orderno},
+    success: (data)=>{
+      if(data.error == 'N'){
+        $(".checklink").attr('href','<%=BaseUrl%>/checkktodo/'+orderno);
+        // var view = data.data.paymentMethod == '0' ? 'none': 'block';
+        // $('#onlinefooter').css('display', view);
+        
+        // if(view =='block'){
+        //   $('#onlinefooter').removeAttr('style');
+        // }
+
+        console.log("order data :::::::: :::::::::::::::",data);
+        var tablebody = '';
+        var totalQty = 0;
+        var totalPrice = 0;
+        var totalWeight = 0;
+        var i=1;
+        console.log("data.data.productDetails.length :::: ", data.data.productDetails.length);
+          // if(data.data.paymentMethod == '1' || data.data.paymentMethod == '2') {
+          //   $('#price_online').css('display', 'block');
+          // }else{
+          //   $('#price_online').css('display', 'none');
+          // }
+          for (var j= 0; j < data.data.productDetails.length; j++) {
+            var productName = typeof data.data.productDetails[j].ProductName != 'undefined' ? data.data.productDetails[j].ProductName : '-';
+           tablebody  +=    '<tr>'
+                            +'<td class="text-center ng-binding">'+i+'</td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+productName+'</td> '
+                            +'<td class="text-center ng-binding" style="font-weight: bold;">'+data.data.productDetails[j].qty+'</td> '
+                            +'<td class="text-center ng-binding">'+data.data.productDetails[j].size+'</td>';
+                            
+            /*if(data.data.paymentMethod == '1' || data.data.paymentMethod == '2') {
+
+              tablebody += '<td class="text-center ng-binding">'+(parseFloat(data.data.productDetails[j].pricePerProduct) * parseInt(data.data.productDetails[j].qty))+'</td>';
+            }*/
+
+            tablebody += '</tr>';
+            
+            totalQty += parseInt(data.data.productDetails[j].qty);
+            totalPrice += parseInt(data.data.productDetails[j].pricePerProduct);
+            totalWeight += parseInt(data.data.productDetails[j].weight) * totalQty;
+
+            i++;
+          }
+          console.log("tablebody ::::: ", data.data);
+          
+          if(data.data.productDetails.length){
+            if(data.data.paymentMethod == '2') {
+              $('#totalAmountPaid').text("COD: "+data.data.totalAmount);
+            }else{
+              $('#totalAmountPaid').text("PREPAID");
+            }
+            $('#orderprintbody').append(tablebody);
+            $('#totalShippingCharges').text(data.data.shippingCharge);
+            $('#awbbarcode').attr('src', 'https://www.barcodesinc.com/generator/image.php?code='+data.data.awbNumber+'&style=196&type=C128B&width=370&height=75&xres=2&font=4');
+            $('#awbNumber').text("Tracking ID : "+data.data.awbNumber);
+            $('#orderNumber').text("Order No : "+data.data.orderno);
+            $('#addressprint').text(data.data.address);
+            $('#senderDetailsprint').text(data.data.senderDetails);
+            // $('#DestinationCode').text('Destination Code: '+data.data.destinationCode);
+            document.getElementById('DestinationCode').innerHTML = 'Destination Code: <br> '+data.data.destinationCode;
+            $('#address').text(data.data.address);
+          }
+
+      }else{
+        alert('Error : '+data.msg);
+      }
+    }
+  }) 
+}
+function onDelete(id){
+  swal({
+    title: "Are you sure?",
+    text: "",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: '<%=BaseUrl%>/deleteOrderPlace/'+id,
+        type: 'GET',
+        success: (response)=>{
+          console.log(response, response.status);
+          swal("Poof! Your order has been deleted!", {
+            icon: "success",
+          });
+          window.location= '<%=BaseUrl%>/orderlist/1';
+        },
+        error(err){
+          console.log("order deletion error: ",err);
+        }
+      })
+    } else {
+      swal("Your order is safe!");
+    }
+  });
+}
+
+function onOrderAction(id, action){
+  if(action == '1'){
+    var title = "Approve Order?";
+  }else{
+    var title = "Reject Order?";
+  }
+  swal({
+    title: title,
+    text: "",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: '<%=BaseUrl%>/actionOrderPlace/'+id+'/'+action,
+        type: 'GET',
+        success: (response)=>{
+          console.log(response, response.status);
+          if(action == '1'){
+            swal("Poof! Your order has been approve!", {
+              icon: "success",
+            });
+          }else{
+            swal("Poof! Your order has been reject!", {
+              icon: "success",
+            });
+          }
+          if(response.status == 200){
+            window.location= '<%=BaseUrl%>/orderlist/1';
+          }
+        },
+        error(err){
+          console.log("order Approve/Reject error: ",err);
+        }
+      })
+    } 
+  });
+}
+
+function changePage(page){
+  var isPostReq=false;
+  if($('#orderno').val()){
+    isPostReq=true;
+  }
+  if($('#todate').val()){
+    isPostReq=true;
+  }
+  if($('#fromdate').val()){
+    isPostReq=true;
+  }
+  if($('#min').val()){
+    isPostReq=true;
+  }
+  if($('#max').val()){
+    isPostReq=true;
+  }
+  if($("#bysort option:selected" ).attr("value") != ''){
+    isPostReq=true;
+  }
+  var link='<%=BaseUrl%>/orderlist/'+page;
+  if(isPostReq){
+    $('#searchform').attr('action', link);
+    $('#searchform').submit();
+  }
+  else{
+    location.href = link;
+  }
+  
+}
+</script>
+
+
+</body>
+</html>

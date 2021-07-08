@@ -1,0 +1,293 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feathers User</title>
+</head>
+<body>
+  <h1>Welcome to Feathers</h1>
+  <p>Open up the console in your browser.</p>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.1.4/core.min.js"></script>
+  <script type="text/javascript" src="//npmcdn.com/feathers-client@^1.1.0/feathers.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    // Set up socket.io
+    var socket = io('http://localhost:3030');
+    // Set up Feathers client side
+    var app = feathers();
+    // Register hooks module
+    app.configure(feathers.hooks());
+    // Register socket.io
+    app.configure(feathers.socketio(socket));
+    // Set up authentication with a store to cache your auth token
+    app.configure(feathers.authentication({ storage: window.localStorage }));
+    // Authenticating using a email and password
+    app.authenticate({
+      type: 'local',
+      'email': 'admin@feathersjs.com',
+      'password': 'admin'
+    }).then(function(result){
+      console.log('Authenticated!', result);
+     // Find our users on the server via sockets
+      app.service('users').find({}).then(function(users){
+        console.log('Users!', users);
+      });
+    }).catch(function(error){
+      console.error('Error authenticating!', error);
+    });
+  </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>OWARDS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <style>
+            form{ border: 1px solid #000000;
+                  display: inline-block;
+                  margin: 5px;
+                  padding: 5px;
+                  width: 350px;
+            }
+            .test{
+                background-color: aqua;
+            }
+            div label {
+                display: inline-block;
+                width: 150px;
+            }
+            h2{
+                text-align: center;
+            }
+            hr {plz give
+                border: 5px solid #09f;
+            }
+            form div{
+                display: none;
+            }
+            div p{
+                background:yellow;
+                color: red;
+            }
+            form div.show{
+                display: block;
+            }
+            input{
+                margin: 3px;
+            }
+        </style>
+
+        <script>
+            
+            var socket = io.connect('https://192.168.0.103:3002');
+
+            $(document).ready(function () {
+                $('h2').click(function () {
+                    $('form div.show').removeClass('show');
+                    $(this).parent().children('div').addClass('show');
+                });
+
+                $('.obj_parent').submit(function(){
+                    var form = getFormData($(this).serializeArray());
+                    var eventName = $(this).children().last().attr('id');
+                    socket.emit(eventName, formData);
+                    return false;
+                })
+            });
+            
+            //utility function
+            function getFormData(data) {
+               var unindexed_array = data;
+               var indexed_array = {};
+
+               $.map(unindexed_array, function(n, i) {
+                indexed_array[n['name']] = n['value'];
+               });
+
+               return indexed_array;
+            }
+        </script>
+
+
+    </head>
+    <body>
+
+        <div>
+          <!--signup-->
+            <form class="obj_parent">
+                <h2>SP</h2>
+                <div><p>Guest and Facebook Signup .</p></div>
+
+                <div><label> un  </label> :<input type="text"   class="obj_check" data-key="un" name="un" placeholder="enter username"></div>
+                <div><label> ue  </label> :<input type="text"   class="obj_check" data-key="ue" name="ue" placeholder="enter email"></div>
+                <div><label> fid  </label> :<input type="text"   class="obj_check" data-key="fid" name="fid" placeholder="enter fid"></div>
+                <div><label> ult  </label> :<input type="text"   class="obj_check" data-key="ult" name="ult" placeholder="enter ult"></div>
+                <div><label> oft  </label> :<input type="text"   class="obj_check" data-key="oft" name="oft" placeholder="enter offline token"></div>
+                <div><label> det  </label> :<input type="text"   class="obj_check" data-key="det" name="det" placeholder="enter device type"></div>
+                <div><label> did  </label> :<input type="text"   class="obj_check" data-key="did" name="did" placeholder="enter did"></div>
+                <div><label> av  </label> :<input type="text"   class="obj_check" data-key="av" name="av" placeholder="enter av"></div>
+                <div><label> iv  </label> :<input type="text"   class="obj_check" data-key="iv" name="iv" placeholder="enter iv"></div>
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="SP"></div>
+                
+
+            </form>
+
+           <form action="" method="post" class="obj_parent">
+                <h2>UP</h2>
+                <div><p>User Profile .</p></div>
+                <div><label> uid  </label> :<input type="text"   class="obj_check" data-key="uid" value="" placeholder="user Id"></div>
+                <div><input type="hidden" name="en"  class="obj_default" data-key="en" value="UP"></div>
+                <div><input type="button" value="submit" class="obj_send"></div>
+                <div id="UP"></div>
+
+            </form>
+            <form action="https://192.168.0.81:3002/offer" method="post" class="obj_parent">
+                <h2>OWARDS/CHIPS-OFFER</h2>
+                <div><p>OWARDS/CHIPS-OFFER</p></div>
+                <div><label> game_id  </label> :<input type="text"   class="obj_check" data-key="game_id" name="game_id"  id="game_id" placeholder="game Id"></div>
+                <div><label> userid  </label> :<input type="text"   class="obj_check" data-key="userid" name="userid"  id="userid" placeholder="game Id"></div>
+                <div><label> revenue  </label> :<input type="text"   class="obj_check" data-key="revenue" name="revenue"  id="revenue" placeholder="game Id"></div>
+                <div><label> installSource  </label> :<input type="text"   class="obj_check" data-key="installSource" name="installSource"  id="installSource" placeholder="game Id"></div>
+                <div><label> chips  </label> :<input type="text"   class="obj_check" data-key="chips" name="chips"  id="chips" placeholder="game Id"></div>
+                <div><label> owards  </label> :<input type="text"   class="obj_check" data-key="owards" name="owards"  id="owards" placeholder="game Id"></div>
+                <div><label> spinCount  </label> :<input type="text"   class="obj_check" data-key="spinCount" name="spinCount"  id="spinCount" placeholder="game Id"></div>
+                <div><input type="hidden" name="en"  class="obj_default" data-key="en" value="UPIT"></div>
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="UPIT"></div>
+
+            </form>      
+
+            <form action="" method="post" class="obj_parent">
+                <h2>CARUserOffers1</h2>
+                <div><p>CARUserOffers1.</p></div>
+                <div><label> uid  </label> :<input type="text"   class="obj_check" data-key="uid" value="" placeholder="user Id"></div>
+                <div><label> msg  </label> :<input type="text"   class="obj_check" data-key="msg" value="" placeholder="message "></div>
+                <div><label> det  </label> :<input type="text"   class="obj_check" data-key="det" value="" placeholder="device type"></div>
+                <div><input type="hidden" name="en"  class="obj_default" data-key="en" value="FDBK"></div>
+                <div><input type="button" value="submit" class="obj_send"></div>
+                <div id="FDBK"></div>
+            </form>
+              <form action="https://192.168.0.81:3002/api" method="post" class="obj_parent">
+                <h2>GUI</h2>
+                <div><p>Game User Info .</p></div>
+                <div><label> userid  </label> :<input type="text"   class="obj_check" data-key="userid" value="" id="userid" name="userid" placeholder="user Id"></div>
+                <div><input type="hidden" name="en"  class="obj_default" data-key="en" value="GUI"></div>
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="GUI"></div>
+            </form>
+            <hr>
+            <form action="https://192.168.0.81:3002/api" method="post" class="obj_parent">
+                <h2>CG</h2>
+                <div><p>Crystal Gems .</p></div>
+                
+                <div><label> type  </label> :<input type="text"   class="obj_check" data-key="type" name="type" id="type" value="app_nss"></div>
+                <div><label> name  </label> :<input type="text"   class="obj_check" data-key="name" name="name" id="name" value="" placeholder="user Id"></div>
+                <div><label> lines  </label> :<input type="text"   class="obj_check" data-key="lines" name="lines" id="lines" value="" placeholder="line"></div>                
+                <div><label> coin  </label> :<input type="text"   class="obj_check" data-key="coin" name="coin" id="coin" value="" placeholder="coin"></div>                
+                <div><label> bet  </label> :<input type="text"   class="obj_check" data-key="bet" name="bet" id="bet" value="" placeholder="bet"></div>                
+                <div><label> stage  </label> :<input type="text"   class="obj_check" data-key="stage" name="stage" id="stage" value="" placeholder="stage"></div>                
+
+                <div><input type="hidden" name="en"  class="obj_default" data-key="en" name="en" id="en" value="CG_SN"></div>
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="CG_SN"></div>
+            </form>
+            <form action="https://192.168.0.81:3002/api" method="post" class="obj_parent">
+                <h2>FQ</h2>
+                <div><p>Festival Queen .</p></div>
+                
+                <div><label> type  </label> :<input type="text"   class="obj_check" data-key="type" name="type" id="type" value="app_nss"></div>
+                <div><label> name  </label> :<input type="text"   class="obj_check" data-key="name" name="name" id="name" value="" placeholder="user Id"></div>
+                <div><label> lines  </label> :<input type="text"   class="obj_check" data-key="lines" name="lines" id="lines" value="" placeholder="line"></div>                
+                <div><label> coin  </label> :<input type="text"   class="obj_check" data-key="coin" name="coin" id="coin" value="" placeholder="coin"></div>                
+                <div><label> bet  </label> :<input type="text"   class="obj_check" data-key="bet" name="bet" id="bet" value="" placeholder="bet"></div>                
+                <div><label> stage  </label> :<input type="text"   class="obj_check" data-key="stage" name="stage" id="stage" value="" placeholder="stage"></div>                
+
+                <div><input type="hidden" name="en"  class="obj_default" data-key="en" name="en" id="en" value="FQ_SN"></div>
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="FQ_SN"></div>
+            </form>
+            <form action="https://192.168.0.81:3002/api" method="post" class="obj_parent">
+                <h2>GUI</h2>
+                <div><p>GET USER INFO .</p></div>
+                
+                <div><label> userid  </label> :<input type="text"   class="obj_check" data-key="uid" value="" placeholder="user Id"></div>
+                
+                <div><input type="hidden" name="en"  class="obj_default" data-key="en" value="GUI"></div>
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="GUI"></div>
+            </form>
+
+
+            <form action="https://192.168.0.81:3001/api" method="post" class="obj_parent">
+                <h2>OPAI</h2>
+                <div><p>Offer popup analytics Impressions .</p></div>
+                
+                <div><label> user_id  </label> :<input type="text"   class="obj_check" data-key="user_id"  id="user_id" name="user_id" placeholder="user Id"></div>
+                <div><label> popup_id  </label> :<input type="text"   class="obj_check" data-key="popup_id"  id="popup_id" name="popup_id" placeholder="user Id"></div>
+                <div><label> flag  </label> :<input type="text"   class="obj_check" data-key="flag"  id="flag" name="flag" placeholder="user Id"></div>
+                
+                <div><input type="hidden" name="en"  class="obj_default" data-key="en" value="OPAI"></div>
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="OPAI"></div>
+            </form>
+            
+            <form action="LONG" method="post" class="obj_parent">
+                <h2>LONG LIVE TOKEN:</h2>
+                <div><p> facebook long live access Token notifications .</p></div>
+                
+                <div><label> fid  </label> :<input type="text"   class="obj_check" data-key="uid" value="" name="client_id" placeholder="client_id"></div>
+                <div><label> message  </label> :<input type="text"   class="obj_check" data-key="message" name="message" value="" placeholder="enter message "></div>                
+                <div><label> secret  </label> :<input type="text"   class="obj_check" data-key="secret" name="secret" value="" placeholder="enter secret "></div>                
+                <div><label> access_token  </label> :<input type="text"   class="obj_check" data-key="access_token" name="access_token" value="" placeholder="enter access_token "></div>                
+                
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="RB"></div>
+            </form>
+
+            <form action="NOTI" method="post" class="obj_parent">
+                <h2>Notifications:</h2>
+                <div><p> send facebook notifications .</p></div>
+                
+                <div><label> fid  </label> :<input type="text"   class="obj_check" data-key="uid" value="" name="fid" placeholder="user Id"></div>
+                <div><label> message  </label> :<input type="text"   class="obj_check" data-key="message" name="message" value="" placeholder="enter message "></div>                
+                <div><label> access_token  </label> :<input type="text"   class="obj_check" data-key="token" name="token" value="" placeholder="enter token "></div>                
+                <div><label> href  </label> :<input type="text"   class="obj_check" data-key="href" name="href" value="" placeholder="enter href "></div>                
+                
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="RB"></div>
+            </form>
+
+      <form action="https://192.168.0.81:3001/api" method="post" class="obj_parent">
+                <h2>Notifications BONUS</h2>
+                <div><p>RNB .</p></div>
+                
+                <div><label> Keyword  </label> :<input type="text"   class="obj_check" data-key="Keyword" name="Keyword" value="" placeholder="Keyword "></div>
+                <div><label> UserId  </label> :<input type="text"   class="obj_check" data-key="UserId" name="UserId" value="" placeholder=" UserId "></div>                
+                
+                  
+                
+                <div><input type="hidden" name="en"  class="obj_default" data-key="en" value="RNB"></div>
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="CM"></div>
+            </form>
+             <hr>
+            <form action="https://192.168.0.81:3001/getUsers" method="post" class="obj_parent">
+                <h2>getUser</h2>
+                <div><p>get & check Access Token</p></div>
+                
+                <div><input type="hidden" name="en"  class="obj_default" data-key="en" value="ST"></div>
+                <div><input type="submit" value="submit" class="obj_send"></div>
+                <div id="ST"></div>
+            </form>
+            
+            
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,13 @@
+{
+	"IS_DEV": true,
+	"HOST": "",
+	"API_VERSION": "v1",
+	"serverPort": 3000,
+	"MongoDB": {
+		"HOST": "localhost",
+		"PORT": 27017,
+		"USERNAME": "",
+		"PASSWORD": "",
+		"DBNAME": "snfl"
+	}
+}

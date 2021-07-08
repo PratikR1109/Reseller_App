@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>sunfnl - <%if(data._id){%>Edit<%}else{%>Add<%}%> Product</title>
+<!-- Tell the browser to be responsive to screen width -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="css/skins/_all-skins.min.css?v=1">
+<link rel="stylesheet" href="plugins/bootstrap-tagsinput/bootstrap-tagsinput.css"/>
+<!-- DataTables -->
+<link rel="stylesheet" href="plugins/datatables/css/dataTables.bootstrap.min.css">
+<!-- dropify -->
+<link rel="stylesheet" href="plugins/dropify/dropify.min.css">
+<!-- bootstrap-switch -->
+<link rel="stylesheet" href="plugins/select2/dist/css/select2.min.css">
+<style type="text/css">
+    .select2-container .select2-selection--single{
+        height: 42px !important;
+    }
+    .select2-container--default .select2-selection--single{
+        border: 1px solid #ddd !important;
+        color: #ddd !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+        line-height: 30px !important;
+        font-size: 16px !important;
+        margin-left: -8px !important;
+    }
+    .select2-selection__rendered{
+        padding-left: -3px !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow{
+        top: 5px !important;
+    }
+    .bootstrap-tagsinput{
+        width: 100% !important;
+        padding: 8px !important;
+        text-transform: uppercase;
+    }
+</style>
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <% include left_layout.html %>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1><%if(data._id){%>Edit<%}else{%>Add<%}%> Product</h1>
+      <ol class="breadcrumb">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><i class="fa fa-angle-right"></i> <a href="<%=BaseUrl%>/productlist/1">Product List</a></li>
+        <li><i class="fa fa-angle-right"></i> <%if(data._id){%>Edit<%}else{%>Add<%}%> Product </li>
+      </ol>
+    </div>
+    
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12">
+              <div class="card ">
+                <div class="card-header bg-blue">
+                  <h5 class="text-white m-b-0"><%if(data._id){%>Edit<%}else{%>Add<%}%> Product</h5>
+                </div>
+                <div class="card-body">
+                  <form id="addproduct" action="" method="post" enctype="multipart/form-data">
+                  <input type="hidden" name="productId" value="<%if(data._id){%><%=data._id%><%}else{%><%}%>">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <%if(error){%>
+                      <label style="color: red; font-weight: 500;"><%=msg%></label>
+                      <%}%>
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Catalog</label>
+                        <select id="catalog" name="catalogId" class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                            <option>Select Catalog</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="control-label">Create Catalog</label>
+                      <a href="<%=BaseUrl%>/addcatalog" class="btn btn-primary btn-block">Create Catalog</a>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Name *</label>
+                        <%if(data._id){%>
+                          <input class="form-control" id="name" name="name" placeholder="Add Name" value="<%if(data.name){%><%=data.name%><%}else{%><%}%>" type="text" readonly>
+                        <%}else{%>
+                          <input class="form-control" id="name" name="name" placeholder="Add Name" value="<%if(data.name){%><%=data.name%><%}else{%><%}%>" type="text" required>
+                        <%}%>
+                      </div>
+                    </div> 
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Price *</label>
+                        <input class="form-control" placeholder="Add Price" value="<%if(data.price){%><%=data.price%><%}else{%><%}%>" name="price" type="number">
+                      </div>
+                    </div> 
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Discount Percentage *</label>
+                        <input class="form-control" placeholder="Add Discount Percentage" value="<%if(data.discount_pre){%><%=data.discount_pre%><%}else{%><%}%>" name="discount_pre" type="number">
+                      </div>
+                    </div> 
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Weight *</label>
+                        <input class="form-control" id="weight" name="weight" value="<%if(data.weight){%><%=data.weight%><%}else{%><%}%>" placeholder="Add Weight" type="number">
+                      </div>
+                    </div> 
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Qty *</label>
+                        <input class="form-control" id="qty" name="qty" value="<%if(data.qty){%><%=data.qty%><%}else{%><%}%>" placeholder="Add Qty" type="number">
+                      </div>
+                    </div> 
+                    <div class="col-md-12">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Size *</label><br>
+                        <input class="form-control" id="size" name="size" value="<%if(data.size){%><%=data.size%><%}else{%><%}%>" type="text" data-role="tagsinput"/> 
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Description *</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Description"><%if(data.description){%><%=data.description%><%}else{%><%}%></textarea>
+                      </div>
+                    </div> 
+                    <div class="col-md-12">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Note's *</label>
+                        <textarea class="form-control" rows="3" placeholder="Note's" name="notes" id="notes"><%if(data.notes){%><%=data.notes%><%}else{%><%}%></textarea>
+                      </div>
+                    </div> 
+
+                    <div class="col-md-3">
+                      <div class="form-group has-feedback">
+                        <input type="file" id="input-file-now" class="dropify" name="productImage" id="productImage" data-default-file="<%if(data.product_image){%><%=data.product_image%><%}else{}%>" accept="image/x-png,image/jpeg,image/jpg"/>
+                        <input type="hidden" name="productImageStatus" id="productImageStatus">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group has-feedback">
+                        <input type="file" id="input-file-now" class="dropify" name="productImage" id="productImage1" data-default-file="<%if(data.product_image1){%><%=data.product_image1%><%}else{}%>" accept="image/x-png,image/jpeg,image/jpg"/>
+                        <input type="hidden" name="productImageStatus1" id="productImageStatus1">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group has-feedback">
+                        <input type="file" id="input-file-now" class="dropify" name="productImage" id="productImage2" data-default-file="<%if(data.product_image2){%><%=data.product_image2%><%}else{}%>" accept="image/x-png,image/jpeg,image/jpg"/>
+                        <input type="hidden" name="productImageStatus2" id="productImageStatus2">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group has-feedback">
+                        <input type="file" id="input-file-now" class="dropify" name="productImage" id="productImage3" data-default-file="<%if(data.product_image3){%><%=data.product_image3%><%}else{}%>" accept="image/x-png,image/jpeg,image/jpg"/>
+                        <input type="hidden" name="productImageStatus3" id="productImageStatus3">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                     </div>
+                  </form>
+               
+                </div>
+              </div>
+            </div>
+        </div> 
+    </div>
+
+
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2018 SunFashion. All rights reserved.</footer>
+</div>
+<!-- ./wrapper --> 
+
+<!-- jQuery 3 --> 
+<script src="js/jquery.min.js"></script>  
+<script src="bootstrap/js/bootstrap.min.js"></script> 
+
+<!-- template --> 
+<script src="js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="plugins/jquery-sparklines/sparkline-int.js"></script> 
+
+<script src="plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+<script src="plugins/table-expo/filesaver.min.js"></script>
+<script src="plugins/table-expo/xls.core.min.js"></script>
+<script src="plugins/table-expo/tableexport.js"></script>
+<!-- dropify --> 
+<script src="plugins/dropify/dropify.min.js"></script> 
+<script>
+  $(document).ready(function(){
+  // Basic
+  $('.dropify').dropify();
+  var drEvent = $('.dropify').dropify();
+  $(this).find('.dropify-clear').on('click',(e)=>{
+    
+  })
+  $('#name').keyup(function(event) {
+    var textBox = event.target;
+    var start = textBox.selectionStart;
+    var end = textBox.selectionEnd;
+    textBox.value = textBox.value.charAt(0).toUpperCase() + textBox.value.slice(1).toLowerCase();
+    textBox.setSelectionRange(start, end);
+  });
+  $('#description').keyup(function(event) {
+    var textBox = event.target;
+    var start = textBox.selectionStart;
+    var end = textBox.selectionEnd;
+    textBox.value = textBox.value.charAt(0).toUpperCase() + textBox.value.slice(1).toLowerCase();
+    textBox.setSelectionRange(start, end);
+  });
+  $('#notes').keyup(function(event) {
+    var textBox = event.target;
+    var start = textBox.selectionStart;
+    var end = textBox.selectionEnd;
+    textBox.value = textBox.value.charAt(0).toUpperCase() + textBox.value.slice(1).toLowerCase();
+    textBox.setSelectionRange(start, end);
+  });
+  // Translated
+   $('.dropify-fr').dropify({
+                    messages: {
+                        default: 'Glissez-déposez un fichier ici ou cliquez',
+                        replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                        remove:  'Supprimer',
+                        error:   'Désolé, le fichier trop volumineux'
+                    }
+                });
+
+                // Used events
+                var drEvent = $('#input-file-events').dropify();
+
+                drEvent.on('dropify.beforeClear', function(event, element){
+                    return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+                });
+
+                drEvent.on('dropify.afterClear', function(event, element){
+                    alert('File deleted');
+                });
+
+                drEvent.on('dropify.errors', function(event, element){
+                    console.log('Has Errors');
+                });
+
+                var drDestroy = $('#input-file-to-destroy').dropify();
+                drDestroy = drDestroy.data('dropify')
+                $('#toggleDropify').on('click', function(e){
+                    e.preventDefault();
+                    if (drDestroy.isDropified()) {
+                        drDestroy.destroy();
+                    } else {
+                        drDestroy.init();
+                    }
+                })
+    });
+</script>
+
+
+<script src="plugins/select2/dist/js/select2.full.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        // Switchery
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        $('.js-switch').each(function() {
+            new Switchery($(this)[0], $(this).data());
+        });
+        // For select 2
+        $(".select2").select2();
+      
+  
+        $(".ajax").select2({
+            ajax: {
+                url: "https://api.github.com/search/repositories",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function(data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function(markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1,
+            // templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+        });
+    });
+</script>
+
+<script>
+  var catalogId = '<%if(data.catalogId){%><%=data.catalogId%><%}else{%><%}%>';
+    console.log("catalogId ::::::: ", catalogId);
+    $.ajax(
+        {
+        url: "<%=BaseUrl%>/api/catalogs",
+        type: "GET",
+        dataType: "json"                    
+    }).done(function(response) {
+      console.log("response :::::::: ", response);
+      var i;
+      for (i = 0; i < response.length; i++) {
+        if(catalogId != '' && catalogId == response[i].catalogID){
+          var catalog='<option value="'+response[i].catalogID+'" selected>'+response[i].name+'</option>';
+        }else{
+          var catalog='<option value="'+response[i].catalogID+'">'+response[i].name+'</option>';
+        }
+      $('#catalog').append(catalog);
+    }
+  })
+</script>
+<script>
+    /*$("#addproduct").submit(function(e) {
+        var form = $(this);
+        var catalogId = $("#catalog").val();
+        var name = $("#name").val();
+        var discount_price = $("#discount_price").val();
+        var weight = $("#weight").val();
+        var qty = $("#qty").val();
+        var size = $("#size").val();
+        var description = $("#description").val();
+
+        var data = {};
+
+        if(catalogId != ''){
+            data['catalogId'] = catalogId;
+        }
+        if(name != ''){
+            data['name'] = name;
+        }
+        if(discount_price != ''){
+            data['discount_price'] = discount_price;
+        }
+        if(weight != ''){
+            data['weight'] = weight;
+        }
+        if(qty != ''){
+            data['qty'] = qty;
+        }
+        if(size != ''){
+            data['size'] = size;
+        }
+        if(description != ''){
+            data['description'] = description;
+        }
+        data['product_image'] = 'string';
+
+        console.log("DATA:::::",data);
+        var url = form.attr('action');
+        
+        $.ajax({
+               type: "POST",
+               url: url,
+               data: data, 
+               success: function(data)
+               {
+                   alert(data);
+               }
+             });
+
+        e.preventDefault();
+    }) */
+</script>
+</body>
+</html>

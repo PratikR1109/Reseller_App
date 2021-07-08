@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>sunfnl - Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="css/skins/_all-skins.min.css?v=1">
+<!-- DataTables -->
+<link rel="stylesheet" href="plugins/datatables/css/dataTables.bootstrap.min.css">
+<!-- dropify -->
+<link rel="stylesheet" href="plugins/dropify/dropify.min.css">
+<!-- bootstrap-switch -->
+<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+<!-- selecr2 --->
+<link href="../assets/node_modules/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <% include left_layout.html %>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1>Dashboard</h1>
+    </div>
+    
+    <div id="mostShare-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Most Share Catalog Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="col-xs-8">
+                            <div class="box box-primary">
+                                <!-- /.box-header -->
+                                <div class="box-body" id="orderMarginbody">
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>CatalogName</th>
+                                                <th>Image</th>
+                                                <th>Price</th>
+                                                <th>Share Count</th>
+                                                <th>Description</th>
+                                                <th>CreatedAt</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="orderhistorybody">
+                                            
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mostsell-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Top Seller Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="col-xs-8">
+                            <div class="box box-primary">
+                                <!-- /.box-header -->
+                                <div class="box-body" id="orderMarginbody">
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>Name</th>
+                                                <th>Profile</th>
+                                                <th>Contact No</th>
+                                                <th>Email</th>
+                                                <th>Total Selling</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="topselling">
+                                            
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="top-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Top Selling Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="col-xs-8">
+                            <div class="box box-primary">
+                                <!-- /.box-header -->
+                                <div class="box-body" id="orderMarginbody">
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>ProductName</th>
+                                                <th>Image</th>
+                                                <th>Price</th>
+                                                <th>Size</th>
+                                                <th>Weight</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="topsellbody">
+                                            
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="totalMargin-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Total Payable Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="col-xs-8">
+                            <div class="box box-primary">
+                                <!-- /.box-header -->
+                                <div class="box-body" id="orderMarginbody">
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>Reseller Name</th>
+                                                <th>Total Payable Margin</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="totalMarginbody">
+                                            
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="leftMargin-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Outstanding Margin Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="col-xs-8">
+                            <div class="box box-primary">
+                                <!-- /.box-header -->
+                                <div class="box-body" id="orderLeftbody">
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>Reseller Name</th>
+                                                <th>Outstanding Margin</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="leftMarginbody">
+                                            
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="paidMargin-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Paid Margin Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="col-xs-8">
+                            <div class="box box-primary">
+                                <!-- /.box-header -->
+                                <div class="box-body" id="orderLeftbody">
+                                    <table class="table table-bordered text-center ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="ordersarray">
+                                        <thead>
+                                            <tr style="background: #ddd;">
+                                                <th>No</th>
+                                                <th>Reseller Name</th>
+                                                <th>Paid Margin</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-repeat="p in orderhistory.Product" class="ng-scope" id="paidMarginbody">
+                                            
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+      <div class="row">
+        
+        <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+          <div class="card">
+            <div class="card-body box-rounded box-gradient"> <span class="info-box-icon bg-transparent"><i class="ti-stats-up text-white"></i></span>
+              <a href="<%=BaseUrl%>/orderlist/1">
+                <div class="info-box-content">
+                    <h6 class="info-box-text text-white">Total Orders</h6>
+                    <h1 class="text-white"><%=total.totalOrders%></h1>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+         <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+          <div class="card">
+            <div class="card-body box-rounded box-gradient-4"> <span class="info-box-icon bg-transparent"><i class="icon-clock text-white"></i></span>
+              <a href="<%=BaseUrl%>/orderlist/1?id=0">
+                <div class="info-box-content">
+                  <h6 class="info-box-text text-white">Pending Orders</h6>
+                  <h1 class="text-white"><%=total.pendingOrders%></h1>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+          <div class="card">
+            <div class="card-body box-rounded box-gradient-2"> <span class="info-box-icon bg-transparent"><i class=" icon-check text-white"></i></span>
+              <a href="<%=BaseUrl%>/orderlist/1?id=1">
+                <div class="info-box-content">
+                  <h6 class="info-box-text text-white">Approved Orders</h6>
+                  <h1 class="text-white"><%=total.approvedOrders%></h1>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-xs-12 m-b-3">
+          <div class="card">
+            <div class="card-body box-rounded box-gradient-3"> <span class="info-box-icon bg-transparent"><i class="icon-close text-white"></i></span>
+              <a href="<%=BaseUrl%>/orderlist/1?id=2">
+                <div class="info-box-content">
+                  <h6 class="info-box-text text-white">Total Cancel Orders</h6>
+                  <h1 class="text-white"><%=total.cancelOrders%></h1>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+         
+        
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-people"></i></span>
+              <a href="<%=BaseUrl%>/resellerlist/1">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.totalReseller%></span> <span class="info-box-text">Total Resellers</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-people"></i></span>
+              <a href="<%=BaseUrl%>/vendorlist/1">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.totalVendor%></span> <span class="info-box-text">Total Vendors</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
+              <a href="<%=BaseUrl%>/catagorieslist/1">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.totalCategories%></span> <span class="info-box-text">Total Categories</span> </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-layers"></i></span>
+              <a href="<%=BaseUrl%>/cataloglist/1">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.totalCatalogs%></span> <span class="info-box-text">Total Catalogs</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-yellow"><i class="icon-basket"></i></span>
+              <a href="<%=BaseUrl%>/cartlist/1">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.totalCart%></span> <span class="info-box-text">Total Carts</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-graph"></i></span>
+              <a href="<%=BaseUrl%>/productlist/1?id=2">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.totalStock%></span> <span class="info-box-text">Total Stock</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-graph"></i></span>
+              <a href="<%=BaseUrl%>/productlist/1?id=1">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.OutOfStock%></span> <span class="info-box-text">Out Of Stock</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-graph"></i></span>
+              <a href="<%=BaseUrl%>/productlist/1?id=3">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.lowStock%></span> <span class="info-box-text">Low Stock</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-graph"></i></span>
+              <a href="javascript:;" onclick="ViewMostShare();">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.mostShare[0].totalCount%></span> <span class="info-box-text">Most Shared Catalogs</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-green"><i class="ti-arrow-up"></i></span>
+                <a href="javascript:;" onclick="ViewMostSell();">
+                  <div class="info-box-content"> <span class="info-box-number"><%=total.topSelling.count%></span> <span class="info-box-text">Top Selling</span>
+                  <span class="info-box-text"><h5><%=total.topSelling.name%></h5></span></div>
+                </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-yellow"><i class="icon-graph"></i></span>
+              <a href="javascript:;" onclick="totalMarginData();">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.totalMargin%></span> <span class="info-box-text">Total Margin</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-graph"></i></span>
+              <a href="javascript:;" onclick="ViewPaidMargin();">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.paidMargin%></span> <span class="info-box-text">Paid Margin</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-graph"></i></span>
+              <a href="javascript:;" onclick="ViewLeftMargin();">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.leftMargin%></span> <span class="info-box-text">Outstanding Margin</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6 m-b-3">
+          <div class="card">
+            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-graph"></i></span>
+              <a href="javascript:;" onclick="ViewMostTopSeller();">
+                <div class="info-box-content"> <span class="info-box-number"><%=total.topSeller%></span> <span class="info-box-text">Top Seller</span></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card-body" style="padding: 0px !important;">
+            <div class="row">
+              <div class="col-lg-3">
+                <fieldset class="form-group">
+                  <label>Start Date</label>
+                  <input class="form-control" id="earnstartdate" type="date">
+                </fieldset>
+              </div>
+              <div class="col-lg-3">
+                <fieldset class="form-group">
+                  <label>End Date</label>
+                  <input class="form-control" id="earnenddate" type="date">
+
+                </fieldset>
+              </div>
+              <div class="col-lg-2">
+                <fieldset class="form-group">
+                  <label style="color: #FFF;">.</label>
+                  <button type="button" class="earnFilter form-control btn btn-sm btn-secondary">Update</button>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div class="info-box">
+            <div class="col-6">
+              <h5>Daily Income</h5>
+            </div>
+            <div id="earning"></div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card-body" style="padding: 0px !important;">
+            <div class="row">
+              <div class="col-lg-3">
+                <fieldset class="form-group">
+                  <label>Start Date</label>
+                  <input class="form-control" id="prepaidstartdate" type="date">
+                </fieldset>
+              </div>
+              <div class="col-lg-3">
+                <fieldset class="form-group">
+                  <label>End Date</label>
+                  <input class="form-control" id="prepaidenddate" type="date">
+
+                </fieldset>
+              </div>
+              <div class="col-lg-2">
+                <fieldset class="form-group">
+                  <label style="color: #FFF;">.</label>
+                  <button type="button" class="prepaidFilter form-control btn btn-sm btn-secondary">Update</button>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div class="info-box">
+            <div class="col-6">
+              <h5>PrePaid Orders</h5>
+            </div>
+            <div id="prepaidorders"></div>
+          </div>
+        </div>
+       
+      </div>
+
+    </div>
+    
+
+
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2018 SunFashion. All rights reserved.</footer>
+</div>
+<!-- ./wrapper --> 
+
+<!-- jQuery 3 --> 
+<script src="js/jquery.min.js"></script>  
+<script src="bootstrap/js/bootstrap.min.js"></script> 
+
+<!-- template --> 
+<script src="js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="plugins/jquery-sparklines/sparkline-int.js"></script> 
+<!-- DataTable --> 
+<script src="plugins/datatables/jquery.dataTables.min.js"></script> 
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script> 
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
+<script src="plugins/table-expo/filesaver.min.js"></script>
+<script src="plugins/table-expo/xls.core.min.js"></script>
+<script src="plugins/table-expo/tableexport.js"></script>
+<script>
+// $("table").tableExport({formats: ["xlsx","xls", "csv", "txt"],    });
+</script>
+
+<!-- dropify --> 
+<script src="plugins/dropify/dropify.min.js"></script> 
+<script>
+  $(document).ready(function(){
+  // Basic
+  $('.dropify').dropify();
+
+  // Translated
+   $('.dropify-fr').dropify({
+                    messages: {
+                        default: 'Glissez-déposez un fichier ici ou cliquez',
+                        replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                        remove:  'Supprimer',
+                        error:   'Désolé, le fichier trop volumineux'
+                    }
+                });
+
+                // Used events
+                var drEvent = $('#input-file-events').dropify();
+
+                drEvent.on('dropify.beforeClear', function(event, element){
+                    return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+                });
+
+                drEvent.on('dropify.afterClear', function(event, element){
+                    alert('File deleted');
+                });
+
+                drEvent.on('dropify.errors', function(event, element){
+                    console.log('Has Errors');
+                });
+
+                var drDestroy = $('#input-file-to-destroy').dropify();
+                drDestroy = drDestroy.data('dropify')
+                $('#toggleDropify').on('click', function(e){
+                    e.preventDefault();
+                    if (drDestroy.isDropified()) {
+                        drDestroy.destroy();
+                    } else {
+                        drDestroy.init();
+                    }
+                })
+
+    });
+</script>
+
+<!-- bootstrap-switch --> 
+<script src="plugins/bootstrap-switch/bootstrap-switch.js"></script> 
+<script src="plugins/bootstrap-switch/highlight.js"></script> 
+<script src="plugins/bootstrap-switch/main.js"></script>
+
+<script src="plugins/raphael/raphael-min.js"></script> 
+<script src="plugins/morris/morris.js"></script> 
+<!-- <script src="plugins/functions/dashboard1.js"></script>  -->
+<!-- select 2 --->
+<script src="plugins/select2/dist/js/select2.full.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script>
+    function ViewMostSell(){
+      $.ajax({
+        url: '<%=BaseUrl%>/getTopSell',
+        type: 'GET',
+        success: (response)=>{
+          var tablebody = '';
+          var j = 1;
+          for(var i=0; i<response.length; i++){
+                tablebody   +='<tr>'
+                            +'<td class="text-center ng-binding">'+j+'</td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].name+'</td> '
+                            +'<td class="text-center ng-binding"><img src="'+response[i].image+'" style="width: 50px;"/></td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].price+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].size+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].weight+'</td> '
+                        +'</tr>';
+
+                j++;
+            }
+          $('#topsellbody').html(tablebody);
+          $('#top-modal').modal('toggle');
+        },
+        error: (error)=>{
+          console.log("error ::::::: ", error);
+        }
+      })
+    }
+    
+    function ViewPaidMargin(){
+      $.ajax({
+        url: '<%=BaseUrl%>/getViewPaidMargin',
+        type: 'GET',
+        success: (response)=>{
+          var tablebody = '';
+          var j = 1;
+          if(response.length){
+
+            for(var i=0; i<response.length; i++){
+                tablebody   +='<tr>'
+                            +'<td class="text-center ng-binding">'+j+'</td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].name+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].paid_margin+'</td> '
+                        +'</tr>';
+
+                j++;
+            }
+          $('#paidMarginbody').html(tablebody);
+          $('#paidMargin-modal').modal('toggle');
+          }else{
+            swal('No Record Found!');
+          }
+        },
+        error: (error)=>{
+          console.log("error ::::::: ", error);
+        }
+      })
+    }
+    function ViewLeftMargin(){
+      $.ajax({
+        url: '<%=BaseUrl%>/getViewLeftMargin',
+        type: 'GET',
+        success: (response)=>{
+          var tablebody = '';
+          var j = 1;
+          if(response.length){
+          for(var i=0; i<response.length; i++){
+                tablebody   +='<tr>'
+                            +'<td class="text-center ng-binding">'+j+'</td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].name+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].payable_margin+'</td> '
+                        +'</tr>';
+
+                j++;
+            }
+          $('#leftMarginbody').html(tablebody);
+          $('#leftMargin-modal').modal('toggle');
+          }else{
+            swal('No Record Found!');
+          }
+        },
+        error: (error)=>{
+          console.log("error ::::::: ", error);
+        }
+      })
+    }
+    function totalMarginData(){
+      $.ajax({
+        url: '<%=BaseUrl%>/getTotalMarginData',
+        type: 'GET',
+        success: (response)=>{
+          var tablebody = '';
+          var j = 1;
+          for(var i=0; i<response.length; i++){
+                tablebody   +='<tr>'
+                            +'<td class="text-center ng-binding">'+j+'</td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].name+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].payable_margin+'</td> '
+                        +'</tr>';
+
+                j++;
+            }
+          $('#totalMarginbody').html(tablebody);
+          $('#totalMargin-modal').modal('toggle');
+        },
+        error: (error)=>{
+          console.log("error ::::::: ", error);
+        }
+      })
+    }
+    function ViewMostShare(){
+      console.log("click ");
+      $.ajax({
+        url: '<%=BaseUrl%>/getMostShareCatalogs',
+        type: 'GET',
+        success: (response)=>{
+          var tablebody = '';
+          var j = 1;
+          for(var i=0; i<response.length; i++){
+            if(response[i].catalogDetails.length){
+                tablebody   +='<tr>'
+                            +'<td class="text-center ng-binding">'+j+'</td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].catalogDetails[0].name+'</td> '
+                            +'<td class="text-center ng-binding"><img src="'+response[i].catalogDetails[0].image+'" style="width: 50px;"/></td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].catalogDetails[0].price+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].totalCount+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].catalogDetails[0].description+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].catalogDetails[0].created_at+'</td> '
+                        +'</tr>';
+
+                j++;
+              }
+            }
+          $('#orderhistorybody').html(tablebody);
+          $('#mostShare-modal').modal('toggle');
+        },
+        error: (error)=>{
+          console.log("error ::::::: ", error);
+        }
+      })
+    }
+    function ViewMostTopSeller(){
+      $.ajax({
+        url: '<%=BaseUrl%>/getTopSellerList',
+        type: 'GET',
+        success: (response)=>{
+          var tablebody = '';
+          var j = 1;
+          for(var i=0; i<response.length; i++){
+            if(response[i].vendorDetails.length){
+                tablebody   +='<tr>'
+                            +'<td class="text-center ng-binding">'+j+'</td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;"><a href="<%=BaseUrl%>/vendorProfile?id='+response[i].vendorDetails[0]._id+'&pn=1">'+response[i].vendorDetails[0].name+'</a></td> '
+                            +'<td class="text-center ng-binding"><img src="'+response[i].vendorDetails[0].profile+'" style="width: 50px;"/></td>'
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].vendorDetails[0].contactno+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].vendorDetails[0].email+'</td> '
+                            +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].totalSell+'</td> '
+                        +'</tr>';
+
+                j++;
+              }
+            }
+          $('#topselling').html(tablebody);
+          $('#mostsell-modal').modal('toggle');
+        },
+        error: (error)=>{
+          console.log("error ::::::: ", error);
+        }
+      })
+    }
+    function getChart(){
+      var startdate = $('#earnstartdate').val();
+      var enddate = $('#earnenddate').val();
+      var data = {startdate: startdate, enddate: enddate};
+      console.log("data ::::::::: ", data);
+      $('#earning').empty();
+      $.ajax(
+          {
+          url: "<%BaseUrl%>/api/earning",
+          type: "POST",
+          data: data,
+          dataType: "json"                    
+      }).done(function(response) {
+        console.log("response :::::::: ", response);
+          var day_data = response;
+          Morris.Line({
+            element: 'earning',
+            data: day_data,
+            xkey: 'elapsed',
+            xLabelAngle: 40,
+            ykeys: ['Earning'],
+            labels: ['Earning: Rs.'],
+            fillOpacity: 10,
+            pointStrokeColors: ['#00a65a'],
+            behaveLikeLine: true,
+            gridLineColor: '#e0e0e0',
+            lineWidth: 1,
+            hideHover: 'auto',
+            lineColors: ['#00a65a'],
+            parseTime: false,
+            resize: true
+          });
+
+          
+      })
+    }
+    function getPrepaidChart(){
+      var startdate = $('#prepaidstartdate').val();
+      var enddate = $('#prepaidenddate').val();
+      var data = {startdate: startdate, enddate: enddate};
+      console.log("data ::::::::: ", data);
+      $('#prepaidorders').empty();
+      $.ajax(
+          {
+          url: "<%BaseUrl%>/api/PrePaid",
+          type: "POST",
+          data: data,
+          dataType: "json"                    
+      }).done(function(response) {
+        console.log("PrePaid response :::::::: ", response);
+          var day_data = response;
+          Morris.Line({
+            element: 'prepaidorders',
+            data: day_data,
+            xkey: 'elapsed',
+            xLabelAngle: 40,
+            ykeys: ['Earning'],
+            labels: ['Earning'],
+            fillOpacity: 10,
+            pointStrokeColors: ['#00a65a'],
+            behaveLikeLine: true,
+            gridLineColor: '#e0e0e0',
+            lineWidth: 1,
+            hideHover: 'auto',
+            lineColors: ['#00a65a'],
+            parseTime: false,
+            resize: true
+          });
+
+          
+      })
+    }
+    $('.earnFilter').click(function(){
+      getChart();
+    })
+    $('.prepaidFilter').click(function(){
+      getPrepaidChart();
+    })
+    jQuery(document).ready(function() {
+        getChart();
+        getPrepaidChart();
+
+        // Switchery
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        $('.js-switch').each(function() {
+            new Switchery($(this)[0], $(this).data());
+        });
+        // For select 2
+        $(".select2").select2();
+        $('.selectpicker').selectpicker();
+        //Bootstrap-TouchSpin
+        $(".vertical-spin").TouchSpin({
+            verticalbuttons: true,
+            verticalupclass: 'ti-plus',
+            verticaldownclass: 'ti-minus'
+        });
+        var vspinTrue = $(".vertical-spin").TouchSpin({
+            verticalbuttons: true
+        });
+        if (vspinTrue) {
+            $('.vertical-spin').prev('.bootstrap-touchspin-prefix').remove();
+        }
+        $("input[name='tch1']").TouchSpin({
+            min: 0,
+            max: 100,
+            step: 0.1,
+            decimals: 2,
+            boostat: 5,
+            maxboostedstep: 10,
+            postfix: '%'
+        });
+        $("input[name='tch2']").TouchSpin({
+            min: -1000000000,
+            max: 1000000000,
+            stepinterval: 50,
+            maxboostedstep: 10000000,
+            prefix: '$'
+        });
+        $("input[name='tch3']").TouchSpin();
+        $("input[name='tch3_22']").TouchSpin({
+            initval: 40
+        });
+        $("input[name='tch5']").TouchSpin({
+            prefix: "pre",
+            postfix: "post"
+        });
+        // For multiselect
+        $('#pre-selected-options').multiSelect();
+        $('#optgroup').multiSelect({
+            selectableOptgroup: true
+        });
+        $('#public-methods').multiSelect();
+        $('#select-all').click(function() {
+            $('#public-methods').multiSelect('select_all');
+            return false;
+        });
+        $('#deselect-all').click(function() {
+            $('#public-methods').multiSelect('deselect_all');
+            return false;
+        });
+        $('#refresh').on('click', function() {
+            $('#public-methods').multiSelect('refresh');
+            return false;
+        });
+        $('#add-option').on('click', function() {
+            $('#public-methods').multiSelect('addOption', {
+                value: 42,
+                text: 'test 42',
+                index: 0
+            });
+            return false;
+        });
+        $(".ajax").select2({
+            ajax: {
+                url: "https://api.github.com/search/repositories",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function(data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function(markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1,
+            // templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+        });
+    });
+</script>
+</body>
+</html>

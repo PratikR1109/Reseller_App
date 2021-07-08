@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<style>
+		img {
+			max-width: 200px;
+			max-height: 200px;
+			float: left;
+			margin-right: 20px;
+		}
+		</style>
+	</head>
+	<body>
+
+	<h1>Product</h1>
+
+	<div id="catList"></div>
+
+	<br clear="all">
+	
+	<h1>Add Product</h1>
+
+	<form id="addCatForm">
+
+	<p>
+	<label for="catalog">catalogId:</label>
+	<input type="number" id="catalog" required value="foo">
+	</p>
+
+	<p>
+	<label for="name">name:</label>
+	<input type="text" id="name" required value="foo">
+	</p>
+	
+	<p>
+	<label for="discount_price">discount_price:</label>
+	<input type="number" id="discount_price" required value="9">
+	</p>
+
+	<p>
+	<label for="weight">weight:</label>
+	<input type="number" id="weight" required value="9">
+	</p>
+
+	<p>
+	<label for="qty">qty:</label>
+	<input type="number" id="qty" required value="9">
+	</p>
+
+	<p>
+	<label for="size">size:</label>
+	<input type="number" id="size" required value="9">
+	</p>
+
+	<p>
+	<label for="description">description:</label>
+	<input type="text" id="description" required value="mutt">
+	</p>
+
+	<p>
+	<label for="product_images">product_images:</label>
+	<input type="file" id="product_images" accept="images/*">
+	</p>
+	
+	
+	<input type="submit" value="Add Product">
+
+	</form>
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	<script src="app.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,17 @@
+{
+	"AccessFormat": {
+		"XBkey": "",
+		"XBkeyPost": "",
+		"XBkeyGet": "",
+		"VersionNumber": "V6"
+	},
+	"_af": {
+		"XBkey": "",
+		"VersionNumber": "V1"
+	},
+	"forwardManifest": "",
+	"getShipmentSummaryDetails": "",
+	"AWBNumberSeriesGeneration": "",
+	"GetAWBNumberGeneratedSeries":"",
+	"TokenTrackingDetails":""
+}

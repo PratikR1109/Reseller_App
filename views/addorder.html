@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>sunfnl - Add Order</title>
+<!-- Tell the browser to be responsive to screen width -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- v4.1.3 -->
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="css/style.css?v=34">
+<link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/et-line-font/et-line-font.css">
+<link rel="stylesheet" href="css/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="css/simple-lineicon/simple-line-icons.css">
+<link rel="stylesheet" href="css/skins/_all-skins.min.css?v=1">
+<link rel="stylesheet" href="plugins/bootstrap-tagsinput/bootstrap-tagsinput.css"/>
+<!-- DataTables -->
+<link rel="stylesheet" href="plugins/datatables/css/dataTables.bootstrap.min.css">
+<!-- dropify -->
+<link rel="stylesheet" href="plugins/dropify/dropify.min.css">
+<!-- bootstrap-switch -->
+<link rel="stylesheet" href="plugins/select2/dist/css/select2.min.css">
+<style type="text/css">
+    .select2-container .select2-selection--single{
+        height: 42px !important;
+    }
+    .select2-container--default .select2-selection--single{
+        border: 1px solid #ddd !important;
+        color: #ddd !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+        line-height: 30px !important;
+        font-size: 16px !important;
+        margin-left: -8px !important;
+    }
+    .select2-selection__rendered{
+        padding-left: -3px !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow{
+        top: 5px !important;
+    }
+    .bootstrap-tagsinput{
+        width: 100% !important;
+        padding: 8px !important;
+    }
+</style>
+
+</head>
+<body class="sidebar-mini skin-black-light">
+<div class="wrapper boxed-wrapper">
+  <header class="main-header"> 
+    <!-- Logo --> 
+    <a href="javascript:;" class="logo blue-bg"> 
+    <!-- mini logo for sidebar mini 50x50 pixels --> 
+    <span class="logo-mini"><img src="img/sss.png" alt=""></span> 
+    <!-- logo for regular state and mobile devices --> 
+    <span class="logo-lg"><img src="img/sun.png" alt=""></span> </a> 
+    <!-- Header Navbar -->
+    <nav class="navbar blue-bg navbar-static-top"> 
+      <!-- Sidebar toggle button-->
+      <ul class="nav navbar-nav pull-left">
+        <li><a class="sidebar-toggle" data-toggle="push-menu" href="#"></a> </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <% include left_layout.html %>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper"> 
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1>Add Order</h1>
+      <ol class="breadcrumb">
+        <li><a href="<%=BaseUrl%>">Dashboard</a></li>
+        <li><i class="fa fa-angle-right"></i> <a href="<%=BaseUrl%>/orderlist/1">Order List</a></li>
+        <li><i class="fa fa-angle-right"></i> Add Order </li>
+      </ol>
+    </div>
+    
+
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12">
+              <div class="card ">
+                <div class="card-header bg-blue">
+                  <h5 class="text-white m-b-0"> Add Order</h5>
+                </div>
+                <div class="card-body">
+                  <%if(error){%>
+                    <label style="color: red; font-weight: 500;"><%=msg%></label>
+                  <%}%>
+                  <form method="post" action="">
+                    <input type="hidden" name="suppliername" value="SUN Fashion">
+                    <input type="hidden" name="totalshippingcharge" id="totalshippingcharge" value="">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Select Reseller</label>
+                        <select id="resellerSelect" name="resellerSelectId" class="select2 form-control custom-select" style="width: 100%; height:36px;" onchange="onResellerList();">
+                            <option value="">Select Reseller</option>
+                        </select>
+                      </div>
+                    </div> 
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Select Address</label>
+                        <select id="addressId" name="addressId" class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                            <option value="">Select Address</option>
+                        </select>
+                      </div>
+                      <div class="form-group has-feedback">
+                        <div class="col-md-12" id="addproducts">
+                          <a id="addaddress" data-toggle="modal" data-target="#addaddressform" class="btn btn-primary btn-block" style="color: #FFF;">Add New Address</a>
+                        </div>
+                      </div>
+                    </div>  
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Select Sender</label>
+                        <select id="senderId" name="senderId" class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                            <option value="">Select Sender</option>
+                        </select>
+                      </div>
+                      <div class="form-group has-feedback">
+                        <div class="col-md-12" id="addproducts">
+                          <a id="addsender" data-toggle="modal" data-target="#addsenderform" class="btn btn-primary btn-block" style="color: #FFF;">Add New Sender</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Payment Method</label>
+                        <select id="paymentMethod" name="paymentMethod" class="select2 form-control custom-select" style="width: 100%; height:36px;" onchange="selectPaymentMethod();">
+                            <option>Select Payment Method</option>
+                            <option value="0">ONLINE</option>
+                            <option value="1">IMPS</option>
+                            <option value="2">COD</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6" id="codcharges" style="display: none;">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">COD Charges </label>
+                        <input class="form-control" id="cod" name="cod" value="0" placeholder="Enter COD charge" type="number">
+                      </div>
+                    </div> 
+                    <div class="col-md-6" id="selectimps" style="display: none;">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Select IMPS</label>
+                        <select id="impsSelect" name="imps" class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                            <option value="">Select IMPS</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3" id="uploadimps" style="display: none;">
+                      <label class="control-label">Upload IMPS</label>
+                      <a data-toggle="modal" data-target="#imps-modal" class="btn btn-primary btn-block" style="color: #FFF;">Upload IMPS</a>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Select Catalog</label>
+                        <select id="catalogSelect" name="catalogSelect" class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                            <option>Select Catalog</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12"><div style="border:1px solid #ddd;margin:10px 0px 20px;"></div></div>
+                    <div class="col-md-12">
+                      <center>
+                        <div class="col-md-3" id="addproducts">
+                          <a id="addbutton" class="btn btn-primary btn-block" style="color: #FFF;">Add Product</a>
+                        </div>
+                      </center>
+                      <center>
+                        <div class="col-md-3" id="addproducts" style="margin-top: 10px;">
+                          <h5><em>Total Product Counts: <span id="totalProductCount">0</span></em></h5>
+                        </div>
+                      </center>
+                    </div>
+                    <div class="col-md-12"><div style="border:1px solid #ddd;margin:10px 0px 20px;"></div></div>
+                    
+
+                    
+                    <div class="col-md-12">
+                      <div class="row" id="addform">
+ 
+                      </div>
+                    </div>
+
+
+
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Total Amount </label>
+                        <input class="form-control" placeholder="Enter Total Amount" name="totalAmount" id="totalAmount" type="text" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Final Collect</label>
+                        <input class="form-control" placeholder="Enter Final Collect Amount" name="finalCollect" id="finalCollect" type="number">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Margin</label>
+                        <input class="form-control" placeholder="Enter Margin" name="margin" id="margin" value="0" type="text" required>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-6">
+                      <div class="form-group has-feedback">
+                        <label class="control-label">Total Amount</label>
+                        <input class="form-control" placeholder="Enter Total Amount" name="totalAmount" id="totalAmount" type="text" readonly>
+                      </div>
+                    </div> -->
+                    <div class="col-md-12">
+                      <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                     </div>
+                  </form>
+               
+                </div>
+              </div>
+            </div>
+        </div> 
+    </div>
+
+
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">Version 1.0</div>
+    Copyright © 2018 SunFashion. All rights reserved.</footer>
+</div>
+<div id="addaddressform" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Address</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal form-material" id="myaddressform" method="post">
+            <input type="hidden" name="resellerId" id="addressresellerId" value="">
+            <div class="form-group">
+              <label class="col-md-12">Name</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Name" class="form-control form-control-line" name="name"  value="" type="text" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Phone No</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Phone No" class="form-control form-control-line" name="phone_no" value="" type="text" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Building</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Building Name" class="form-control form-control-line" name="building" value="" type="text" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Street</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Street Name" class="form-control form-control-line" name="street" value="" type="text" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">City</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your City Name" class="form-control form-control-line" name="city" value="" type="text" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Landmark</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Landmark Name" class="form-control form-control-line" name="landmark" value="" type="text" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">State</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your State Name" class="form-control form-control-line" name="state" value="" type="text" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Pincode</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Pincode No" class="form-control form-control-line" name="pincode" value="" type="number" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button class="btn btn-success" type="submit">Save</button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="addsenderform" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Sender</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal form-material" id="mysenderform" method="post">
+            <input type="hidden" name="resellerId" id="addressresellerId" value="">
+            <div class="form-group">
+              <label class="col-md-12">Name</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Name" class="form-control form-control-line" name="name"  value="" type="text" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Phone No</label>
+              <div class="col-md-12">
+                <input placeholder="Enter your Phone No" class="form-control form-control-line" name="phone_no" value="" type="text" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12">
+                <button class="btn btn-success" type="submit">Save</button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- ./wrapper --> 
+<div id="imps-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Upload IMPS Details</h4>
+                <button type="button" class="close" data-dismiss="modal" style="outline:none;" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="col-xs-8">
+                        <div class="box box-primary">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                  <form id="uploadimpsform" method="post" class="form-horizontal" enctype="multipart/form-data">
+                                    <input type="text" name="resellerId" id="resellerId" hidden>
+                                    <div class="form-group row">
+                                      <label for="bankname" class="col-sm-3 control-label">Bank Name*</label>
+                                      <div class="col-sm-9">
+                                        <div class="input-group">
+                                          <input class="form-control" id="bankname" name="bankname" value="ICICI Bank" placeholder="Enter Bank Name" type="text" readonly required>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group row">
+                                      <label for="accountno" class="col-sm-3 control-label">Account Number*</label>
+                                      <div class="col-sm-9">
+                                        <div class="input-group">
+                                          <input class="form-control" id="accountno" name="accountno" value="138705502298" placeholder="Enter Account Number" readonly type="number" required>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group row">
+                                      <label for="accountname" class="col-sm-3 control-label">Account Name</label>
+                                      <div class="col-sm-9">
+                                        <div class="input-group">
+                                          <input class="form-control" id="accountname" name="accountname" value="Sun fashion and lifestyle" placeholder="Enter Account Name" readonly type="text" required>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group row">
+                                      <label for="ifsc" class="col-sm-3 control-label">IFSC CODE*</label>
+                                      <div class="col-sm-9">
+                                        <div class="input-group">
+                                          <input class="form-control" id="ifsc" name="ifsc" value="ICIC0001387" placeholder="Enter IFSC Code" type="text" readonly required>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group row">
+                                      <label for="ifsc" class="col-sm-3 control-label">Upload Image*</label>
+                                      <div class="col-sm-9">
+                                        <div class="input-group">
+                                          <input type="file"  id="input-file-now" class="dropify" name="imps" required/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group row m-b-2">
+                                      <div class="offset-sm-3 col-sm-9">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">Upload</button>
+                                      </div>
+                                    </div>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery 3 --> 
+<script src="js/jquery.min.js"></script>  
+<script src="bootstrap/js/bootstrap.min.js"></script> 
+
+<!-- template --> 
+<script src="js/bizadmin.js"></script> 
+
+<!-- Jquery Sparklines --> 
+<script src="plugins/jquery-sparklines/jquery.sparkline.min.js"></script> 
+<script src="plugins/jquery-sparklines/sparkline-int.js"></script> 
+
+<script src="plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+<script src="plugins/table-expo/filesaver.min.js"></script>
+<script src="plugins/table-expo/xls.core.min.js"></script>
+<script src="plugins/table-expo/tableexport.js"></script>
+
+
+
+<!-- dropify --> 
+<script src="plugins/dropify/dropify.min.js"></script> 
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+<script>
+  var jQuery_1_10_2 = $.noConflict(true);
+  $('#totalAmount').val('');
+  var productCounts = 0;
+  var totalProductPrice = 0;
+  var totalAmount = 0;
+
+  $(document).ready(function(){
+    // Basic
+    $('.dropify').dropify();
+
+    // Translated
+    $('.dropify-fr').dropify({
+        messages: {
+            default: 'Glissez-déposez un fichier ici ou cliquez',
+            replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+            remove:  'Supprimer',
+            error:   'Désolé, le fichier trop volumineux'
+        }
+    });
+    // Used events
+    var drEvent = $('#input-file-events').dropify();
+
+    drEvent.on('dropify.beforeClear', function(event, element){
+        return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+    });
+
+    drEvent.on('dropify.afterClear', function(event, element){
+        alert('File deleted');
+    });
+
+    drEvent.on('dropify.errors', function(event, element){
+        console.log('Has Errors');
+    });
+
+    var drDestroy = $('#input-file-to-destroy').dropify();
+    drDestroy = drDestroy.data('dropify')
+    $('#toggleDropify').on('click', function(e){
+        e.preventDefault();
+        if (drDestroy.isDropified()) {
+            drDestroy.destroy();
+        } else {
+            drDestroy.init();
+        }
+    })
+  });
+
+  $.ajax({
+        url: "<%=BaseUrl%>/api/catalogs",
+        type: "get",
+        success: (response)=>{
+          var i;
+          for (i = 0; i < response.length; i++) {
+            if(impsId != '' && impsId == response[i].id){
+              var catalog='<option value="'+response[i].catalogID+'" selected>'+response[i].name+'</option>';
+            }else{
+              var catalog='<option value="'+response[i].catalogID+'">'+response[i].name+'</option>';
+            }
+            $('#catalogSelect').append(catalog);
+          }
+          
+        },
+        error: (error)=>{
+          console.log("error  :::::: ", error);
+        }
+  })
+  var productlist = [];
+  $('#catalogSelect').change(function(){
+    var catalogId = $('#catalogSelect').val();
+    console.log("catalogId :::::: ", catalogId);
+    if(catalogId != ''){
+      $.ajax({
+        url: "<%=BaseUrl%>/api/catalog_product_list?start=0&end=100",
+        type: "post",
+        data: {catalogId: catalogId},
+        success: (data)=>{
+          console.log("data :::::::: ", data);
+          if(data.error == 'N'){
+            productlist = data.data;
+          }
+        },
+        error: (error)=>{
+          console.log("error  :::::: ", error);
+        }
+      })
+    }else{
+      alert("Select Catalog First!");
+    }
+  })
+  $('#myaddressform').submit(function(e){
+    e.preventDefault();
+    if($('#resellerSelect').val() != ''){
+       $.ajax({
+        url: "<%=BaseUrl%>/api/addresses?id="+$('#resellerSelect').val(),
+        type: "post",
+        data: $('#myaddressform').serialize(),
+        success: (response)=>{
+          console.log("response :::::::: ", response);
+          if(response.error == 'N'){
+            $('#addaddressform').modal('toggle'); 
+             $('#myaddressform')[0].reset();
+            var address='<option value="'+response.data._id+'" selected>'+response.data.building+' '+response.data.street+' '+response.data.city+' '+response.data.landmark+' '+response.data.state+' '+response.data.pincode+'</option>';
+                $('#addressId').append(address);
+            swal("Great!", "Address Sucessfully Saved!");
+          }else{
+            swal("Oops!", response.msg);
+          }
+        },
+        error: (error)=>{
+          console.log("error  :::::: ", error);
+        }
+      })
+     }else{
+       swal("Oops!", "Reseller not Selected!");
+     }
+  })
+  $('#mysenderform').submit(function(e){
+    e.preventDefault();
+    if($('#resellerSelect').val() != ''){
+       $.ajax({
+        url: "<%=BaseUrl%>/api/senders?id="+$('#resellerSelect').val(),
+        type: "post",
+        data: $('#mysenderform').serialize(),
+        success: (response)=>{
+          console.log("response :::::::: ", response);
+          if(response.error == 'N'){
+            $('#addsenderform').modal('toggle'); 
+             $('#mysenderform')[0].reset();
+             var address='<option value="'+response.data._id+'" selected>'+response.data.name+' '+response.data.phone_no+'</option>';
+             $('#senderId').append(address);
+
+            swal("Great!", "Sender Sucessfully Saved!");
+          }else{
+            swal("Oops!", response.msg);
+          }
+        },
+        error: (error)=>{
+          console.log("error  :::::: ", error);
+        }
+      })
+     }else{
+       swal("Oops!", "Reseller not Selected!");
+     }
+  })
+  $("#addbutton").click(function () {
+    
+    var id = Math.round(new Date().getTime() + (Math.random() * 100));
+
+    if(productlist.length){
+      productCounts = productCounts + 1;
+      $('#totalProductCount').text(productCounts);
+      var formbody='<div class="col-md-6" id="'+id+'">'
+                  +'<div class="col-md-12" style="border:2px solid #eee;padding:20px;margin-bottom:20px">'
+                  +'<div class="col-md-12" style="text-align:right;margin-left:40px;margin-top: -25px;">'
+                  +'<button style="margin:-5px;border-radius:50%;background-color:#dd4b39;" type="button" onclick="deletediv('+id+')"><i class="fa fa-times"></i></button>'
+                  +'</div>'
+                  
+                  +'<div class="form-group">'
+                    +'<label for="exampleInputuname">Select Product</label>'
+                    +'<div class="input-group">'
+                    +'<input class="form-control" id="productName_'+id+'" name="productName[]" type="text" hidden>'
+                      +'<select class="select2 form-control custom-select" id="productId_'+id+'" name="product[]" data-live-search="true" style="width: 100%; height:36px;" onchange="getProductDetails(\''+id+'\')">'
+                        +'<option value="">Select Product</option>'
+                          
+                          for (var i = 0; i < productlist.length; i++) {
+                            if(productlist[i].qty){
+                              formbody += '<option value="'+productlist[i].productId+'">'+productlist[i].productName+' - INR '+productlist[i].productPrice+'</option>';
+                            }
+                          }
+    
+            formbody += '</select>'
+                    +'</div>'
+                  +'</div>'
+
+                  +'<div class="form-group">'
+                  +'<label for="qty">Qty <b><span id="qtymax_'+id+'"></span></b></label>'
+                    +'<div class="input-group">'
+                      +'<input class="form-control" id="qty_'+id+'" name="qty[]" placeholder="Enter Qty" type="number" onchange="changeQty(\''+id+'\')">'
+                    +'</div>'
+                  +'</div>'
+
+                  +'<div class="form-group">'
+                    +'<label for="exampleInputuname">Select Product Size</label>'
+                    +'<div class="input-group">'
+                      +'<select class="select2 form-control custom-select" id="productSize_'+id+'" name="productSize[]" data-live-search="true" style="width: 100%; height:36px;">'
+                          +'<option value="">Select Product Size</option>'
+                        +'</select>'
+                    +'</div>'
+                  +'</div>'
+
+                  +'<div class="form-group">'
+                  +'<label for="qty">Shipping Charges</label>'
+                    +'<div class="input-group">'
+                      +'<input class="form-control" id="shippingperproduct_'+id+'" name="shippingperproduct[]" placeholder="Enter Shipping Charge" type="text" readonly>'
+                    +'</div>'
+                  +'</div>'
+
+                  +'<div class="form-group">'
+                  +'<label for="qty">Per Product Price</label>'
+                    +'<div class="input-group">'
+                      +'<input class="form-control" id="perproductprice_'+id+'" name="perproductprice[]" type="number" readonly>'
+                    +'</div>'
+                  +'</div>'
+
+                  +'<div class="form-group">'
+                  +'<label for="totalprice">Total Price</label>'
+                    +'<div class="input-group">'
+                      +'<input class="form-control" id="weight_'+id+'" name="weight[]" value="" type="hidden">'
+                      +'<input class="form-control" id="productimage_'+id+'" name="productimage[]" value="" type="hidden">'
+                      +'<input class="form-control" id="totalprice_'+id+'" name="totalprice" value="" placeholder="Enter Total Price" type="text">'
+                    +'</div>'
+                  +'</div>'
+                  +'</div>'
+                  +'</div>' 
+
+      $("#addform").append(formbody);
+      var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        $('.js-switch').each(function() {
+            new Switchery($(this)[0], $(this).data());
+        });
+        // For select 2
+        $(".select2").select2();
+      
+  
+        $(".ajax").select2({
+            ajax: {
+                url: "https://api.github.com/search/repositories",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function(data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function(markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1,
+            // templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+        });
+    }else{
+      productCounts = 0;
+      alert("products not available!");
+    }
+  });
+  
+  function changeQty(id){
+    var perproductprice = $('#perproductprice_'+id).val();
+    $('#totalprice_'+id).val(0);
+    
+    var qty = $('#qty_'+id).val();
+    var weight = $('#weight_'+id).val();
+     console.log("qty :::::::::::: ", qty);
+     console.log("weight :::::::::::: ", weight);
+    var charge = 80;
+    for (var poductWight=parseFloat(weight);poductWight>1.0 ;poductWight=poductWight-0.5) {
+        charge=charge+50;
+    }
+
+    
+    // var unit = (parseInt(qty) * parseInt(weight))/1000;
+    // console.log("unit :::::::::::: ", unit);
+    var then = Math.round(parseInt(qty) * charge);
+
+
+    console.log("then :::::::::::: ", then);
+    $('#shippingperproduct_'+id).val(then);
+    if(perproductprice != '' && perproductprice > 0 && qty != '' && qty > 0){
+      
+      var total = 0;
+      total = parseInt(qty)*parseFloat(perproductprice);
+      if(then > 0){
+       total = parseFloat(total) + parseFloat(then);
+      }
+      $('#totalprice_'+id).val(total);
+      
+      var totalAmount = 0;
+      jQuery_1_10_2("input[id^='totalprice']").each(function(i) {
+        totalAmount += parseFloat($(this).val());
+      });
+
+      var shippingCharge = 0;
+      jQuery_1_10_2("input[id^='shippingperproduct']").each(function(i) {
+        shippingCharge += parseFloat($(this).val());
+      });
+      $('#totalshippingcharge').val(shippingCharge);
+
+      $('#totalAmount').val(totalAmount);
+      console.log("Math.round(totalAmount).toString() :::::: ", Math.round(totalAmount).toString());
+      $("#finalCollect").attr('min',Math.round(totalAmount).toString());
+    }
+  }
+
+  /*$('#shippingCharge').change(function(){
+    var shippingCharge = $('#shippingCharge').val();
+    var totalAmount = 0;
+    jQuery_1_10_2("input[id^='totalprice']").each(function(i) {
+      totalAmount += parseFloat($(this).val());
+    });
+
+    
+  })*/
+
+  /*$('#discount').change(function(){
+    var discount = $('#discount').val();
+    var totalAmount = 0;
+    jQuery_1_10_2("input[id^='totalprice']").each(function(i) {
+      totalAmount += parseFloat($(this).val());
+    });
+    var totalAmountAfterDiscount = totalAmount - (totalAmount*discount)/100;
+    $('#totalAmount').val(totalAmountAfterDiscount);
+    $("#finalCollect").attr('min',Math.round(totalAmountAfterDiscount).toString());
+  })*/
+
+  function getProductDetails(id){
+
+    var productId =$('#productId_'+id).val();
+    $("#qtymax_"+id).text('');
+    $('#perproductprice_'+id).val(0);
+
+    $('#productSize_'+id).empty();
+    $('#productSize_'+id).append('<option value="">Select Product Size</option>');
+    for (var i = 0; i < productlist.length; i++) {
+      if(productId == productlist[i].productId){
+          
+          $('#perproductprice_'+id).val(productlist[i].discountPrice);
+          $('#productimage_'+id).val(productlist[i].productImage);
+          $('#weight_'+id).val(productlist[i].weight);
+          $('#productName_'+id).val(productlist[i].productName);
+
+          $("#qty_"+id).attr('min','1');
+          $("#qty_"+id).attr('max',productlist[i].qty);
+          $("#qtymax_"+id).text('( max: '+productlist[i].qty+' )');
+           
+          for (var j = 0; j < productlist[i]['productSize'].length; j++) {
+            $('#productSize_'+id).append('<option value="'+productlist[i]['productSize'][j]+'">'+productlist[i]['productSize'][j]+'</option>');
+          }
+
+        break;
+      }
+    }
+  }
+  function deletediv(id){ 
+      $("#"+id).remove();
+      console.log("productCounts :::: ", productCounts);
+      productCounts -= 1;
+      console.log("productCounts :::: ", productCounts);
+      $('#totalProductCount').text(productCounts);
+      event.preventDefault();
+  } 
+  function selectPaymentMethod(){
+    console.log("stats :::: ",$('#paymentMethod').val());
+    if($('#paymentMethod').val() == '1' || $('#paymentMethod').val() == 1){
+      $('#codcharges').css('display', 'none');
+      $('#selectimps').css('display', 'block');
+      $('#uploadimps').css('display', 'block');
+    }else if($('#paymentMethod').val() == '2' || $('#paymentMethod').val() == 2){
+      $('#codcharges').css('display', 'block');
+      $('#selectimps').css('display', 'none');
+      $('#uploadimps').css('display', 'none');
+    }else{
+      $('#codcharges').css('display', 'none');
+      $('#selectimps').css('display', 'none');
+      $('#uploadimps').css('display', 'none');
+    }
+  }
+  $('#uploadimpsform').submit(function(e){
+    console.log("e ::::: ",e);
+    e.preventDefault();
+    var formData = new FormData(this);
+    console.log("formData :::: ", formData);
+    $.ajax({
+      url: '<%=BaseUrl%>/api/uploadImpsRequest',
+      type: 'post',
+      data: formData,
+      enctype: 'multipart/form-data',
+      cache:false,
+      contentType: false,
+      processData: false,
+      success: (data)=>{
+        if(data.error == 'Y'){
+          alert("uplading Issues : "+data.msg);
+        }else{
+          $('#impsSelect').append('<option value="'+data.id+'" selected>'+$("#resellerSelect option:selected").html()+'</option>');
+          $('#imps-modal').modal('hide');
+        }
+      },
+      error: (error)=>{
+        console.log("error :::::::: ", error);
+      }
+    })
+  })
+</script>
+
+<script src="plugins/select2/dist/js/select2.full.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        // Switchery
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        $('.js-switch').each(function() {
+            new Switchery($(this)[0], $(this).data());
+        });
+        // For select 2
+        $(".select2").select2();
+      
+  
+        $(".ajax").select2({
+            ajax: {
+                url: "https://api.github.com/search/repositories",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function(data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function(markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1,
+            // templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+        });
+    });
+    var impsId = '<%if(data.imps){%><%=data.imps%><%}else{%><%}%>';
+     $.ajax(
+          {
+          url: "<%=BaseUrl%>/api/resellers",
+          type: "GET",
+          dataType: "json"
+      }).done(function(response) {
+          console.log("response :::::::: ", response);
+          var i;
+          for (i = 0; i < response.length; i++) {
+            if(impsId != '' && impsId == response[i]._id){
+              var imps='<option value="'+response[i]._id+'" selected>'+response[i].name+'</option>';
+            }else{
+              // var imps='<option value="'+response[i]._id+'">'+response[i].name+'</option>';
+              var imps='<option value="'+response[i]._id+'">'+response[i].name+' ('+response[i].mobile1+')</option>';
+            }
+            $('#resellerSelect').append(imps);
+          }
+      })
+
+    function onResellerList(){
+      $('#resellerId').val($('#resellerSelect').val());
+      $.ajax(
+          {
+          url: "<%=BaseUrl%>/api/getImpsUploadData?id="+$('#resellerSelect').val(),
+          type: "GET",
+          dataType: "json"
+      }).done(function(response) {
+          console.log("response getImpsUploadData :::::::: ", response);
+          // var i;
+          /*for (var i = 0; i < response.length; i++) {
+            if(impsId != '' && impsId == response[i].id){
+              var imps='<option value="'+response[i].id+'" selected>'+response[i].name+'</option>';
+            }else{
+              var imps='<option value="'+response[i].id+'">'+response[i].name+'</option>';
+            }
+            console.log(imps);
+            $('#impsSelect').append(imps);
+          }*/
+          $('#impsSelect').append('<option value="'+response.data.id+'">'+response.data.name+'</option>');
+      })
+      
+      $.ajax(
+            {
+            url: "<%=BaseUrl%>/api/addresses?resellerId="+$('#resellerSelect').val(),
+            type: "GET",
+            dataType: "json"
+        }).done(function(response) {
+            $('#addressId').empty();
+            $('#addressId').append('<option value="">Select Address</option>');
+            for (var i = 0; i < response.length; i++) {
+              var address='<option value="'+response[i]._id+'">'+response[i].building+' '+response[i].street+' '+response[i].city+' '+response[i].landmark+' '+response[i].state+' '+response[i].pincode+'</option>';
+              $('#addressId').append(address);
+            }
+        })
+      
+      $.ajax(
+            {
+            url: "<%=BaseUrl%>/api/senders?resellerId="+$('#resellerSelect').val(),
+            type: "GET",
+            dataType: "json"
+        }).done(function(response) {
+          
+            $('#senderId').empty();
+            $('#senderId').append('<option value="">Select Sender</option>');
+            for (var i = 0; i < response.length; i++) {
+              var address='<option value="'+response[i]._id+'">'+response[i].name+' '+response[i].phone_no+'</option>';
+              
+              $('#senderId').append(address);
+            }
+        })
+    }
+</script>
+
+</body>
+</html>
